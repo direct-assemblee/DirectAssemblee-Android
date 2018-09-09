@@ -38,7 +38,7 @@ The project use the production API, available if you want to test your applicati
 
 ### Development
 
-The development API, which isn't available because the Direct Assemblée teams uses it as sandbox. You can setup our API on your computer from Github projects [API](https://github.com/direct-assemblee/DirectAssemblee-api) and [Scraper](https://github.com/direct-assemblee/DirectAssemblee-scraper).
+The development API isn't available because the Direct Assemblée teams uses it as sandbox. You can setup our API on your computer from Github projects [API](https://github.com/direct-assemblee/DirectAssemblee-api) and [Scraper](https://github.com/direct-assemblee/DirectAssemblee-scraper).
 
 If you run API on your computer, you have to specify its URL in the `app/src/build.gradle` file.
 
