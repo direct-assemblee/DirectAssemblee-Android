@@ -1,0 +1,66 @@
+package org.ladlb.directassemblee.deputy
+
+import android.content.Context
+import android.support.v4.content.ContextCompat
+import android.support.v4.content.res.ResourcesCompat
+import android.support.v4.view.ViewCompat
+import android.util.AttributeSet
+import android.view.View
+import kotlinx.android.synthetic.main.include_circle_stroke_image_view.view.*
+import kotlinx.android.synthetic.main.include_vote_result.view.*
+import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.vote.Vote
+import org.ladlb.directassemblee.vote.VoteView
+
+/**
+ * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
+ *
+ * DirectAssemblee-Android is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * DirectAssemblee-Android is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+class DeputyVoteView : VoteView {
+
+    constructor(context: Context) : super(context)
+
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+
+    fun setDeputyInfo(vote: Vote?) {
+
+        if (vote == null) {
+            visibility = View.GONE
+        } else {
+            val colorId = vote.colorId
+            val colorResourceId = ContextCompat.getColor(context, colorId)
+
+            imageView.setImageResource(R.drawable.ic_vote_person_40dp)
+            imageView.setColorFilter(ContextCompat.getColor(context, colorId), android.graphics.PorterDuff.Mode.SRC_IN)
+
+            ViewCompat.setBackgroundTintList(
+                    imageView,
+                    ResourcesCompat.getColorStateList(
+                            context.resources,
+                            colorId,
+                            null
+                    )
+            )
+
+            textView.setTextColor(colorResourceId)
+            textView.setText(vote.labelId)
+        }
+
+    }
+
+}

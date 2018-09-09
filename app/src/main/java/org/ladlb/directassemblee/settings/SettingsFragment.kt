@@ -1,0 +1,295 @@
+package org.ladlb.directassemblee.settings
+
+import android.content.Context
+import android.os.Bundle
+import android.support.v7.app.AlertDialog
+import android.support.v7.preference.Preference
+import android.support.v7.preference.SwitchPreferenceCompat
+import android.text.TextUtils
+import android.view.View
+import com.google.firebase.iid.FirebaseInstanceId
+import org.ladlb.directassemblee.AbstractPreferenceFragment
+import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.deputy.Deputy
+import org.ladlb.directassemblee.deputy.retrieve.DeputyRetrieveActivity
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
+import org.ladlb.directassemblee.helper.ErrorHelper
+import org.ladlb.directassemblee.helper.MetricHelper
+import org.ladlb.directassemblee.notification.NotificationSubscribePresenter
+import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.NotificationSubscribeView
+import org.ladlb.directassemblee.notification.NotificationUnSubscribePresenter
+import org.ladlb.directassemblee.notification.NotificationUnSubscribePresenter.NotificationUnSubscribeView
+
+/**
+ * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
+ *
+ * DirectAssemblee-Android is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * DirectAssemblee-Android is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView, NotificationUnSubscribeView, Preference.OnPreferenceChangeListener {
+
+    override fun getClassName(): String = "SettingsFragment"
+
+    companion object {
+
+        var TAG: String = SettingsFragment::class.java.name
+
+        fun newInstance(): SettingsFragment {
+
+            val bundle = Bundle()
+
+            val fragment = SettingsFragment()
+            fragment.arguments = bundle
+
+            return fragment
+
+        }
+
+    }
+
+    private lateinit var subscribeNotificationPresenter: NotificationSubscribePresenter
+
+    private lateinit var unSubscribeNotificationPresenter: NotificationUnSubscribePresenter
+
+    private var isChangeDeputy = false
+
+    private lateinit var notificationSwitchPreference: SwitchPreferenceCompat
+
+    private lateinit var deputyChangePreference: Preference
+
+    private lateinit var deputy: Deputy
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        deputy = getPreferences().loadDeputy()!!
+
+        subscribeNotificationPresenter = NotificationSubscribePresenter(
+                this,
+                lifecycle
+        )
+
+        unSubscribeNotificationPresenter = NotificationUnSubscribePresenter(
+                this,
+                lifecycle
+        )
+
+    }
+
+    private var listener: SettingsFragmentListener? = null
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        try {
+            listener = activity as SettingsFragmentListener?
+        } catch (e: ClassCastException) {
+            throw ClassCastException(activity!!.toString() + " must implement SettingsFragmentListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        notificationSwitchPreference = findPreference(getString(R.string.settings_key_notifications)) as SwitchPreferenceCompat
+
+        val fireBaseInstanceId = FirebaseInstanceId.getInstance()
+
+        if (TextUtils.isEmpty(fireBaseInstanceId.token)) {
+            MetricHelper.track("Token empty in settings")
+            notificationSwitchPreference.isEnabled = false
+        } else {
+            notificationSwitchPreference.isChecked = getPreferences().isNotificationEnabled()
+            notificationSwitchPreference.onPreferenceChangeListener = this
+        }
+
+        deputyChangePreference = findPreference(getString(R.string.settings_key_deputy_change))
+        deputyChangePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener { _ ->
+            showSearchDialog()
+            return@OnPreferenceClickListener true
+        }
+
+    }
+
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        addPreferencesFromResource(R.xml.preferences)
+    }
+
+    override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
+        if (newValue is Boolean) {
+            onNotificationsStateChange(newValue)
+            return true
+        }
+        return false
+    }
+
+    private fun showSearchDialog() {
+
+        val builder = AlertDialog.Builder(context!!)
+        builder.setMessage(R.string.home_unfollow_deputy_confirmation)
+        builder.setPositiveButton(
+                R.string.ok,
+                { _, _ ->
+                    getFireBaseAnalytics().logEvent(
+                            Event.CONFIRM_CHANGE_DEPUTY,
+                            FirebaseAnalyticsHelper.addDeputy(
+                                    Bundle(),
+                                    deputy
+                            )
+                    )
+                    startClearDeputy()
+                }
+        )
+        builder.setNegativeButton(
+                R.string.cancel,
+                { _, _ ->
+                    getFireBaseAnalytics().logEvent(
+                            Event.DENY_CHANGE_DEPUTY,
+                            FirebaseAnalyticsHelper.addDeputy(
+                                    Bundle(),
+                                    deputy
+                            )
+                    )
+                }
+        )
+        builder.create().show()
+
+    }
+
+    private fun startClearDeputy() {
+
+        val preferences = getPreferences()
+        if (preferences.isNotificationEnabled()) {
+            val deputyId = preferences.loadDeputy()!!.id
+
+            isChangeDeputy = true
+            unSubscribeNotificationPresenter.postUnSubscribe(
+                    getApiServices(),
+                    getPreferences(),
+                    deputyId
+            )
+
+            listener?.showLoadingView(getString(R.string.notification_popup_unsubscribe))
+
+        } else {
+            finishClearDeputy()
+        }
+
+    }
+
+    private fun finishClearDeputy() {
+        val preferences = getPreferences()
+        preferences.saveDeputy(null)
+        preferences.setNotificationDialogShowed(false)
+        getFireBaseAnalytics().clearUserDeputyProperties()
+        startRetrieveDeputyActivity()
+    }
+
+    private fun startRetrieveDeputyActivity() {
+        startActivity(DeputyRetrieveActivity.getIntent(context!!))
+    }
+
+    private fun onNotificationsStateChange(enable: Boolean) {
+
+        notificationSwitchPreference.isEnabled = false
+
+        val preferences = getPreferences()
+        val deputyId = preferences.loadDeputy()!!.id
+
+        if (enable) {
+            subscribeNotificationPresenter.postSubscribe(
+                    getApiServices(),
+                    getPreferences(),
+                    deputyId
+            )
+        } else {
+            unSubscribeNotificationPresenter.postUnSubscribe(
+                    getApiServices(),
+                    getPreferences(),
+                    deputyId
+            )
+        }
+
+    }
+
+    override fun onNotificationSubscribeCompleted() {
+        tagNotificationsState(true)
+        notificationSwitchPreference.isEnabled = true
+    }
+
+    override fun onNotificationSubscribeFailed() {
+        notificationSwitchPreference.onPreferenceChangeListener = null
+        notificationSwitchPreference.isChecked = false
+        notificationSwitchPreference.onPreferenceChangeListener = this
+        notificationSwitchPreference.isEnabled = true
+        ErrorHelper.showErrorAlertDialog(context!!, R.string.notification_update_error)
+    }
+
+    override fun onNotificationUnSubscribeCompleted() {
+
+        tagNotificationsState(false)
+
+        if (isChangeDeputy) {
+            isChangeDeputy = false
+            finishClearDeputy()
+        } else {
+            notificationSwitchPreference.isEnabled = true
+        }
+
+    }
+
+    override fun onNotificationUnSubscribeFailed() {
+        if (isChangeDeputy) {
+            isChangeDeputy = false
+            listener?.hideLoadingView()
+            ErrorHelper.showErrorAlertDialog(context!!, R.string.generic_error)
+        } else {
+            notificationSwitchPreference.onPreferenceChangeListener = null
+            notificationSwitchPreference.isChecked = true
+            notificationSwitchPreference.onPreferenceChangeListener = this
+            notificationSwitchPreference.isEnabled = true
+            ErrorHelper.showErrorAlertDialog(context!!, R.string.notification_update_error)
+        }
+    }
+
+    private fun tagNotificationsState(enable: Boolean) {
+
+        val bundle = FirebaseAnalyticsHelper.addDeputy(
+                Bundle(),
+                deputy
+        )
+        bundle.putBoolean(
+                FirebaseAnalyticsKeys.ItemKey.ENABLE,
+                enable
+        )
+        getFireBaseAnalytics().logEvent(
+                Event.NOTIFICATIONS_ENABLE,
+                bundle
+        )
+
+    }
+
+    interface SettingsFragmentListener {
+        fun showLoadingView(label: CharSequence)
+
+        fun hideLoadingView()
+    }
+
+}

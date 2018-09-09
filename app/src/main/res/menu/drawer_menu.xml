@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ # This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
+ #
+ # DirectAssemblee-Android is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version.
+ #
+ # DirectAssemblee-Android is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License
+ # along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/group_feature"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_deputy"
+            android:icon="@drawable/ic_deputy_24dp"
+            android:title="@string/my_deputy" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search_24dp"
+            android:title="@string/search_deputy" />
+    </group>
+
+    <group
+        android:id="@+id/group_others"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_share_24dp"
+            android:title="@string/share_application" />
+        <item
+            android:id="@+id/nav_donation"
+            android:icon="@drawable/ic_favorite_border_24dp"
+            android:title="@string/make_donation" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings_24dp"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/nav_faq"
+            android:icon="@drawable/ic_faq_24dp"
+            android:title="@string/faq" />
+    </group>
+
+</menu>

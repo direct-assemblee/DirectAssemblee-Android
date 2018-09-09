@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ # This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
+ #
+ # DirectAssemblee-Android is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version.
+ #
+ # DirectAssemblee-Android is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License
+ # along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewDeclarationHeader"
+            style="@style/TextView.Section.Header"
+            android:padding="@dimen/horizontal_space"
+            tools:text="Déclaration" />
+
+        <View style="@style/Separator.Horizontal" />
+
+        <TextView
+            android:id="@+id/textViewDeclarationPlaceHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/horizontal_space"
+            android:text="@string/deputy_details_no_declaration" />
+
+        <org.ladlb.directassemblee.widget.SubView
+            android:id="@+id/subViewDeclarationFirst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <org.ladlb.directassemblee.widget.SubView
+            android:id="@+id/subViewDeclarationSecond"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <org.ladlb.directassemblee.widget.SubView
+            android:id="@+id/subViewDeclarationThird"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <org.ladlb.directassemblee.widget.MoreView
+            android:id="@+id/moreView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

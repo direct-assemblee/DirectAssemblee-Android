@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ # This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
+ #
+ # DirectAssemblee-Android is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version.
+ #
+ # DirectAssemblee-Android is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License
+ # along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+
+    <string name="generic_error">Une erreur est survenue.</string>
+
+    <string name="amount">%d €</string>
+    <string name="percent">%d%%</string>
+    <string name="copy">%s copié</string>
+
+    <string name="activities">Activités</string>
+    <string name="profile">Profil</string>
+
+    <string name="deputy_retrieve_loading_search">Nous recherchons votre député.</string>
+    <string name="deputy_retrieve_loading_details">Récupération des informations.</string>
+
+    <string name="notification_popup_unsubscribe">Désinscription aux notifications.</string>
+
+    <string name="deputy_place">Place à l\'hémicycle</string>
+
+    <string name="settings_key_notifications">settings_key_notifications</string>
+    <string name="settings_key_deputy_change">settings_key_deputy_change</string>
+    <string name="settings_key_version">settings_key_version</string>
+
+    <string name="notification_update_error">Nous n\'avons pu mettre à jour le statut de vos notifications.</string>
+
+    <plurals name="declaration">
+        <item quantity="one">@string/declaration</item>
+        <item quantity="other">@string/declarations</item>
+    </plurals>
+
+    <string name="age">%d ans</string>
+
+    <string name="month">%d mois</string>
+
+    <string name="year">%d année</string>
+    <plurals name="years">
+        <item quantity="one">%d année</item>
+        <item quantity="other">%d années</item>
+    </plurals>
+
+    <plurals name="disctricts">
+        <item quantity="one">@string/district_first</item>
+        <item quantity="other">@string/district_others</item>
+    </plurals>
+
+    <string name="settings">Paramètres</string>
+    <string name="share_application">Partager l\'application</string>
+    <string name="share_with">Partager avec</string>
+
+    <string name="france">France</string>
+    <string name="guadeloupe">Guadeloupe</string>
+    <string name="martinique">Martinique</string>
+    <string name="guyane">Guyane</string>
+    <string name="la_reunion">La Réunion</string>
+    <string name="mayotte">Mayotte</string>
+    <string name="saint_pierre_et_miquelon">Saint-Pierre-et-Miquelon</string>
+    <string name="saint_barthelemy_saint_martin">Saint-Barthélemy et Saint-Martin</string>
+    <string name="wallis_et_futuna">Wallis-et-Futuna</string>
+    <string name="polynesie_francaise">Polynésie française</string>
+    <string name="nouvelle_caledonie">Nouvelle-Calédonie</string>
+
+    <string name="search">Rechercher</string>
+    <string name="search_deputy">Rechercher un député</string>
+    <string name="deputies_loading">Récupération des députés</string>
+    <string name="ballot_vote_loading">Récupération du détail</string>
+
+    <!-- Errors -->
+    <string name="get_deputies_request_failed">Impossible de récupérer la liste des députés</string>
+    <string name="get_deputy_request_failed">Impossible de récupérer le député</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="role">Rôle</string>
+    <plurals name="role">
+        <item quantity="one">@string/role</item>
+        <item quantity="other">@string/deputy_details_roles</item>
+    </plurals>
+
+    <string name="mandate_other">Mandat (autre)</string>
+    <plurals name="mandate_other">
+        <item quantity="one">@string/mandate_other</item>
+        <item quantity="other">@string/deputy_details_other_current_mandates</item>
+    </plurals>
+
+</resources>

@@ -1,0 +1,41 @@
+/**
+ * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
+ *
+ * DirectAssemblee-Android is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * DirectAssemblee-Android is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+def sonarProjectKey = "DirectAssemblee-Android"
+def sonarProjectName = "[Android] - DirectAssemblee"
+def sonarScmUrl = "scm:git:https://github.com/direct-assemblee/DirectAssemblee-Android.git"
+
+def sonarJacocoReportPath = "build/jacoco/testDebugUnitTest.exec"
+def sonarJunitReportPath = "build/test-results/testDebugUnitTest"
+def sonarBinaries = "build/intermediates/classes/debug"
+
+sonarqube {
+    properties {
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.jacoco.reportPath", sonarJacocoReportPath
+        property "sonar.projectKey", sonarProjectKey
+        property "sonar.projectName", sonarProjectName
+        property "sonar.projectVersion", "1"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.scm.url", sonarScmUrl
+        property "sonar.verbose", "true"
+        property "sonar.junit.reportsPath", sonarJunitReportPath
+        properties["sonar.sources"] = "src/main"
+        properties["sonar.tests"] = android.sourceSets.test.java.srcDirs
+        properties["sonar.binaries"] = file(sonarBinaries)
+    }
+}

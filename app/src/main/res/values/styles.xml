@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ # This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
+ #
+ # DirectAssemblee-Android is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version.
+ #
+ # DirectAssemblee-Android is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License
+ # along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+
+    <style name="TextView" />
+
+    <style name="TextView.Title">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">@dimen/title</item>
+        <item name="android:padding">@dimen/big_horizontal_space</item>
+    </style>
+
+    <style name="TextView.Title.Sub">
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">@dimen/horizontal_space</item>
+    </style>
+
+    <style name="TextView.Title.Sub.Sub">
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">@dimen/small_horizontal_space</item>
+    </style>
+
+    <style name="TextView.Section">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextView.Section.Header">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TextView.Section.Title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TextView.Timeline">
+
+    </style>
+
+    <style name="TextView.Timeline.Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextView.Timeline.Theme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="TextView.Timeline.Date">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="TextView.URL">
+        <item name="android:text">@string/read_more</item>
+        <item name="android:textColor">@color/blueLight</item>
+        <item name="android:padding">@dimen/vertical_space</item>
+    </style>
+
+    <style name="Separator">
+        <item name="android:background">@color/separator</item>
+    </style>
+
+    <style name="Separator.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

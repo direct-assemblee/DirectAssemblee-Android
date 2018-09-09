@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ # This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
+ #
+ # DirectAssemblee-Android is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version.
+ #
+ # DirectAssemblee-Android is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License
+ # along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+    <string name="onboarding_welcome">Comment souhaitez-vous découvrir votre député ?</string>
+    <string name="onboarding_use_geolocation">Par géolocalisation</string>
+    <string name="onboarding_enter_address">Par adresse postale</string>
+    <string name="onboarding_address_disclaimer">L\'adresse saisie ne sera pas conservée.</string>
+    <string name="onboarding_search_deputy">Veuillez patienter, nous recherchons votre député...</string>
+    <string name="onboarding_multiple_deputies_found">Vous êtes à la frontière de plusieurs circonscriptions, il n\'est pas possible de déterminer avec certitude votre député.</string>
+    <string name="onboarding_possible_deputies">Députés possibles</string>
+    <string name="onboarding_enable_notifications">Activer les notifications pour être informé de l\'activité de votre député ?</string>
+    <string name="finish">Terminer</string>
+    <string name="home_whats_new">Quoi de neuf ?</string>
+    <string name="home_deputy_profile">Son profil</string>
+    <string name="home_loading_deputy_card">Veuillez patienter...\nNous récupérons votre député...</string>
+    <string name="deputy_details_no_declaration">Aucune déclaration disponible</string>
+    <string name="error_deputy_detail">Impossible de récupérer votre député</string>
+    <string name="error_deputies_list">Une erreur est survenue lors de la recherche de votre député.</string>
+    <string name="error_timeline_events">Impossible de récupérer les informations.</string>
+    <string name="error_no_timeline_events">Votre député n\'a aucune activité.</string>
+    <string name="error_download">Une erreur est survenue lors du téléchargement.</string>
+    <string name="onboarding_disabled_geolocation">Vous avez désactivé la géolocalisation. Activez la dans les préférences de votre téléphone, ou bien saisissez une adresse.</string>
+    <string name="error_geolocation">Une erreur s\'est produite durant la géolocalisation.</string>
+    <string name="error_address_search">Une erreur est survenue lors de la recherche.</string>
+    <string name="error_no_address_found">Aucune adresse n\'a pu être trouvée.</string>
+    <string name="error_no_gps_coordinates_founds">Impossible d\'utiliser cette adresse pour trouver votre député.</string>
+    <string name="vote_result_against">Contre</string>
+    <string name="vote_result_missing">Absent</string>
+    <string name="vote_result_for">Pour</string>
+    <string name="deputy_details_about">À propos de %s</string>
+    <string name="deputy_details_contact">Contacts</string>
+    <string name="declarations">Déclarations</string>
+    <string name="deputy_details_commission">Commission parlementaire</string>
+    <string name="deputy_details_parliament_age">Ancienneté parlementaire</string>
+    <string name="deputy_details_salary">Revenu mensuel de député (net)</string>
+    <string name="deputy_details_seat_number">Numéro de siège dans l\'hémicyle</string>
+    <string name="deputy_details_current_mandate_start_date">Début du mandat actuel</string>
+    <string name="deputy_details_phone">Téléphone</string>
+    <string name="email_address">Courriel</string>
+    <string name="deputy_details_unspecified">Non renseigné</string>
+    <string name="error">Erreur</string>
+    <string name="ok">Ok</string>
+    <string name="home_unfollow_deputy_confirmation">Rechercher un nouveau député remplacera celui que vous suivez actuellement.</string>
+    <string name="cancel">Annuler</string>
+    <string name="confirm">Confirmer</string>
+    <string name="warning">Attention</string>
+    <string name="deputy_details_activityRate">Participation aux votes</string>
+    <string name="error_pull_to_refresh">Une erreur est survenue.</string>
+    <string name="timeline_event_motion_of_censure_signed">Signée</string>
+    <string name="timeline_event_motion_of_censure_not_signed">Non signée</string>
+    <string name="vote_result_non_voting">Non votant</string>
+    <string name="timeline_ballot_adopted">Adopté</string>
+    <string name="timeline_ballot_not_adopted">Rejeté</string>
+    <string name="timeline_motion_of_censure_adopted">Adoptée</string>
+    <string name="timeline_motion_of_censure_not_adopted">Rejetée</string>
+    <string name="timeline_event_vote_result_vote_missing">Absent</string>
+    <string name="timeline_event_vote_result_vote_missings">Absents</string>
+    <string name="vote_result_blank">Blanc</string>
+    <string name="your_deputy">Votre député</string>
+    <string name="error_subscribe">Une erreur est survenue lors de l\'enregistrement de votre député.</string>
+    <string name="error_unsubscribe">Une erreur est survenue lors du changement de député. Le député actuel est conservé.</string>
+    <string name="deputy_details_job">Profession d\'origine</string>
+    <string name="declaration">Déclaration</string>
+    <string name="vote_result_non_votings">Non votants</string>
+    <string name="loading">Chargement</string>
+    <string name="research">Recherche</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="deputy_details_age">Âge</string>
+    <string name="read_more">Voir sur le site officiel</string>
+    <string name="law_motives">Exposé des motifs</string>
+    <string name="error_no_mail_available">Aucun client mail n\'est configuré sur votre téléphone.</string>
+    <string name="error_no_internet">Aucune connexion Internet</string>
+    <string name="the_assembly">L\'assemblée</string>
+    <string name="declarations_of_interest_delivered_on">Déposée le</string>
+    <string name="change_deputy">Changer de député</string>
+    <string name="share_default_text">Mon député a actuellement une participation aux votes de %d%%. Découvrez et suivez l\'activité de votre député grâce à l\'application Direct Assemblée.</string>
+    <string name="reload">Recharger</string>
+    <string name="deputy_not_found">Nous n\'avons pas pu trouver votre député.</string>
+    <string name="district_first">%dère</string>
+    <string name="district_others">%dème</string>
+    <string name="district">%s circonscription</string>
+    <string name="app_slogan">Suivez votre député</string>
+    <string name="website_url">http://www.direct-assemblee.org</string>
+    <string name="enter_address">Saisir une addresse postale</string>
+    <string name="error_all_deputies">Une erreur est survenue lors de la récupération des députés</string>
+    <string name="confirm_follow_deputy">Voulez-vous suivre %s ?</string>
+    <string name="onboarding_use_all_deputies_list">Rechercher dans l\'hémicyle</string>
+    <string name="search_all_deputies_placeholder">Rechercher...</string>
+    <string name="more">Plus</string>
+    <string name="faq">Foire aux questions</string>
+    <string name="my_deputy">Mon député</string>
+    <string name="share">Partager</string>
+    <string name="error_faq">Impossible de charger la FAQ</string>
+    <string name="error_ballot_votes_deputies">Une erreur est survenue lors de la récupération du détail des votes.</string>
+    <string name="ballot_detail_votes">Détail des votes</string>
+    <string name="no_result">Aucun résultat</string>
+    <string name="make_donation">Faire un don</string>
+    <string name="donate_url">https://www.tipeee.com/direct-assemblee</string>
+    <string name="error_retry">Une erreur est survenue. Veuillez réessayer.</string>
+    <string name="powered_by">Alimenté par</string>
+    <string name="deputy_details_other_current_mandates">Mandats (autres)</string>
+    <string name="deputy_details_no_other_current_mandate">Aucun autre mandat en cours</string>
+    <string name="deputy_details_no_roles">Aucun rôle</string>
+    <string name="deputy_details_roles">Rôles</string>
+</resources>
