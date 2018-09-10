@@ -36,11 +36,22 @@ To set these information, see the [documentation](https://docs.fabric.io/android
 
 The project use the production API, available if you want to test your application changes with the latest stable API version.
 
+:warning: Actually it's not possible to use push notifications with the production api because of the firebase key used who is specific with the released version of the application. 
+
 ### Development
 
 The development API isn't available because the Direct Assemblée teams uses it as sandbox. You can setup our API on your computer from Github projects [API](https://github.com/direct-assemblee/DirectAssemblee-api) and [Scraper](https://github.com/direct-assemblee/DirectAssemblee-scraper).
 
 If you run API on your computer, you have to specify its URL in the `app/src/build.gradle` file.
+
+## Libraries
+
+Direct Assemblée uses open source libraries :
+
+* [CircleImageView](https://github.com/hdodenhof/CircleImageView)
+* [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
+* [RxBinding](https://github.com/JakeWharton/RxBinding)
+* [RxLocation](https://github.com/patloew/RxLocation)
 
 ##  Contribute
 
