@@ -46,7 +46,7 @@ If you run API on your computer, you have to specify its URL in the `app/src/bui
 
 ## Libraries
 
-Direct Assemblée uses open source libraries :
+Direct Assemblée uses third-party open source libraries :
 
 * [CircleImageView](https://github.com/hdodenhof/CircleImageView)
 * [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
