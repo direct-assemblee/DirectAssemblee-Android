@@ -70,18 +70,6 @@ class DeclarationAdapter(private val context: Context) : Adapter<DeclarationView
 
     }
 
-    fun getItemOffsets(childAdapterPosition: Int, outRect: Rect) {
-
-        val verticalMargin = context.resources.getDimensionPixelOffset(R.dimen.small_vertical_space)
-        val horizontalMargin = context.resources.getDimensionPixelOffset(R.dimen.horizontal_space)
-
-        outRect.top = if (childAdapterPosition == 0) verticalMargin else 0
-        outRect.left = horizontalMargin
-        outRect.right = horizontalMargin
-        outRect.bottom = if (childAdapterPosition == itemCount - 1) verticalMargin else 0
-
-    }
-
     fun addItems(i: Array<Declaration>) {
         items.addAll(i)
         notifyDataSetChanged()

@@ -1,6 +1,6 @@
 package org.ladlb.directassemblee.mandate
 
-import android.content.Context
+import android.content.res.Resources
 import android.graphics.Rect
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ItemDecoration
@@ -25,25 +25,11 @@ import org.ladlb.directassemblee.widget.PlaceholderAdapter
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class MandateDecorator(val context: Context) : ItemDecoration() {
+class MandateDecorator(resources: Resources) : ItemDecoration() {
 
-    private var smallVerticalMargin = 0
+    private var verticalMargin = resources.getDimensionPixelOffset(R.dimen.vertical_space)
 
-    private var verticalMargin = 0
-
-    private var horizontalMargin = 0
-
-    private var largeHorizontalMargin = 0
-
-    private var hugeHorizontalMargin = 0
-
-    init {
-        smallVerticalMargin = context.resources.getDimensionPixelOffset(R.dimen.small_vertical_space)
-        verticalMargin = context.resources.getDimensionPixelOffset(R.dimen.vertical_space)
-        horizontalMargin = context.resources.getDimensionPixelOffset(R.dimen.horizontal_space)
-        largeHorizontalMargin = context.resources.getDimensionPixelOffset(R.dimen.large_horizontal_space)
-        hugeHorizontalMargin = context.resources.getDimensionPixelOffset(R.dimen.huge_horizontal_space)
-    }
+    private var horizontalMargin = resources.getDimensionPixelOffset(R.dimen.horizontal_space)
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
 

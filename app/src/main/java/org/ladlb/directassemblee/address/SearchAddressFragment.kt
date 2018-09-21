@@ -81,7 +81,7 @@ class SearchAddressFragment : AbstractFragment(), GetAddressPresenter.GetAddress
         adapter.listener = this
 
         recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(SearchAddressItemDecorator(context!!))
+        recyclerView.addItemDecoration(SearchAddressItemDecorator(resources))
 
     }
 

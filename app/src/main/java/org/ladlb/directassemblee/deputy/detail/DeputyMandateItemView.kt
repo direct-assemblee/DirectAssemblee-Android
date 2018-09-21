@@ -48,7 +48,7 @@ class DeputyMandateItemView : CardView {
                 this
         )
 
-        recyclerView.addItemDecoration(MandateDecorator(context))
+        recyclerView.addItemDecoration(MandateDecorator(resources))
         recyclerView.isNestedScrollingEnabled = false
     }
 

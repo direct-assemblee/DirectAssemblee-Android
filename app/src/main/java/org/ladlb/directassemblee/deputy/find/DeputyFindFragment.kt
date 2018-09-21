@@ -121,7 +121,7 @@ class DeputyFindFragment : AbstractFragment(), GetDeputiesView, OnDeputyClickLis
         )
 
         recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(DeputyItemDecorator(adapter))
+        recyclerView.addItemDecoration(DeputyItemDecorator(resources))
 
     }
 

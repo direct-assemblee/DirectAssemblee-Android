@@ -1,6 +1,6 @@
 package org.ladlb.directassemblee.address
 
-import android.content.Context
+import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
@@ -27,29 +27,21 @@ import org.ladlb.directassemblee.R
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-internal class SearchAddressItemDecorator(val context: Context) : ItemDecoration() {
+internal class SearchAddressItemDecorator(resources: Resources) : ItemDecoration() {
 
-    private var paint: Paint
+    private var paint: Paint = Paint()
 
-    private val horizontalMargin: Int
+    private val horizontalMargin: Int = resources.getDimensionPixelSize(R.dimen.horizontal_space)
 
-    private var separator: Int
+    private var separator: Int = resources.getDimensionPixelSize(R.dimen.separator)
 
-    private var verticalMargin: Int
+    private var verticalMargin: Int = resources.getDimensionPixelOffset(R.dimen.vertical_space)
 
-    private var bigVerticalMargin: Int
+    private var bigVerticalMargin: Int = resources.getDimensionPixelOffset(R.dimen.big_vertical_space)
 
-    private var smallVerticalMargin: Int
+    private var smallVerticalMargin: Int = resources.getDimensionPixelOffset(R.dimen.small_vertical_space)
 
     init {
-        val resources = context.resources
-        separator = resources.getDimensionPixelSize(R.dimen.separator)
-        horizontalMargin = resources.getDimensionPixelSize(R.dimen.horizontal_space)
-        smallVerticalMargin = resources.getDimensionPixelOffset(R.dimen.small_vertical_space)
-        verticalMargin = resources.getDimensionPixelOffset(R.dimen.vertical_space)
-        bigVerticalMargin = resources.getDimensionPixelOffset(R.dimen.big_vertical_space)
-
-        paint = Paint()
         paint.strokeWidth = separator.toFloat()
         paint.color = ResourcesCompat.getColor(resources, R.color.colorPrimary, null)
     }

@@ -47,7 +47,7 @@ class DeputyRoleItemView : CardView {
                 this
         )
 
-        recyclerView.addItemDecoration(RoleDecorator(context))
+        recyclerView.addItemDecoration(RoleDecorator(resources))
         recyclerView.isNestedScrollingEnabled = false
 
     }

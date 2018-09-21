@@ -138,21 +138,6 @@ class DeputyAdapter(context: Context, items: ArrayList<Deputy>) : PlaceholderAda
         this.listener = listener
     }
 
-    fun getItemOffsets(context: Context, childAdapterPosition: Int, outRect: Rect) {
-
-        val verticalMargin = context.resources.getDimensionPixelOffset(R.dimen.small_vertical_space)
-        val horizontalMargin = context.resources.getDimensionPixelOffset(R.dimen.small_horizontal_space)
-
-        outRect.top = verticalMargin
-        outRect.left = horizontalMargin
-        outRect.right = horizontalMargin
-
-        if (childAdapterPosition == itemCount - 1) {
-            outRect.bottom = verticalMargin
-        }
-
-    }
-
     override fun getItemViewType(position: Int): Int =
             if (position < getItemsSize()) typeItem else super.getItemViewType(position)
 
