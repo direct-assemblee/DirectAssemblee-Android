@@ -44,14 +44,18 @@ The development API isn't available because the Direct Assemblée teams uses it 
 
 If you run API on your computer, you have to specify its URL in the `app/src/build.gradle` file.
 
-## Libraries
+## Third-party
 
-Direct Assemblée uses third-party open source libraries :
+### Open source libraries
 
 * [CircleImageView](https://github.com/hdodenhof/CircleImageView)
 * [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 * [RxBinding](https://github.com/JakeWharton/RxBinding)
 * [RxLocation](https://github.com/patloew/RxLocation)
+
+### Api
+
+* [https://api-adresse.data.gouv.fr](https://adresse.data.gouv.fr/api)
 
 ##  Contribute
 
