@@ -20,7 +20,7 @@ buildscript {
 
     ext.applicationId = "org.ladlb.directassemblee"
 
-    ext.versionCode = 25
+    ext.versionCode = 26
     ext.versionName = "1.5"
 
     ext.minSdkVersion = 15
