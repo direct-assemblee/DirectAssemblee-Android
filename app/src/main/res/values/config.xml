@@ -22,4 +22,5 @@
     <string name="url_website">http://www.direct-assemblee.org</string>
     <string name="url_faq">https://direct-assemblee.org/pages/faq/content.html</string>
     <string name="url_tipeee">https://www.tipeee.com/direct-assemblee</string>
+    <string name="url_policy">https://direct-assemblee.org/pages/policy/</string>
 </resources>

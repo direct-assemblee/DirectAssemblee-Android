@@ -210,12 +210,6 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
                         getString(R.string.url_tipeee)
                 )
             }
-            R.id.nav_faq -> {
-                NavigationHelper.openURL(
-                        this,
-                        getString(R.string.url_faq)
-                )
-            }
         }
 
         drawerLayout.closeDrawer(GravityCompat.START)

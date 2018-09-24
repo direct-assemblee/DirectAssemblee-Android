@@ -21,6 +21,11 @@
 
     <string name="generic_error">Une erreur est survenue.</string>
 
+    <string name="application">Application</string>
+    <string name="about">À propos</string>
+    <string name="application_version">Version de l\'application</string>
+    <string name="policy">Politique de vie privée</string>
+
     <string name="amount">%d €</string>
     <string name="percent">%d%%</string>
     <string name="copy">%s copié</string>
@@ -35,9 +40,11 @@
 
     <string name="deputy_place">Place à l\'hémicycle</string>
 
+    <string name="settings_key_faq">settings_key_faq</string>
     <string name="settings_key_notifications">settings_key_notifications</string>
     <string name="settings_key_deputy_change">settings_key_deputy_change</string>
     <string name="settings_key_version">settings_key_version</string>
+    <string name="settings_key_policy">settings_key_policy</string>
 
     <string name="notification_update_error">Nous n\'avons pu mettre à jour le statut de vos notifications.</string>
 

@@ -17,6 +17,7 @@ import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
 import org.ladlb.directassemblee.helper.ErrorHelper
 import org.ladlb.directassemblee.helper.MetricHelper
+import org.ladlb.directassemblee.helper.NavigationHelper
 import org.ladlb.directassemblee.notification.NotificationSubscribePresenter
 import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.NotificationSubscribeView
 import org.ladlb.directassemblee.notification.NotificationUnSubscribePresenter
@@ -68,8 +69,6 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
 
     private lateinit var notificationSwitchPreference: SwitchPreferenceCompat
 
-    private lateinit var deputyChangePreference: Preference
-
     private lateinit var deputy: Deputy
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,11 +119,29 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
             notificationSwitchPreference.onPreferenceChangeListener = this
         }
 
-        deputyChangePreference = findPreference(getString(R.string.settings_key_deputy_change))
-        deputyChangePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener { _ ->
-            showSearchDialog()
-            return@OnPreferenceClickListener true
-        }
+        findPreference(getString(R.string.settings_key_deputy_change)).onPreferenceClickListener =
+                Preference.OnPreferenceClickListener { _ ->
+                    showSearchDialog()
+                    return@OnPreferenceClickListener true
+                }
+
+        findPreference(getString(R.string.settings_key_faq)).onPreferenceClickListener =
+                Preference.OnPreferenceClickListener { _ ->
+                    NavigationHelper.openURL(
+                            context!!,
+                            getString(R.string.url_faq)
+                    )
+                    return@OnPreferenceClickListener true
+                }
+
+        findPreference(getString(R.string.settings_key_policy)).onPreferenceClickListener =
+                Preference.OnPreferenceClickListener { _ ->
+                    NavigationHelper.openURL(
+                            context!!,
+                            getString(R.string.url_policy)
+                    )
+                    return@OnPreferenceClickListener true
+                }
 
     }
 
@@ -145,30 +162,28 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
         val builder = AlertDialog.Builder(context!!)
         builder.setMessage(R.string.home_unfollow_deputy_confirmation)
         builder.setPositiveButton(
-                R.string.ok,
-                { _, _ ->
-                    getFireBaseAnalytics().logEvent(
-                            Event.CONFIRM_CHANGE_DEPUTY,
-                            FirebaseAnalyticsHelper.addDeputy(
-                                    Bundle(),
-                                    deputy
-                            )
+                R.string.ok
+        ) { _, _ ->
+            getFireBaseAnalytics().logEvent(
+                    Event.CONFIRM_CHANGE_DEPUTY,
+                    FirebaseAnalyticsHelper.addDeputy(
+                            Bundle(),
+                            deputy
                     )
-                    startClearDeputy()
-                }
-        )
+            )
+            startClearDeputy()
+        }
         builder.setNegativeButton(
-                R.string.cancel,
-                { _, _ ->
-                    getFireBaseAnalytics().logEvent(
-                            Event.DENY_CHANGE_DEPUTY,
-                            FirebaseAnalyticsHelper.addDeputy(
-                                    Bundle(),
-                                    deputy
-                            )
+                R.string.cancel
+        ) { _, _ ->
+            getFireBaseAnalytics().logEvent(
+                    Event.DENY_CHANGE_DEPUTY,
+                    FirebaseAnalyticsHelper.addDeputy(
+                            Bundle(),
+                            deputy
                     )
-                }
-        )
+            )
+        }
         builder.create().show()
 
     }

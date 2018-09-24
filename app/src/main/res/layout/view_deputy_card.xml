@@ -125,7 +125,7 @@
         android:ellipsize="end"
         android:lines="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white"
         tools:text="Jean Michel DEPUTE" />
 
     <TextView
@@ -135,7 +135,7 @@
         android:ellipsize="end"
         android:lines="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white"
         tools:text="Bjierzojvieo eofjeio" />
 
     <TextView
@@ -144,7 +144,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lines="1"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white"
         tools:text="blablablablabla" />
 
 </LinearLayout>
