@@ -64,7 +64,7 @@ class DeclarationBottomSheetDialogFragment : AbstractBottomSheetDialogFragment()
         deputy = arguments!!.getParcelable(ARG_DEPUTY) as Deputy
 
         adapter = DeclarationAdapter(context!!)
-        adapter.addItems(deputy.declarations!!)
+        adapter.addItems(deputy.declarations)
         adapter.listener = this
     }
 

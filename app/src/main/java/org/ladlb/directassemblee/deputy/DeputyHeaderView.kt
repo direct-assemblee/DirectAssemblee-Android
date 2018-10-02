@@ -1,7 +1,6 @@
 package org.ladlb.directassemblee.deputy
 
 import android.content.Context
-import android.support.v4.content.res.ResourcesCompat
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.widget.LinearLayout
@@ -52,21 +51,16 @@ class DeputyHeaderView : RelativeLayout {
     fun setDeputy(deputy: Deputy) {
 
         val deputyPhotoUrl = deputy.photoUrl
-        val deputyPlaceHolder = ResourcesCompat.getDrawable(
-                resources,
-                R.drawable.img_unknow_deputy,
-                null
-        )
+        val deputyPlaceHolderId = R.drawable.img_unknow_deputy
 
         if (TextUtils.isEmpty(deputyPhotoUrl)) {
-            imageView.setImageDrawable(
-                    deputyPlaceHolder
+            imageView.setImageResource(
+                    deputyPlaceHolderId
             )
         } else {
             Picasso.with(context)
                     .load(deputyPhotoUrl)
-                    .placeholder(deputyPlaceHolder)
-                    .error(deputyPlaceHolder)
+                    .placeholder(deputyPlaceHolderId)
                     .into(imageView)
         }
 

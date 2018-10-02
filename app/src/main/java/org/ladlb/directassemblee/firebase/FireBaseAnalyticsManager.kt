@@ -2,7 +2,7 @@ package org.ladlb.directassemblee.firebase
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.annotation.NonNull
+import androidx.annotation.NonNull
 import com.google.firebase.analytics.FirebaseAnalytics
 import org.ladlb.directassemblee.AbstractBottomSheetDialogFragment
 import org.ladlb.directassemblee.AbstractFragment

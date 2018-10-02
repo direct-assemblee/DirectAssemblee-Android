@@ -4,13 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_time_line.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
@@ -119,13 +117,13 @@ class TimelineFragment : AbstractFragment(), GetTimelineView, LoadingMoreListene
             appBarLayout = appBar
         }
 
-        recyclerView.addItemDecoration(DividerItemDecoration(context!!, DividerItemDecoration.VERTICAL))
+        recyclerView.addItemDecoration(androidx.recyclerview.widget.DividerItemDecoration(context!!, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL))
         recyclerView.adapter = adapter
 
         swipeRefreshLayout.setOnRefreshListener(this)
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent)
 
-        this.deputy = arguments!!.getParcelable(ARG_DEPUTY)
+        this.deputy = arguments!!.getParcelable(ARG_DEPUTY)!!
         loadTimeLine()
 
     }
@@ -248,7 +246,7 @@ class TimelineFragment : AbstractFragment(), GetTimelineView, LoadingMoreListene
                 when (resultCode) {
                     Activity.RESULT_OK -> {
                         appBarLayout?.setExpanded(false)
-                        (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(
+                        (recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).scrollToPositionWithOffset(
                                 intent!!.getIntExtra(
                                         TimelinePagerActivity.EXTRA_POSITION,
                                         -1

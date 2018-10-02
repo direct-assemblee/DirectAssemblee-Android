@@ -1,11 +1,11 @@
 package org.ladlb.directassemblee.ballot.vote
 
 import android.content.Context
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
 import android.text.SpannableString
 import android.text.style.AbsoluteSizeSpan
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.deputy.DeputyListFragment
 import org.ladlb.directassemblee.vote.Vote

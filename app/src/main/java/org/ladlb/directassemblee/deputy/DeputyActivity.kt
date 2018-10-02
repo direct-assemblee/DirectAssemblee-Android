@@ -31,7 +31,7 @@ class DeputyActivity : AbstractToolBarActivity(), DeputyTimeLineFragmentListener
 
     companion object Factory {
 
-        var EXTRA_DEPUTY: String = "EXTRA_DEPUTY"
+        private const val EXTRA_DEPUTY: String = "EXTRA_DEPUTY"
 
         fun getIntent(context: Context, deputy: Deputy): Intent {
 

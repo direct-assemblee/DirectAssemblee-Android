@@ -2,7 +2,7 @@ package org.ladlb.directassemblee.deputy
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.support.annotation.NonNull
+import androidx.annotation.NonNull
 import org.ladlb.directassemblee.declaration.Declaration
 import org.ladlb.directassemblee.department.Department
 import org.ladlb.directassemblee.helper.parcelableCreator

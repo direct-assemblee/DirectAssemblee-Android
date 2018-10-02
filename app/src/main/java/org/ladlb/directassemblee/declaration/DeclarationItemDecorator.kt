@@ -2,7 +2,6 @@ package org.ladlb.directassemblee.declaration
 
 import android.content.res.Resources
 import android.graphics.Rect
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import org.ladlb.directassemblee.R
 
@@ -23,20 +22,20 @@ import org.ladlb.directassemblee.R
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-internal class DeclarationItemDecorator(resources: Resources) : RecyclerView.ItemDecoration() {
+internal class DeclarationItemDecorator(resources: Resources) : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
 
     private val verticalMargin = resources.getDimensionPixelOffset(R.dimen.small_vertical_space)
 
     private val horizontalMargin = resources.getDimensionPixelOffset(R.dimen.horizontal_space)
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
 
         val childAdapterPosition = parent.getChildAdapterPosition(view)
 
         outRect.top = if (childAdapterPosition == 0) verticalMargin else 0
         outRect.left = horizontalMargin
         outRect.right = horizontalMargin
-        outRect.bottom = if (childAdapterPosition == parent.adapter.itemCount - 1) verticalMargin else 0
+        outRect.bottom = if (childAdapterPosition == parent.adapter!!.itemCount - 1) verticalMargin else 0
 
     }
 

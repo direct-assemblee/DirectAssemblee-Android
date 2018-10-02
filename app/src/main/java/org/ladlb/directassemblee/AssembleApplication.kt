@@ -2,9 +2,11 @@ package org.ladlb.directassemblee
 
 import android.app.Application
 import android.content.Context
-import android.support.v7.app.AppCompatDelegate
+import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import com.crashlytics.android.Crashlytics
 import com.google.android.gms.security.ProviderInstaller
+import com.squareup.picasso.Picasso
 import io.fabric.sdk.android.Fabric
 import org.ladlb.directassemblee.api.dataGouv.RetrofitAddressRepository
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
@@ -48,6 +50,8 @@ open class AssembleApplication : Application() {
 
         initFabric()
 
+        initPicasso()
+
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
 
         apiServices = RetrofitApiRepository(BuildConfig.BASE_URL, cacheDir)
@@ -62,6 +66,18 @@ open class AssembleApplication : Application() {
 
         firebaseAnalytics = FireBaseAnalyticsManager()
 
+    }
+
+    private fun initPicasso() {
+
+        val picassoBuilder = Picasso.Builder(this)
+        if (BuildConfig.DEBUG) {
+            picassoBuilder.loggingEnabled(true)
+            picassoBuilder.listener { picasso, uri, exception ->
+                Log.e("Picasso", "onImageFailed : uri : " + uri.toString() + ", exception : " + exception.message)
+            }
+        }
+        Picasso.setSingletonInstance(picassoBuilder.build())
     }
 
     open fun initFabric() {

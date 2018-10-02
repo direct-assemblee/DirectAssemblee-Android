@@ -26,7 +26,7 @@ data class AddressProperties(val name: String?, val postcode: String?, val city:
     /**
      * Constructor.
      *
-     * @param source the source.
+     * @param parcel the source.
      */
     constructor(parcel: Parcel) : this(
             parcel.readString(),

@@ -45,21 +45,17 @@ class MotionFragment : AbstractFragment(), OnClickListener {
 
     private lateinit var timelineItem: TimelineItem
 
-    private val LAW: String = "cosigned_law_proposal"
-
-    private val COMMISSION: String = "commission"
-
-    private val LAW_MOTIVES: String = "lawMotives"
-
-    private val COMMISSION_NAME: String = "commissionName"
-
-    private val COMMISSION_TIME: String = "commissionTime"
-
     companion object {
 
         val TAG: String = MotionFragment::class.java.name
 
-        const val ARG_TIMELINE_ITEM: String = "ARG_TIMELINE_ITEM"
+        private const val LAW: String = "cosigned_law_proposal"
+        private const val COMMISSION: String = "commission"
+        private const val LAW_MOTIVES: String = "lawMotives"
+        private const val COMMISSION_NAME: String = "commissionName"
+        private const val COMMISSION_TIME: String = "commissionTime"
+
+        private const val ARG_TIMELINE_ITEM: String = "ARG_TIMELINE_ITEM"
 
         fun newInstance(timelineItem: TimelineItem): MotionFragment {
 

@@ -1,7 +1,7 @@
 package org.ladlb.directassemblee.helper
 
 import android.content.Context
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import org.ladlb.directassemblee.R
 
 /**

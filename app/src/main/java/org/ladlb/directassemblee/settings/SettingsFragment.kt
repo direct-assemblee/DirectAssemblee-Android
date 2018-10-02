@@ -2,11 +2,11 @@ package org.ladlb.directassemblee.settings
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.preference.Preference
-import android.support.v7.preference.SwitchPreferenceCompat
 import android.text.TextUtils
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.preference.Preference
+import androidx.preference.SwitchPreferenceCompat
 import com.google.firebase.iid.FirebaseInstanceId
 import org.ladlb.directassemblee.AbstractPreferenceFragment
 import org.ladlb.directassemblee.R

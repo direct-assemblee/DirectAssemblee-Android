@@ -1,7 +1,7 @@
 package org.ladlb.directassemblee.notification
 
-import android.arch.lifecycle.Lifecycle
 import android.text.TextUtils
+import androidx.lifecycle.Lifecycle
 import com.google.firebase.iid.FirebaseInstanceId
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Action

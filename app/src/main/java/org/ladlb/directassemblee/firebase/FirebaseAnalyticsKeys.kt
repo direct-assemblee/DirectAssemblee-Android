@@ -22,8 +22,8 @@ class FirebaseAnalyticsKeys {
     class UserProperty {
 
         companion object {
-            val PARLIAMENT_GROUP: String = "parliament_group"
-            val DISTRICT: String = "district"
+            const val PARLIAMENT_GROUP: String = "parliament_group"
+            const val DISTRICT: String = "district"
         }
 
     }
@@ -31,24 +31,24 @@ class FirebaseAnalyticsKeys {
     class Event {
 
         companion object {
-            val SEARCH_DEPUTY_GEOLOCATION: String = "search_deputy_geolocation"
-            val ADDRESS_SELECTED: String = "address_selected"
-            val BACK_FROM_SELECT_ADDRESS: String = "back_from_select_address"
-            val CONFIRM_CHANGE_DEPUTY: String = "confirm_change_deputy"
-            val DEPUTY_FOUND: String = "deputy_found"
-            val MULTIPLE_DEPUTIES_FOUND: String = "multiple_deputies_found"
-            val DISPLAY_DEPUTY_DECLARATION: String = "display_deputy_declaration"
-            val DENY_CHANGE_DEPUTY: String = "deny_change_deputy"
-            val CALL_DEPUTY: String = "call_deputy"
-            val SHARE: String = "share"
-            val SEND_EMAIL_DEPUTY: String = "send_email_deputy"
-            val NOTIFICATIONS_ENABLE: String = "notifications_enable"
-            val DEPUTY_TIMELINE: String = "deputy_timeline"
-            val DEPUTY_PROFILE: String = "deputy_profile"
-            val DISPLAY_TIMELINE_EVENT_DETAIL: String = "display_timeline_event_detail"
-            val DEPUTY_TIMELINE_LOAD_MORE: String = "deputy_timeline_load_more"
-            val CANCEL_SEARCH_DEPUTY = "cancel_search_deputy"
-            val SEARCH_DEPUTY_IN_LIST = "search_deputy_in_list"
+            const val SEARCH_DEPUTY_GEOLOCATION: String = "search_deputy_geolocation"
+            const val ADDRESS_SELECTED: String = "address_selected"
+            const val BACK_FROM_SELECT_ADDRESS: String = "back_from_select_address"
+            const val CONFIRM_CHANGE_DEPUTY: String = "confirm_change_deputy"
+            const val DEPUTY_FOUND: String = "deputy_found"
+            const val MULTIPLE_DEPUTIES_FOUND: String = "multiple_deputies_found"
+            const val DISPLAY_DEPUTY_DECLARATION: String = "display_deputy_declaration"
+            const val DENY_CHANGE_DEPUTY: String = "deny_change_deputy"
+            const val CALL_DEPUTY: String = "call_deputy"
+            const val SHARE: String = "share"
+            const val SEND_EMAIL_DEPUTY: String = "send_email_deputy"
+            const val NOTIFICATIONS_ENABLE: String = "notifications_enable"
+            const val DEPUTY_TIMELINE: String = "deputy_timeline"
+            const val DEPUTY_PROFILE: String = "deputy_profile"
+            const val DISPLAY_TIMELINE_EVENT_DETAIL: String = "display_timeline_event_detail"
+            const val DEPUTY_TIMELINE_LOAD_MORE: String = "deputy_timeline_load_more"
+            const val CANCEL_SEARCH_DEPUTY = "cancel_search_deputy"
+            const val SEARCH_DEPUTY_IN_LIST = "search_deputy_in_list"
         }
 
     }
@@ -56,21 +56,21 @@ class FirebaseAnalyticsKeys {
     class ItemKey {
 
         companion object {
-            val DEPUTY_ID: String = "deputy_id"
-            val NAMES: String = "complete_name"
-            val DISTRICT: String = "district"
-            val PARLIAMENT_GROUP: String = "parliament_group"
-            val DECLARATION_URL: String = "declaration_url"
+            const val DEPUTY_ID: String = "deputy_id"
+            const val NAMES: String = "complete_name"
+            const val DISTRICT: String = "district"
+            const val PARLIAMENT_GROUP: String = "parliament_group"
+            const val DECLARATION_URL: String = "declaration_url"
 
-            val NUMBER: String = "number"
-            val ENABLE: String = "enable"
-            val PAGE: String = "page"
+            const val NUMBER: String = "number"
+            const val ENABLE: String = "enable"
+            const val PAGE: String = "page"
 
-            val TIMELINE_EVENT_ID: String = "timeline_event_id"
-            val TIMELINE_EVENT_TITLE: String = "timeline_event_title"
-            val TIMELINE_EVENT_THEME: String = "timeline_event_theme"
-            val TIMELINE_EVENT_DATE: String = "timeline_event_date"
-            val TIMELINE_EVENT_IS_ADOPTED: String = "timeline_event_is_adopted"
+            const val TIMELINE_EVENT_ID: String = "timeline_event_id"
+            const val TIMELINE_EVENT_TITLE: String = "timeline_event_title"
+            const val TIMELINE_EVENT_THEME: String = "timeline_event_theme"
+            const val TIMELINE_EVENT_DATE: String = "timeline_event_date"
+            const val TIMELINE_EVENT_IS_ADOPTED: String = "timeline_event_is_adopted"
         }
 
     }

@@ -1,7 +1,6 @@
 package org.ladlb.directassemblee.deputy.detail
 
 import android.content.Context
-import android.support.v7.widget.CardView
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
@@ -30,7 +29,7 @@ import org.ladlb.directassemblee.widget.SubView
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyContactItemView : CardView {
+class DeputyContactItemView : androidx.cardview.widget.CardView {
 
     var listener: DeputyContactItemViewListener? = null
 

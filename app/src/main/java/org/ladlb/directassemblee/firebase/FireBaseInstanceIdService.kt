@@ -1,8 +1,8 @@
 package org.ladlb.directassemblee.firebase
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LifecycleRegistry
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import com.google.firebase.iid.FirebaseInstanceIdService
 import org.ladlb.directassemblee.AssembleApplication
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository

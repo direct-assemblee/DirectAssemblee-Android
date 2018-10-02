@@ -17,28 +17,28 @@
  # along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <android.support.v7.preference.PreferenceCategory android:title="@string/application">
-        <android.support.v7.preference.SwitchPreferenceCompat
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.preference.PreferenceCategory android:title="@string/application">
+        <androidx.preference.SwitchPreferenceCompat
             android:key="@string/settings_key_notifications"
             android:title="@string/settings_notifications" />
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="@string/settings_key_deputy_change"
             android:title="@string/change_deputy" />
-    </android.support.v7.preference.PreferenceCategory>
-    <android.support.v7.preference.PreferenceCategory android:title="@string/about">
-        <android.support.v7.preference.Preference
+    </androidx.preference.PreferenceCategory>
+    <androidx.preference.PreferenceCategory android:title="@string/about">
+        <androidx.preference.Preference
             android:key="@string/settings_key_faq"
             android:title="@string/faq" />
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="@string/settings_key_policy"
             android:title="@string/policy" />
-    </android.support.v7.preference.PreferenceCategory>
-    <android.support.v7.preference.PreferenceCategory>
+    </androidx.preference.PreferenceCategory>
+    <androidx.preference.PreferenceCategory>
         <org.ladlb.directassemblee.settings.SettingsFooterPreference
             android:enabled="false"
             android:key="@string/settings_key_version"
             android:layout="@layout/item_settings_footer"
             android:selectable="false" />
-    </android.support.v7.preference.PreferenceCategory>
-</android.support.v7.preference.PreferenceScreen>
+    </androidx.preference.PreferenceCategory>
+</androidx.preference.PreferenceScreen>

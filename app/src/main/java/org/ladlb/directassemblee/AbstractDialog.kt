@@ -3,8 +3,8 @@ package org.ladlb.directassemblee
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.support.annotation.IntDef
-import android.support.v4.app.DialogFragment
+import androidx.annotation.IntDef
+import androidx.fragment.app.DialogFragment
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.

@@ -1,7 +1,7 @@
 package org.ladlb.directassemblee.helper
 
 import android.content.res.Resources
-import android.support.annotation.StringDef
+import androidx.annotation.StringDef
 import org.ladlb.directassemblee.R
 import java.text.SimpleDateFormat
 import java.util.*

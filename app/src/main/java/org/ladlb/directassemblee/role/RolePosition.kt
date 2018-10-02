@@ -27,12 +27,11 @@ data class RolePosition(val name: String, val instances: Array<String> = arrayOf
     /**
      * Constructor.
      *
-     * @param source the source.
+     * @param parcel the source.
      */
     constructor(parcel: Parcel) : this(
             parcel.readString(),
-            parcel.createStringArray()) {
-    }
+            parcel.createStringArray())
 
     /**
      * {@inheritDoc}

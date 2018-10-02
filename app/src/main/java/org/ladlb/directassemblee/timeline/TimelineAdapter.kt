@@ -1,10 +1,10 @@
 package org.ladlb.directassemblee.timeline
 
-import android.support.v7.widget.RecyclerView.ViewHolder
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kotlinx.android.synthetic.main.include_header_timeline_item.view.*
 import kotlinx.android.synthetic.main.item_placeholder.view.*
 import kotlinx.android.synthetic.main.item_timeline.view.*
@@ -58,7 +58,6 @@ class TimelineAdapter(items: ArrayList<TimelineItem>) : PaginationAdapter<Timeli
         val item = getItemAtPosition(holderPosition)
         val view = holder.itemView
         val context = view.context
-
 
         view.tag = holderPosition
         view.setOnClickListener { v ->

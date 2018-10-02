@@ -27,12 +27,11 @@ data class Role(val instanceType: String, val positions: Array<RolePosition> = a
     /**
      * Constructor.
      *
-     * @param source the source.
+     * @param parcel the source.
      */
     constructor(parcel: Parcel) : this(
             parcel.readString(),
-            parcel.createTypedArray(RolePosition.CREATOR)) {
-    }
+            parcel.createTypedArray(RolePosition.CREATOR))
 
     /**
      * {@inheritDoc}

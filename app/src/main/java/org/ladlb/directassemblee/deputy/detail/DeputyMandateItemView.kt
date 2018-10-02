@@ -1,7 +1,6 @@
 package org.ladlb.directassemblee.deputy.detail
 
 import android.content.Context
-import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import android.view.View
 import kotlinx.android.synthetic.main.item_deputy_mandate.view.*
@@ -27,7 +26,7 @@ import org.ladlb.directassemblee.mandate.MandateDecorator
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyMandateItemView : CardView {
+class DeputyMandateItemView : androidx.cardview.widget.CardView {
 
     constructor(context: Context) : super(context) {
         init()

@@ -2,11 +2,11 @@ package org.ladlb.directassemblee.deputy.retrieve
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.Nullable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import androidx.annotation.Nullable
 import kotlinx.android.synthetic.main.fragment_deputy_retrieve_location.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R

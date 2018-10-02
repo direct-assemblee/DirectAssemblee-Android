@@ -7,9 +7,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.support.annotation.NonNull
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
+import androidx.annotation.NonNull
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import org.ladlb.directassemblee.AbstractActivity
 import org.ladlb.directassemblee.DashboardActivity
 import org.ladlb.directassemblee.R
@@ -46,6 +46,11 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
 
     companion object Factory {
 
+        private const val REQUEST_SEARCH_ADDRESS: Int = 1
+        private const val REQUEST_ACCESS_FINE_LOCATION: Int = 2
+        private const val REQUEST_DEPUTY_SEARCHABLE: Int = 3
+        private const val REQUEST_DEPUTY_FIND: Int = 4
+
         fun getIntent(context: Context): Intent {
             val intent = Intent(context, DeputyRetrieveActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -53,14 +58,6 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
         }
 
     }
-
-    private val REQUEST_SEARCH_ADDRESS: Int = 1
-
-    private val REQUEST_ACCESS_FINE_LOCATION: Int = 2
-
-    private val REQUEST_DEPUTY_SEARCHABLE: Int = 3
-
-    private val REQUEST_DEPUTY_FIND: Int = 4
 
     private var locationGetPresenter: LocationGetPresenter? = null
 

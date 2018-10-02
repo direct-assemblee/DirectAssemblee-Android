@@ -1,8 +1,8 @@
 package org.ladlb.directassemblee
 
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.

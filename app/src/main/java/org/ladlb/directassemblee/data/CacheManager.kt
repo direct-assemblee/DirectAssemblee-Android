@@ -1,7 +1,5 @@
 package org.ladlb.directassemblee.data
 
-import android.support.v4.util.LruCache
-
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
  *
@@ -19,7 +17,7 @@ import android.support.v4.util.LruCache
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class CacheManager(maxSize: Int) : LruCache<String, Any?>(maxSize) {
+class CacheManager(maxSize: Int) : androidx.collection.LruCache<String, Any?>(maxSize) {
 
     companion object {
 

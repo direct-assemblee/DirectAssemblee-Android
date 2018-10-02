@@ -48,7 +48,7 @@
             android:maxLines="3"
             tools:text="Titre super méga longggggggggggggggggggggggggggggggg" />
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewTitle"
             style="@style/Base.TextAppearance.AppCompat.Small"
             android:layout_width="match_parent"

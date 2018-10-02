@@ -1,7 +1,7 @@
 package org.ladlb.directassemblee
 
 import android.content.Intent
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import org.ladlb.directassemblee.api.dataGouv.RetrofitAddressRepository
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.data.CacheManager

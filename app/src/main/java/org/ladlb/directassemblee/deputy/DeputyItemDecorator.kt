@@ -2,9 +2,8 @@ package org.ladlb.directassemblee.deputy
 
 import android.content.res.Resources
 import android.graphics.Rect
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.ItemDecoration
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import org.ladlb.directassemblee.R
 
 /**
@@ -30,13 +29,13 @@ internal class DeputyItemDecorator(resources: Resources) : ItemDecoration() {
 
     private var horizontalMargin = resources.getDimensionPixelOffset(R.dimen.small_horizontal_space)
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
 
         outRect.top = verticalMargin
         outRect.left = horizontalMargin
         outRect.right = horizontalMargin
 
-        if (parent.getChildAdapterPosition(view) == parent.adapter.itemCount - 1) {
+        if (parent.getChildAdapterPosition(view) == parent.adapter!!.itemCount - 1) {
             outRect.bottom = verticalMargin
         }
 

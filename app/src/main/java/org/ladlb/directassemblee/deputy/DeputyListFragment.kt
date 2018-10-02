@@ -2,14 +2,13 @@ package org.ladlb.directassemblee.deputy
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.Nullable
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.DividerItemDecoration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.annotation.Nullable
+import androidx.core.content.res.ResourcesCompat
 import kotlinx.android.synthetic.main.fragment_deputy_list.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
@@ -85,14 +84,13 @@ class DeputyListFragment : AbstractFragment(), OnDeputyClickListener, Filterable
 
         @Suppress("UNCHECKED_CAST")
         adapter = DeputyAdapter(
-                context!!,
                 (arguments!!.getParcelableArray(
                         ARG_DEPUTIES
                 ) as Array<Deputy>).toCollection(ArrayList())
         )
         adapter.setOnDeputyClickListener(this)
 
-        val divider = DividerItemDecoration(context!!, DividerItemDecoration.VERTICAL)
+        val divider = androidx.recyclerview.widget.DividerItemDecoration(context!!, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL)
         divider.setDrawable(ResourcesCompat.getDrawable(resources, R.drawable.divider_deputy, null)!!)
 
         recyclerView.adapter = adapter

@@ -1,16 +1,15 @@
 package org.ladlb.directassemblee.deputy
 
 import android.os.Bundle
-import android.support.annotation.Nullable
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.AppBarLayout.OnOffsetChangedListener
-import android.support.design.widget.TabLayout
-import android.support.design.widget.TabLayout.OnTabSelectedListener
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.Nullable
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import kotlinx.android.synthetic.main.fragment_deputy.*
 import kotlinx.android.synthetic.main.fragment_deputy_details.*
 import kotlinx.android.synthetic.main.fragment_time_line.*
@@ -46,10 +45,6 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
 
     override fun getClassName(): String = "DeputyFragment"
 
-    private val ANIMATION_DURATION = 200L
-    private val PERCENTAGE_TO_ANIMATE_AVATAR = 0.03
-    private val PERCENTAGE_TO_ANIMATE_TEXT = 0.5
-
     private var isAvatarShown = true
     private var isTextShown = true
 
@@ -61,9 +56,13 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
 
     companion object {
 
-        var TAG: String = DeputyFragment::class.java.name
+        val TAG: String = DeputyFragment::class.java.name
 
-        private var ARG_DEPUTY: String = "ARG_DEPUTY"
+        private const val ARG_DEPUTY: String = "ARG_DEPUTY"
+
+        private const val ANIMATION_DURATION = 200L
+        private const val PERCENTAGE_TO_ANIMATE_AVATAR = 0.03
+        private const val PERCENTAGE_TO_ANIMATE_TEXT = 0.5
 
         fun newInstance(deputy: Deputy): DeputyFragment {
 
@@ -106,7 +105,7 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
             toolbar = bar
         }
 
-        deputy = arguments!!.getParcelable(ARG_DEPUTY)
+        deputy = arguments!!.getParcelable(ARG_DEPUTY)!!
 
         toolbar?.setDeputy(deputy)
         deputyCardView.setDeputy(deputy)
@@ -170,8 +169,8 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
     private fun updateAvatarVisibility(percentage: Float) {
 
         val imageViewDeputy = toolbar?.findViewById<View>(R.id.imageViewDeputy)
-        val textviewTitle = toolbar?.findViewById<TextView>(R.id.textviewTitle)
-        val textviewSubTitle = toolbar?.findViewById<TextView>(R.id.textviewSubTitle)
+        val textViewTitle = toolbar?.findViewById<TextView>(R.id.textviewTitle)
+        val textViewSubTitle = toolbar?.findViewById<TextView>(R.id.textviewSubTitle)
 
         if (percentage >= PERCENTAGE_TO_ANIMATE_AVATAR && isAvatarShown) {
             isAvatarShown = false
@@ -192,8 +191,8 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
         if (percentage >= PERCENTAGE_TO_ANIMATE_TEXT && isTextShown) {
             isTextShown = false
 
-            ViewHelper.changeTextAlpha(textviewTitle, 1F, ANIMATION_DURATION)
-            ViewHelper.changeTextAlpha(textviewSubTitle, 0.5F, ANIMATION_DURATION)
+            ViewHelper.changeTextAlpha(textViewTitle, 1F, ANIMATION_DURATION)
+            ViewHelper.changeTextAlpha(textViewSubTitle, 0.5F, ANIMATION_DURATION)
 
             ViewHelper.changeTextAlpha(textViewNames, 0F, ANIMATION_DURATION)
             ViewHelper.changeTextAlpha(textViewGroup, 0F, ANIMATION_DURATION)
@@ -204,8 +203,8 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
         if (percentage <= PERCENTAGE_TO_ANIMATE_TEXT && !isTextShown) {
             isTextShown = true
 
-            ViewHelper.changeTextAlpha(textviewTitle, 0F, ANIMATION_DURATION)
-            ViewHelper.changeTextAlpha(textviewSubTitle, 0F, ANIMATION_DURATION)
+            ViewHelper.changeTextAlpha(textViewTitle, 0F, ANIMATION_DURATION)
+            ViewHelper.changeTextAlpha(textViewSubTitle, 0F, ANIMATION_DURATION)
 
             ViewHelper.changeTextAlpha(textViewNames, 1F, ANIMATION_DURATION)
             ViewHelper.changeTextAlpha(textViewGroup, 1F, ANIMATION_DURATION)
@@ -217,7 +216,7 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
 
     override fun onTabReselected(tab: TabLayout.Tab?) {
         when (viewPager.currentItem) {
-            0 -> (recyclerView.layoutManager as LinearLayoutManager).scrollToPosition(0)
+            0 -> (recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).scrollToPosition(0)
             1 -> nestedScrollView.scrollTo(0, 0)
         }
     }

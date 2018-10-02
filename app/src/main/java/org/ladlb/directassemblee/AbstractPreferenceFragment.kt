@@ -1,11 +1,11 @@
 package org.ladlb.directassemblee
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LifecycleRegistry
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.preference.PreferenceFragmentCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import androidx.preference.PreferenceFragmentCompat
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.data.CacheManager
 import org.ladlb.directassemblee.firebase.FireBaseAnalyticsManager

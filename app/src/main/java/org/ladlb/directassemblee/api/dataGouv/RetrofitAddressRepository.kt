@@ -1,6 +1,6 @@
 package org.ladlb.directassemblee.api.dataGouv
 
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
 import com.google.gson.GsonBuilder
 import io.reactivex.Single
 import org.ladlb.directassemblee.address.AddressEnvelope

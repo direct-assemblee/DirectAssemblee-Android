@@ -1,10 +1,10 @@
 package org.ladlb.directassemblee.mandate
 
-import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.widget.PlaceholderAdapter
 
@@ -70,8 +70,8 @@ class MandateAdapter(items: MutableList<String>) : PlaceholderAdapter<String>(it
     override fun getItemViewType(position: Int): Int =
             if (position < getItemsSize()) typeItem else super.getItemViewType(position)
 
-    private class MandateViewHolder(itemView: View?) : ViewHolder(itemView)
+    private class MandateViewHolder(itemView: View) : ViewHolder(itemView)
 
-    private class PlaceHolderViewHolder(itemView: View?) : ViewHolder(itemView)
+    private class PlaceHolderViewHolder(itemView: View) : ViewHolder(itemView)
 
 }

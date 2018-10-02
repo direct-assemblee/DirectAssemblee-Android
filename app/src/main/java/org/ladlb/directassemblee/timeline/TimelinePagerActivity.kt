@@ -4,8 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.view.View
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_timeline_pager.*
 import kotlinx.android.synthetic.main.item_deputy.*
@@ -61,7 +61,7 @@ class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
 
         if (savedInstanceState == null) {
 
-            val bundle = intent.extras
+            val bundle = intent.extras!!
             val position = bundle.getInt(EXTRA_POSITION, 0)
             val deputy = bundle.getParcelable(EXTRA_DEPUTY) as Deputy
 

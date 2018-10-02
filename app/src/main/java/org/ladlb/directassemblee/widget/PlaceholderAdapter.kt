@@ -1,9 +1,9 @@
 package org.ladlb.directassemblee.widget
 
-import android.support.annotation.CallSuper
-import android.support.v7.widget.RecyclerView.Adapter
-import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
+import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.

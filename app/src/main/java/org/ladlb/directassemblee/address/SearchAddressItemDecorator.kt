@@ -4,10 +4,9 @@ import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.ItemDecoration
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import org.ladlb.directassemblee.R
 
 /**
@@ -46,12 +45,12 @@ internal class SearchAddressItemDecorator(resources: Resources) : ItemDecoration
         paint.color = ResourcesCompat.getColor(resources, R.color.colorPrimary, null)
     }
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
 
         outRect.left = horizontalMargin
         outRect.right = horizontalMargin
 
-        val itemCount = parent.adapter.itemCount
+        val itemCount = parent.adapter!!.itemCount
         val position = parent.getChildAdapterPosition(view)
 
         if (position == itemCount - 1) {
@@ -67,15 +66,15 @@ internal class SearchAddressItemDecorator(resources: Resources) : ItemDecoration
 
     }
 
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+    override fun onDraw(c: Canvas, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
 
         val childCount = parent.childCount
         if (childCount > 0) {
 
             val view = parent.getChildAt(childCount - 1)
-            val params = view.layoutParams as RecyclerView.LayoutParams
+            val params = view.layoutParams as androidx.recyclerview.widget.RecyclerView.LayoutParams
             val position = params.viewAdapterPosition
-            val itemCount = parent.adapter.itemCount
+            val itemCount = parent.adapter!!.itemCount
 
             if (position == state.itemCount - 1 && itemCount > 1) {
                 val y = view.top.toFloat() - smallVerticalMargin - separator / 2

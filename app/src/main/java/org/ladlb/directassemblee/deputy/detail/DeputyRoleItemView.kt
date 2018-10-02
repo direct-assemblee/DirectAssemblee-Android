@@ -1,7 +1,6 @@
 package org.ladlb.directassemblee.deputy.detail
 
 import android.content.Context
-import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import kotlinx.android.synthetic.main.item_deputy_role.view.*
 import org.ladlb.directassemblee.R
@@ -26,7 +25,7 @@ import org.ladlb.directassemblee.role.RoleDecorator
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyRoleItemView : CardView {
+class DeputyRoleItemView : androidx.cardview.widget.CardView {
 
     constructor(context: Context) : super(context) {
         init()

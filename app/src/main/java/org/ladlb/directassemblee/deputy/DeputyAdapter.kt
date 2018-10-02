@@ -1,16 +1,12 @@
 package org.ladlb.directassemblee.deputy
 
-import android.content.Context
-import android.graphics.Rect
-import android.graphics.drawable.Drawable
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.RecyclerView.ViewHolder
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_deputy.view.*
 import kotlinx.android.synthetic.main.item_placeholder.view.*
@@ -36,7 +32,7 @@ import org.ladlb.directassemblee.widget.PlaceholderAdapter
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyAdapter(context: Context, items: ArrayList<Deputy>) : PlaceholderAdapter<Deputy>(items), Filterable, DeputyFilter.DeputyFilterListener {
+class DeputyAdapter(items: ArrayList<Deputy>) : PlaceholderAdapter<Deputy>(items), Filterable, DeputyFilter.DeputyFilterListener {
 
     companion object {
         const val typeItem: Int = 2
@@ -46,17 +42,13 @@ class DeputyAdapter(context: Context, items: ArrayList<Deputy>) : PlaceholderAda
 
     private val filter: DeputyFilter
 
-    private var deputyPlaceHolder: Drawable?
+    private var deputyPlaceHolderId: Int
 
     init {
         setHasStableIds(true)
 
         filter = DeputyFilter(ArrayList(items), this)
-        deputyPlaceHolder = ResourcesCompat.getDrawable(
-                context.resources,
-                R.drawable.img_unknow_deputy,
-                null
-        )
+        deputyPlaceHolderId = R.drawable.img_unknow_deputy
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -121,14 +113,14 @@ class DeputyAdapter(context: Context, items: ArrayList<Deputy>) : PlaceholderAda
         val deputyPhotoUrl = deputy.photoUrl
 
         if (TextUtils.isEmpty(deputyPhotoUrl)) {
-            view.imageViewDeputy.setImageDrawable(
-                    deputyPlaceHolder
+            view.imageViewDeputy.setImageResource(
+                    deputyPlaceHolderId
             )
         } else {
             Picasso.with(context)
                     .load(deputyPhotoUrl)
-                    .placeholder(deputyPlaceHolder)
-                    .error(deputyPlaceHolder)
+                    .placeholder(deputyPlaceHolderId)
+                    .error(deputyPlaceHolderId)
                     .into(view.imageViewDeputy)
         }
 

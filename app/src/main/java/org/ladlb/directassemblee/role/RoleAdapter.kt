@@ -1,10 +1,10 @@
 package org.ladlb.directassemblee.role
 
-import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.widget.PlaceholderAdapter
 
@@ -122,12 +122,12 @@ class RoleAdapter(roles: ArrayList<Role>) : PlaceholderAdapter<Any>(computeItems
 
     }
 
-    private class RoleViewHolder(itemView: View?) : ViewHolder(itemView)
+    private class RoleViewHolder(itemView: View) : ViewHolder(itemView)
 
-    private class RolePositionViewHolder(itemView: View?) : ViewHolder(itemView)
+    private class RolePositionViewHolder(itemView: View) : ViewHolder(itemView)
 
-    private class RoleInstanceViewHolder(itemView: View?) : ViewHolder(itemView)
+    private class RoleInstanceViewHolder(itemView: View) : ViewHolder(itemView)
 
-    private class PlaceHolderViewHolder(itemView: View?) : ViewHolder(itemView)
+    private class PlaceHolderViewHolder(itemView: View) : ViewHolder(itemView)
 
 }

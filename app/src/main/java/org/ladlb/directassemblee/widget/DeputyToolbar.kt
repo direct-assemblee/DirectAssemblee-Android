@@ -1,10 +1,9 @@
 package org.ladlb.directassemblee.widget
 
 import android.content.Context
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.util.AttributeSet
+import androidx.appcompat.widget.Toolbar
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_deputy_toolbar.view.*
 import org.ladlb.directassemblee.R
@@ -59,21 +58,17 @@ class DeputyToolbar : Toolbar {
     fun setDeputy(deputy: Deputy) {
 
         val deputyPhotoUrl = deputy.photoUrl
-        val deputyPlaceHolder = ResourcesCompat.getDrawable(
-                resources,
-                R.drawable.img_unknow_deputy,
-                null
-        )
+        val deputyPlaceHolderId = R.drawable.img_unknow_deputy
 
         if (TextUtils.isEmpty(deputyPhotoUrl)) {
-            imageViewDeputy.setImageDrawable(
-                    deputyPlaceHolder
+            imageViewDeputy.setImageResource(
+                    deputyPlaceHolderId
             )
         } else {
             Picasso.with(context)
                     .load(deputy.photoUrl)
-                    .placeholder(deputyPlaceHolder)
-                    .error(deputyPlaceHolder)
+                    .placeholder(deputyPlaceHolderId)
+                    .error(deputyPlaceHolderId)
                     .into(imageViewDeputy)
         }
 

@@ -3,8 +3,8 @@ package org.ladlb.directassemblee.deputy.search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.SearchView
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import kotlinx.android.synthetic.main.activity_deputy_search.*
 import org.ladlb.directassemblee.AbstractToolBarActivity
 import org.ladlb.directassemblee.R
@@ -94,7 +94,7 @@ open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentL
         deputyListFragment = DeputyListFragment.newInstance(deputies)
         supportFragmentManager.beginTransaction().replace(
                 R.id.frameLayout,
-                deputyListFragment,
+                deputyListFragment!!,
                 DeputyListFragment.TAG
         ).commit()
         searchView.visibility = if (deputies.isEmpty()) View.GONE else View.VISIBLE

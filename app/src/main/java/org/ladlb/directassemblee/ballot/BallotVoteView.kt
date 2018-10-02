@@ -1,11 +1,11 @@
 package org.ladlb.directassemblee.ballot
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.ViewCompat
 import kotlinx.android.synthetic.main.include_circle_stroke_image_view.view.*
 import kotlinx.android.synthetic.main.include_vote_result.view.*
 import org.ladlb.directassemblee.R

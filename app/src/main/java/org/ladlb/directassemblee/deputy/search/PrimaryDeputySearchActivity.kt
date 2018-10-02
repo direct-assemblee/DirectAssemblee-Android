@@ -3,7 +3,7 @@ package org.ladlb.directassemblee.deputy.search
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.helper.ViewHelper

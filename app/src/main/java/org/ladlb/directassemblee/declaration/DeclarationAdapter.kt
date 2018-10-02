@@ -1,12 +1,11 @@
 package org.ladlb.directassemblee.declaration
 
 import android.content.Context
-import android.graphics.Rect
-import android.support.v7.widget.RecyclerView.Adapter
-import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kotlinx.android.synthetic.main.item_declaration.view.*
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.declaration.DeclarationAdapter.DeclarationViewHolder
@@ -29,7 +28,7 @@ import org.ladlb.directassemblee.helper.FormatHelper
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeclarationAdapter(private val context: Context) : Adapter<DeclarationViewHolder>() {
+class DeclarationAdapter(context: Context) : Adapter<DeclarationViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 

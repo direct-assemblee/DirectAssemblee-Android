@@ -3,11 +3,11 @@ package org.ladlb.directassemblee.ballot.vote
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.design.widget.TabLayout.OnTabSelectedListener
-import android.support.v7.widget.SearchView
 import android.view.View
 import android.widget.Filterable
+import androidx.appcompat.widget.SearchView
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import kotlinx.android.synthetic.main.activity_ballot_vote.*
 import org.ladlb.directassemblee.AbstractToolBarActivity
 import org.ladlb.directassemblee.R
@@ -91,11 +91,10 @@ class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, Dep
                 for ((index, fragment) in supportFragmentManager.fragments.withIndex()) {
                     if (fragment is Filterable) {
                         fragment.filter.filter(
-                                query,
-                                { count: Int ->
-                                    tabLayout.getTabAt(index)?.text = adapter.getPageTitle(index, count)
-                                }
-                        )
+                                query
+                        ) { count: Int ->
+                            tabLayout.getTabAt(index)?.text = adapter.getPageTitle(index, count)
+                        }
                     }
                 }
             }

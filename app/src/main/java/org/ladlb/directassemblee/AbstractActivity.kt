@@ -2,7 +2,7 @@ package org.ladlb.directassemblee
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import org.ladlb.directassemblee.api.dataGouv.RetrofitAddressRepository
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository

@@ -2,10 +2,10 @@ package org.ladlb.directassemblee.deputy.find
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.fragment_deputy_find.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
@@ -92,7 +92,6 @@ class DeputyFindFragment : AbstractFragment(), GetDeputiesView, OnDeputyClickLis
         super.onCreate(savedInstanceState)
 
         adapter = DeputyAdapter(
-                context!!,
                 arrayListOf()
         )
         adapter.setOnDeputyClickListener(this)
@@ -177,11 +176,10 @@ class DeputyFindFragment : AbstractFragment(), GetDeputiesView, OnDeputyClickLis
         AlertDialog.Builder(activity!!).setMessage(
                 R.string.deputy_not_found
         ).setPositiveButton(
-                R.string.ok,
-                { _, _ ->
-                    activity!!.onBackPressed()
-                }
-        ).create().show()
+                R.string.ok
+        ) { _, _ ->
+            activity!!.onBackPressed()
+        }.create().show()
 
     }
 

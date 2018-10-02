@@ -2,9 +2,8 @@ package org.ladlb.directassemblee.role
 
 import android.content.res.Resources
 import android.graphics.Rect
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.ItemDecoration
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.widget.PlaceholderAdapter
 
@@ -37,11 +36,11 @@ class RoleDecorator(resources: Resources) : ItemDecoration() {
 
     private var hugeHorizontalMargin = resources.getDimensionPixelOffset(R.dimen.huge_horizontal_space)
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
 
         val position = parent.getChildAdapterPosition(view)
         val adapter = parent.adapter
-        val itemViewType = adapter.getItemViewType(position)
+        val itemViewType = adapter!!.getItemViewType(position)
 
         when (itemViewType) {
             RoleAdapter.typeRole -> {

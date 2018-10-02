@@ -3,8 +3,8 @@ package org.ladlb.directassemblee.helper
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.support.customtabs.CustomTabsIntent
 import android.text.TextUtils
+import androidx.browser.customtabs.CustomTabsIntent
 import org.ladlb.directassemblee.R
 
 /**

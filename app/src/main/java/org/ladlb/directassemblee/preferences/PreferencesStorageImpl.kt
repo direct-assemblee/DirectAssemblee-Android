@@ -28,11 +28,13 @@ import java.util.*
 
 class PreferencesStorageImpl(private val mPreferences: SharedPreferences) : PreferencesStorage {
 
-    private val KEY_DEPUTY = "KEY_DEPUTY"
+    companion object {
 
-    private val KEY_NOTIFICATION = "KEY_NOTIFICATION"
+        private const val KEY_DEPUTY = "KEY_DEPUTY"
+        private const val KEY_NOTIFICATION = "KEY_NOTIFICATION"
+        private const val KEY_NOTIFICATION_DIALOG = "KEY_NOTIFICATION_DIALOG"
 
-    private val KEY_NOTIFICATION_DIALOG = "KEY_NOTIFICATION_DIALOG"
+    }
 
     private val gson: Gson = GsonBuilder()
             .registerTypeAdapter(Date::class.java, DateSerializer())
@@ -46,10 +48,10 @@ class PreferencesStorageImpl(private val mPreferences: SharedPreferences) : Pref
                 null
         )
 
-        if (TextUtils.isEmpty(json)) {
-            return null
+        return if (TextUtils.isEmpty(json)) {
+            null
         } else {
-            return gson.fromJson<Deputy>(json, Deputy::class.java)
+            gson.fromJson<Deputy>(json, Deputy::class.java)
         }
 
     }

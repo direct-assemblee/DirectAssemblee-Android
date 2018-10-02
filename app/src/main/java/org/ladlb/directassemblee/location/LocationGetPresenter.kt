@@ -1,9 +1,9 @@
 package org.ladlb.directassemblee.location
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Lifecycle
 import android.content.Context
 import android.location.Location
+import androidx.lifecycle.Lifecycle
 import com.google.android.gms.location.LocationRequest
 import com.patloew.rxlocation.RxLocation
 import io.reactivex.Observable

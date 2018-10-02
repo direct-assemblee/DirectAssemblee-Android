@@ -1,10 +1,10 @@
 package org.ladlb.directassemblee.settings
 
 import android.content.Context
-import android.support.v7.preference.Preference
-import android.support.v7.preference.PreferenceViewHolder
 import android.util.AttributeSet
 import android.widget.TextView
+import androidx.preference.Preference
+import androidx.preference.PreferenceViewHolder
 import org.ladlb.directassemblee.BuildConfig
 import org.ladlb.directassemblee.R
 

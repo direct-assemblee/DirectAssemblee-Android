@@ -2,11 +2,11 @@ package org.ladlb.directassemblee.address
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.Nullable
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.Nullable
 import kotlinx.android.synthetic.main.fragment_address_list.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
@@ -94,7 +94,7 @@ class SearchAddressFragment : AbstractFragment(), GetAddressPresenter.GetAddress
             adapter.showPlaceholder(false)
             adapter.setQuery(query)
             adapter.addItems(addresses)
-            recyclerView.scheduleLayoutAnimation();
+            recyclerView.scheduleLayoutAnimation()
         }
 
     }

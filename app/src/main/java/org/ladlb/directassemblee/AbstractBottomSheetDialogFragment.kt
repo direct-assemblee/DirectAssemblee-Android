@@ -1,6 +1,6 @@
 package org.ladlb.directassemblee
 
-import android.support.design.widget.BottomSheetDialogFragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.firebase.FireBaseAnalyticsManager
 import org.ladlb.directassemblee.preferences.PreferencesStorage

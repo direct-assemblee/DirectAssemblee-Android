@@ -1,6 +1,6 @@
 package org.ladlb.directassemblee.timeline
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer

@@ -3,11 +3,11 @@ package org.ladlb.directassemblee
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AlertDialog
 import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.GravityCompat
+import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.DeputyFragment

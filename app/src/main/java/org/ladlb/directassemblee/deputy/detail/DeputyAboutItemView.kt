@@ -1,7 +1,6 @@
 package org.ladlb.directassemblee.deputy.detail
 
 import android.content.Context
-import android.support.v7.widget.CardView
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
@@ -27,7 +26,7 @@ import org.ladlb.directassemblee.helper.FormatHelper
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyAboutItemView : CardView {
+class DeputyAboutItemView : androidx.cardview.widget.CardView {
 
     constructor(context: Context) : super(context) {
         init()

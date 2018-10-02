@@ -1,6 +1,6 @@
 package org.ladlb.directassemblee.api.ladlb
 
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
 import com.google.gson.GsonBuilder
 import io.reactivex.Completable
 import io.reactivex.Single

@@ -1,12 +1,12 @@
 package org.ladlb.directassemblee.ballot
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -84,7 +84,7 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val ballot = arguments!!.getParcelable<TimelineItem>(ARG_BALLOT)
+        val ballot = arguments!!.getParcelable<TimelineItem>(ARG_BALLOT)!!
 
         setBallot(ballot)
     }
