@@ -13,7 +13,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import kotlinx.android.synthetic.main.fragment_deputy.*
 import kotlinx.android.synthetic.main.fragment_deputy_details.*
 import kotlinx.android.synthetic.main.fragment_time_line.*
-import kotlinx.android.synthetic.main.view_deputy_card.*
+import kotlinx.android.synthetic.main.view_deputy_header.*
 import org.ladlb.directassemblee.AbstractToolbarFragment
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.deputy.DeputyGetPresenter.GetDeputyView

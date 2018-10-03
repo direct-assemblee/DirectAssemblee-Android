@@ -80,7 +80,10 @@ class MotionFragment : AbstractFragment(), OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val timeLineItem = arguments!!.getParcelable<TimelineItem>(ARG_TIMELINE_ITEM)
+        // Used for accessibility information
+        linearLayoutMotionHeader.isFocusable = true
+
+        val timeLineItem = arguments!!.getParcelable<TimelineItem>(ARG_TIMELINE_ITEM)!!
 
         setTimelineItem(timeLineItem)
 

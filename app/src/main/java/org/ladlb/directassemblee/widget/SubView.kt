@@ -53,6 +53,9 @@ class SubView : LinearLayout {
                 this
         )
 
+        // Used for accessibility information
+        isFocusable = true
+
         val outValue = TypedValue()
         context.theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
         setBackgroundResource(outValue.resourceId)

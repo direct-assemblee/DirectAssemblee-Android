@@ -84,6 +84,9 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Used for accessibility information
+        linearLayoutBallotHeader.isFocusable = true
+
         val ballot = arguments!!.getParcelable<TimelineItem>(ARG_BALLOT)!!
 
         setBallot(ballot)

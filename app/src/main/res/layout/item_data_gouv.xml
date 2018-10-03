@@ -22,17 +22,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
+    android:focusable="true"
     android:orientation="horizontal">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/small_vertical_space"
+        android:layout_marginEnd="@dimen/small_vertical_space"
         android:text="@string/powered_by" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/adresse_data_gouv"
         app:srcCompat="@drawable/ic_data_gouv_adresse" />
 
 </LinearLayout>

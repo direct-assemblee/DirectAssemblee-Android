@@ -29,7 +29,7 @@
         android:gravity="center_horizontal">
 
         <include
-            android:id="@+id/linearLayoutHeader"
+            android:id="@+id/linearLayoutBallotHeader"
             layout="@layout/include_header_timeline_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             android:layout_marginTop="@dimen/vertical_space"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayoutHeader"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutBallotHeader"
             app:layout_constraintWidth_max="320dp">
 
             <com.github.mikephil.charting.charts.BarChart

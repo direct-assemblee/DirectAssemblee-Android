@@ -32,7 +32,7 @@
         android:paddingTop="@dimen/vertical_space">
 
         <include
-            android:id="@+id/linearLayoutHeader"
+            android:id="@+id/linearLayoutMotionHeader"
             layout="@layout/include_header_timeline_item" />
 
         <ViewStub

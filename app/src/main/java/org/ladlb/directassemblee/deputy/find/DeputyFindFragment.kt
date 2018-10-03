@@ -9,9 +9,12 @@ import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.fragment_deputy_find.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.deputy.*
+import org.ladlb.directassemblee.deputy.DeputiesGetPresenter
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.GetDeputiesView
+import org.ladlb.directassemblee.deputy.Deputy
+import org.ladlb.directassemblee.deputy.DeputyAdapter
 import org.ladlb.directassemblee.deputy.DeputyAdapter.OnDeputyClickListener
+import org.ladlb.directassemblee.deputy.DeputyGetPresenter
 import org.ladlb.directassemblee.deputy.DeputyGetPresenter.GetDeputyView
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
@@ -120,7 +123,6 @@ class DeputyFindFragment : AbstractFragment(), GetDeputiesView, OnDeputyClickLis
         )
 
         recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(DeputyItemDecorator(resources))
 
     }
 
@@ -137,6 +139,7 @@ class DeputyFindFragment : AbstractFragment(), GetDeputiesView, OnDeputyClickLis
             else -> {
                 loadingView.visibility = View.GONE
                 setDeputies(deputies)
+                linearLayout.visibility = View.VISIBLE
             }
         }
 

@@ -47,6 +47,10 @@ class LoadingView : LinearLayout {
                 R.layout.view_loading,
                 this
         )
+
+        // Used for accessibility information
+        isFocusable = true
+
     }
 
     private fun initAttrs(attrs: AttributeSet?) {

@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import kotlinx.android.synthetic.main.include_circle_stroke_image_view.view.*
-import kotlinx.android.synthetic.main.include_vote_result.view.*
+import kotlinx.android.synthetic.main.view_vote.view.*
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.vote.Vote
 import org.ladlb.directassemblee.vote.VoteView

@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.view_deputy_card.view.*
+import kotlinx.android.synthetic.main.view_deputy_header.view.*
 import org.ladlb.directassemblee.R
 
 /**
@@ -43,7 +43,7 @@ class DeputyHeaderView : RelativeLayout {
     private fun init() {
         LinearLayout.inflate(
                 context,
-                R.layout.view_deputy_card,
+                R.layout.view_deputy_header,
                 this
         )
     }

@@ -24,7 +24,7 @@ import org.ladlb.directassemblee.widget.PlaceholderAdapter
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class MandateDecorator(resources: Resources) : ItemDecoration() {
+class MandateItemDecorator(resources: Resources) : ItemDecoration() {
 
     private var verticalMargin = resources.getDimensionPixelOffset(R.dimen.vertical_space)
 

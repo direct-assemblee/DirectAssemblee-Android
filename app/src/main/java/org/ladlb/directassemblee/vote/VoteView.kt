@@ -39,7 +39,7 @@ open class VoteView : LinearLayout {
     private fun init() {
         inflate(
                 context,
-                R.layout.include_vote_result,
+                R.layout.view_vote,
                 this
         )
 
