@@ -19,33 +19,17 @@
 
 <resources>
 
-    <string name="generic_error">Une erreur est survenue.</string>
-
     <string name="adresse_data_gouv">adresse.data.gouv.fr</string>
-
-    <string name="application">Application</string>
-    <string name="about">À propos</string>
-    <string name="policy">Politique de vie privée</string>
 
     <string name="amount">%d €</string>
     <string name="percent">%d%%</string>
     <string name="copy">%s copié</string>
-
-    <string name="activities">Activités</string>
-    <string name="profile">Profil</string>
-
-    <string name="deputy_retrieve_loading_search">Nous recherchons votre député.</string>
-    <string name="deputy_retrieve_loading_details">Récupération des informations.</string>
-
-    <string name="notification_popup_unsubscribe">Désinscription aux notifications.</string>
 
     <string name="settings_key_faq">settings_key_faq</string>
     <string name="settings_key_notifications">settings_key_notifications</string>
     <string name="settings_key_deputy_change">settings_key_deputy_change</string>
     <string name="settings_key_version">settings_key_version</string>
     <string name="settings_key_policy">settings_key_policy</string>
-
-    <string name="notification_update_error">Nous n\'avons pu mettre à jour le statut de vos notifications.</string>
 
     <plurals name="declaration">
         <item quantity="one">@string/declaration</item>
@@ -67,29 +51,16 @@
         <item quantity="other">@string/district_others</item>
     </plurals>
 
-    <string name="settings">Paramètres</string>
-    <string name="share_application">Partager l\'application</string>
-    <string name="share_with">Partager avec</string>
-
-    <string name="search_deputy">Rechercher un député</string>
-    <string name="deputies_loading">Récupération des députés</string>
-
-    <!-- Errors -->
-    <string name="get_deputies_request_failed">Impossible de récupérer la liste des députés</string>
-    <string name="get_deputy_request_failed">Impossible de récupérer le député</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="role">Rôle</string>
     <plurals name="role">
-        <item quantity="one">@string/role</item>
+        <item quantity="one">@string/deputy_details_role</item>
         <item quantity="other">@string/deputy_details_roles</item>
     </plurals>
 
-    <string name="mandate_other">Mandat (autre)</string>
     <plurals name="mandate_other">
-        <item quantity="one">@string/mandate_other</item>
+        <item quantity="one">@string/deputy_details_other_current_mandate</item>
         <item quantity="other">@string/deputy_details_other_current_mandates</item>
     </plurals>
 

@@ -32,7 +32,7 @@
             android:id="@+id/textViewRole"
             style="@style/TextView.Section.Header"
             android:padding="@dimen/horizontal_space"
-            android:text="@string/role"
+            android:text="@string/deputy_details_role"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
