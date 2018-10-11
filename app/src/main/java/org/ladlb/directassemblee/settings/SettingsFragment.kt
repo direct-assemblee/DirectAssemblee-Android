@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
+import com.google.firebase.iid.FirebaseInstanceId
 import org.ladlb.directassemblee.AbstractPreferenceFragment
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.deputy.Deputy
