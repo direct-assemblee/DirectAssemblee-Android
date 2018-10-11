@@ -20,6 +20,7 @@ import org.ladlb.directassemblee.helper.NavigationHelper
 import org.ladlb.directassemblee.notification.NotificationSubscribePresenter
 import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.NotificationSubscribeView
 import org.ladlb.directassemblee.settings.SettingsActivity
+import org.ladlb.directassemblee.synthesis.SynthesisActivity
 import org.ladlb.directassemblee.timeline.TimelineFragment.DeputyTimeLineFragmentListener
 
 /**
@@ -109,6 +110,10 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
 
     private fun startSettingsActivity() {
         startActivity(SettingsActivity.getIntent(this))
+    }
+
+    private fun startSynthesisActivity() {
+        startActivity(SynthesisActivity.getIntent(this))
     }
 
     private fun showNotificationDialogIfNeeded() {
@@ -209,6 +214,9 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
                         this,
                         getString(R.string.url_tipeee)
                 )
+            }
+            R.id.nav_synthesis -> {
+                startSynthesisActivity()
             }
         }
 

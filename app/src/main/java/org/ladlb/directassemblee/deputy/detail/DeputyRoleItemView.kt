@@ -6,7 +6,7 @@ import kotlinx.android.synthetic.main.item_deputy_role.view.*
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.role.RoleAdapter
-import org.ladlb.directassemblee.role.RoleDecorator
+import org.ladlb.directassemblee.role.RoleItemDecoration
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -46,7 +46,7 @@ class DeputyRoleItemView : androidx.cardview.widget.CardView {
                 this
         )
 
-        recyclerView.addItemDecoration(RoleDecorator(resources))
+        recyclerView.addItemDecoration(RoleItemDecoration(resources))
         recyclerView.isNestedScrollingEnabled = false
 
     }

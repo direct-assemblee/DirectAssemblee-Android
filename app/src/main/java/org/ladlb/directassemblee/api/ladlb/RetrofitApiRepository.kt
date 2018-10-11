@@ -7,6 +7,7 @@ import io.reactivex.Single
 import org.ladlb.directassemblee.api.RetrofitBaseRepository
 import org.ladlb.directassemblee.ballot.vote.BallotVote
 import org.ladlb.directassemblee.deputy.Deputy
+import org.ladlb.directassemblee.rate.Rate
 import org.ladlb.directassemblee.timeline.TimelineItem
 import org.ladlb.directassemblee.vote.Vote
 import retrofit2.Retrofit
@@ -53,6 +54,11 @@ class RetrofitApiRepository(baseUrl: String, cacheDir: File) : RetrofitBaseRepos
     @WorkerThread
     override fun getBallotVotes(ballotId: Int): Single<BallotVote> =
             services.getBallotVotes(ballotId)
+
+    @WorkerThread
+    override fun getActivityRates(): Single<Array<Rate>> =
+            services.getActivityRates()
+
 
     @WorkerThread
     override fun postSubscribe(id: String, token: String, deputyId: Int): Completable {

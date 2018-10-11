@@ -25,11 +25,13 @@
     <string name="percent">%d%%</string>
     <string name="copy">%s copié</string>
 
-    <string name="settings_key_faq">settings_key_faq</string>
-    <string name="settings_key_notifications">settings_key_notifications</string>
-    <string name="settings_key_deputy_change">settings_key_deputy_change</string>
-    <string name="settings_key_version">settings_key_version</string>
-    <string name="settings_key_policy">settings_key_policy</string>
+    <string name="preferences_settings_key_faq">settings_key_faq</string>
+    <string name="preferences_settings_key_notifications">settings_key_notifications</string>
+    <string name="preferences_settings_key_deputy_change">settings_key_deputy_change</string>
+    <string name="preferences_settings_key_version">settings_key_version</string>
+    <string name="preferences_settings_key_policy">settings_key_policy</string>
+
+    <string name="preferences_synthesis_rates_by_group">preferences_synthesis_rates_by_group</string>
 
     <plurals name="declaration">
         <item quantity="one">@string/declaration</item>
@@ -50,9 +52,6 @@
         <item quantity="one">@string/district_first</item>
         <item quantity="other">@string/district_others</item>
     </plurals>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <plurals name="role">
         <item quantity="one">@string/deputy_details_role</item>

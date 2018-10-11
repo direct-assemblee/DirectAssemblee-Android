@@ -66,6 +66,10 @@
             android:name=".address.SearchAddressActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".synthesis.SynthesisActivity"
+            android:screenOrientation="portrait" />
+
         <service android:name=".firebase.FireBaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

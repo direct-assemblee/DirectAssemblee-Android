@@ -4,6 +4,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import org.ladlb.directassemblee.ballot.vote.BallotVote
 import org.ladlb.directassemblee.deputy.Deputy
+import org.ladlb.directassemblee.rate.Rate
 import org.ladlb.directassemblee.timeline.TimelineItem
 
 /**
@@ -38,5 +39,7 @@ interface ApiRepository {
     fun postUnSubscribe(id: String, token: String, deputyId: Int): Completable
 
     fun getBallotVotes(ballotId: Int): Single<BallotVote>
+
+    fun getActivityRates(): Single<Array<Rate>>
 
 }

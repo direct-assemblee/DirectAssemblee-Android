@@ -1,4 +1,4 @@
-package org.ladlb.directassemblee.role
+package org.ladlb.directassemblee.mandate
 
 import android.content.res.Resources
 import android.graphics.Rect
@@ -24,17 +24,11 @@ import org.ladlb.directassemblee.widget.PlaceholderAdapter
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class RoleDecorator(resources: Resources) : ItemDecoration() {
-
-    private var smallVerticalMargin = resources.getDimensionPixelOffset(R.dimen.small_vertical_space)
+class MandateItemDecoration(resources: Resources) : ItemDecoration() {
 
     private var verticalMargin = resources.getDimensionPixelOffset(R.dimen.vertical_space)
 
     private var horizontalMargin = resources.getDimensionPixelOffset(R.dimen.horizontal_space)
-
-    private var largeHorizontalMargin = resources.getDimensionPixelOffset(R.dimen.large_horizontal_space)
-
-    private var hugeHorizontalMargin = resources.getDimensionPixelOffset(R.dimen.huge_horizontal_space)
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
 
@@ -43,19 +37,9 @@ class RoleDecorator(resources: Resources) : ItemDecoration() {
         val itemViewType = adapter!!.getItemViewType(position)
 
         when (itemViewType) {
-            RoleAdapter.typeRole -> {
+            MandateAdapter.typeItem -> {
                 outRect.left = horizontalMargin
                 outRect.top = verticalMargin
-                outRect.right = horizontalMargin
-            }
-            RoleAdapter.typeRolePosition -> {
-                outRect.left = largeHorizontalMargin
-                outRect.top = smallVerticalMargin
-                outRect.right = horizontalMargin
-            }
-            RoleAdapter.typeRoleInstance -> {
-                outRect.left = hugeHorizontalMargin
-                outRect.top = smallVerticalMargin
                 outRect.right = horizontalMargin
             }
             PlaceholderAdapter.typePlaceHolder -> {

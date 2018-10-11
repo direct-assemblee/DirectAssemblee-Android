@@ -4,6 +4,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import org.ladlb.directassemblee.ballot.vote.BallotVote
 import org.ladlb.directassemblee.deputy.Deputy
+import org.ladlb.directassemblee.rate.Rate
 import org.ladlb.directassemblee.timeline.TimelineItem
 import retrofit2.http.*
 
@@ -56,6 +57,10 @@ interface ApiServices {
     fun getBallotVotes(
             @Query("ballotId") ballotId: Int
     ): Single<BallotVote>
+
+    @Headers("Cache-Control: max-age=3600")
+    @GET("activityRates")
+    fun getActivityRates(): Single<Array<Rate>>
 
     @POST("subscribe")
     fun postSubscribe(

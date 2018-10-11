@@ -1,11 +1,10 @@
-package org.ladlb.directassemblee.mandate
+package org.ladlb.directassemblee.rate
 
 import android.content.res.Resources
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.widget.PlaceholderAdapter
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -24,7 +23,7 @@ import org.ladlb.directassemblee.widget.PlaceholderAdapter
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class MandateItemDecorator(resources: Resources) : ItemDecoration() {
+class RateItemDecoration(resources: Resources) : ItemDecoration() {
 
     private var verticalMargin = resources.getDimensionPixelOffset(R.dimen.vertical_space)
 
@@ -34,22 +33,12 @@ class MandateItemDecorator(resources: Resources) : ItemDecoration() {
 
         val position = parent.getChildAdapterPosition(view)
         val adapter = parent.adapter
-        val itemViewType = adapter!!.getItemViewType(position)
 
-        when (itemViewType) {
-            MandateAdapter.typeItem -> {
-                outRect.left = horizontalMargin
-                outRect.top = verticalMargin
-                outRect.right = horizontalMargin
-            }
-            PlaceholderAdapter.typePlaceHolder -> {
-                outRect.left = horizontalMargin
-                outRect.top = verticalMargin
-                outRect.right = horizontalMargin
-            }
-        }
+        outRect.left = horizontalMargin
+        outRect.top = verticalMargin
+        outRect.right = horizontalMargin
 
-        if (position == adapter.itemCount - 1) {
+        if (position == adapter!!.itemCount - 1) {
             outRect.bottom = verticalMargin
         }
 

@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.item_deputy_mandate.view.*
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.mandate.MandateAdapter
-import org.ladlb.directassemblee.mandate.MandateItemDecorator
+import org.ladlb.directassemblee.mandate.MandateItemDecoration
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -47,7 +47,7 @@ class DeputyMandateItemView : androidx.cardview.widget.CardView {
                 this
         )
 
-        recyclerView.addItemDecoration(MandateItemDecorator(resources))
+        recyclerView.addItemDecoration(MandateItemDecoration(resources))
         recyclerView.isNestedScrollingEnabled = false
     }
 

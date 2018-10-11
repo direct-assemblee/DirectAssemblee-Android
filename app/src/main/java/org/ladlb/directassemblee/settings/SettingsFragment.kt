@@ -7,7 +7,6 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
-import com.google.firebase.iid.FirebaseInstanceId
 import org.ladlb.directassemblee.AbstractPreferenceFragment
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.deputy.Deputy
@@ -107,7 +106,7 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        notificationSwitchPreference = findPreference(getString(R.string.settings_key_notifications)) as SwitchPreferenceCompat
+        notificationSwitchPreference = findPreference(getString(R.string.preferences_settings_key_notifications)) as SwitchPreferenceCompat
 
         val fireBaseInstanceId = FirebaseInstanceId.getInstance()
 
@@ -119,13 +118,13 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
             notificationSwitchPreference.onPreferenceChangeListener = this
         }
 
-        findPreference(getString(R.string.settings_key_deputy_change)).onPreferenceClickListener =
+        findPreference(getString(R.string.preferences_settings_key_deputy_change)).onPreferenceClickListener =
                 Preference.OnPreferenceClickListener { _ ->
                     showSearchDialog()
                     return@OnPreferenceClickListener true
                 }
 
-        findPreference(getString(R.string.settings_key_faq)).onPreferenceClickListener =
+        findPreference(getString(R.string.preferences_settings_key_faq)).onPreferenceClickListener =
                 Preference.OnPreferenceClickListener { _ ->
                     NavigationHelper.openURL(
                             context!!,
@@ -134,7 +133,7 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
                     return@OnPreferenceClickListener true
                 }
 
-        findPreference(getString(R.string.settings_key_policy)).onPreferenceClickListener =
+        findPreference(getString(R.string.preferences_settings_key_policy)).onPreferenceClickListener =
                 Preference.OnPreferenceClickListener { _ ->
                     NavigationHelper.openURL(
                             context!!,
@@ -146,7 +145,7 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.preferences)
+        addPreferencesFromResource(R.xml.preferences_settings)
     }
 
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {

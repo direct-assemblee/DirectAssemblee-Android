@@ -3,6 +3,9 @@ package org.ladlb.directassemblee.declaration
 import android.content.res.Resources
 import android.graphics.Rect
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import androidx.recyclerview.widget.RecyclerView.State
 import org.ladlb.directassemblee.R
 
 /**
@@ -22,13 +25,13 @@ import org.ladlb.directassemblee.R
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-internal class DeclarationItemDecorator(resources: Resources) : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
+internal class DeclarationItemDecoration(resources: Resources) : ItemDecoration() {
 
     private val verticalMargin = resources.getDimensionPixelOffset(R.dimen.small_vertical_space)
 
     private val horizontalMargin = resources.getDimensionPixelOffset(R.dimen.horizontal_space)
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: State) {
 
         val childAdapterPosition = parent.getChildAdapterPosition(view)
 

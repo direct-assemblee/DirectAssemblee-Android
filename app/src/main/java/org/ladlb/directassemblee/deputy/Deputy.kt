@@ -56,14 +56,15 @@ data class Deputy(val id: Int = -1, val firstname: String? = null,
             parcel.readDate(),
             parcel.readString(),
             parcel.readInt(),
-            parcel.createTypedArray(Declaration.CREATOR),
+            parcel.createTypedArray(Declaration.CREATOR)!!,
             parcel.readInt(),
             parcel.readInt(),
             parcel.readString(),
             parcel.readInt(),
             parcel.readInt(),
-            parcel.createTypedArray(Role.CREATOR),
-            parcel.createStringArray())
+            parcel.createTypedArray(Role.CREATOR)!!,
+            parcel.createStringArray()!!
+    )
 
     /**
      * Return a complete name for the deputy.

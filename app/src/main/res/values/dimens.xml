@@ -46,6 +46,8 @@
     <dimen name="horizontal_space_without_color_header">12dp</dimen>
     <dimen name="separator">1dp</dimen>
 
+    <dimen name="radius">2dp</dimen>
+
     <!-- Text Size -->
     <dimen name="title">24dp</dimen>
 

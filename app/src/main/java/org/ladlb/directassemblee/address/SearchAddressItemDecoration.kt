@@ -6,7 +6,9 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import androidx.recyclerview.widget.RecyclerView.State
 import org.ladlb.directassemblee.R
 
 /**
@@ -26,7 +28,7 @@ import org.ladlb.directassemblee.R
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-internal class SearchAddressItemDecorator(resources: Resources) : ItemDecoration() {
+internal class SearchAddressItemDecoration(resources: Resources) : ItemDecoration() {
 
     private var paint: Paint = Paint()
 
@@ -45,7 +47,7 @@ internal class SearchAddressItemDecorator(resources: Resources) : ItemDecoration
         paint.color = ResourcesCompat.getColor(resources, R.color.colorPrimary, null)
     }
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: State) {
 
         outRect.left = horizontalMargin
         outRect.right = horizontalMargin
@@ -66,13 +68,13 @@ internal class SearchAddressItemDecorator(resources: Resources) : ItemDecoration
 
     }
 
-    override fun onDraw(c: Canvas, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: State) {
 
         val childCount = parent.childCount
         if (childCount > 0) {
 
             val view = parent.getChildAt(childCount - 1)
-            val params = view.layoutParams as androidx.recyclerview.widget.RecyclerView.LayoutParams
+            val params = view.layoutParams as RecyclerView.LayoutParams
             val position = params.viewAdapterPosition
             val itemCount = parent.adapter!!.itemCount
 

@@ -82,7 +82,7 @@ class DeclarationBottomSheetDialogFragment : AbstractBottomSheetDialogFragment()
         super.onViewCreated(view, savedInstanceState)
 
         view.recyclerView.adapter = adapter
-        view.recyclerView.addItemDecoration(DeclarationItemDecorator(resources))
+        view.recyclerView.addItemDecoration(DeclarationItemDecoration(resources))
 
     }
 
