@@ -1,12 +1,10 @@
-package org.ladlb.directassemblee.address
+package org.ladlb.directassemblee.rate
 
 import io.reactivex.Single
 import org.junit.Test
 import org.ladlb.directassemblee.PresenterTest
-import org.ladlb.directassemblee.address.AddressGetPresenter.AddressGetView
-import org.ladlb.directassemblee.api.dataGouv.AddressRepository
+import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.deputy.Deputy
-import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.Mockito
 
@@ -27,33 +25,33 @@ import org.mockito.Mockito
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class AddressGetPresenterTest : PresenterTest() {
+class RateGetPresenterTest : PresenterTest() {
 
     @Mock
-    lateinit var addressRepository: AddressRepository
+    lateinit var apiRepository: ApiRepository
 
     @Mock
-    lateinit var view: AddressGetView
+    lateinit var view: RateGetPresenter.RateGetView
 
     @Test
-    fun getDeputies_Success() {
+    fun getActivityRates_Success() {
 
-        val result = AddressEnvelope()
+        val result = arrayOf<Rate>()
 
-        Mockito.doReturn(Single.just(result)).`when`(addressRepository).getAddress(anyString())
+        Mockito.doReturn(Single.just(result)).`when`(apiRepository).getActivityRates()
 
-        AddressGetPresenter(view, null).get(addressRepository, anyString())
-        Mockito.verify(view, Mockito.atLeastOnce()).onAddressesReceived(result.query, result.features)
+        RateGetPresenter(view, null).getActivityRates(apiRepository)
+        Mockito.verify(view, Mockito.atLeastOnce()).onActivityRatesReceived(result)
 
     }
 
     @Test
-    fun getDeputies_Fail() {
+    fun getActivityRates_Fail() {
 
-        Mockito.doReturn(Single.error<Array<Deputy>>(Throwable())).`when`(addressRepository).getAddress(anyString())
+        Mockito.doReturn(Single.error<Array<Deputy>>(Throwable())).`when`(apiRepository).getActivityRates()
 
-        AddressGetPresenter(view, null).get(addressRepository, anyString())
-        Mockito.verify(view, Mockito.atLeastOnce()).onGetAddressRequestFailed()
+        RateGetPresenter(view, null).getActivityRates(apiRepository)
+        Mockito.verify(view, Mockito.atLeastOnce()).onGetActivityRatesRequestFailed()
 
     }
 

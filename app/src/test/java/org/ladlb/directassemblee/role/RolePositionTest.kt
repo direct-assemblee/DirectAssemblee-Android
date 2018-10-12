@@ -29,7 +29,6 @@ class RolePositionTest : ParcelableTest<RolePosition>() {
                 name = "",
                 instances = arrayOf()
         )
-        classLoader = RolePosition::class.java.classLoader
     }
 
 }

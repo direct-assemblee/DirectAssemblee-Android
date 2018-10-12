@@ -44,6 +44,5 @@ class TimelineItemTest : ParcelableTest<TimelineItem>() {
                 extraInfos = HashMap(),
                 fileUrl = ""
         )
-        classLoader = TimelineItem::class.java.classLoader
     }
 }

@@ -41,7 +41,6 @@ class DeputyTest : ParcelableTest<Deputy>() {
                 parliamentGroup = "",
                 roles = arrayOf()
         )
-        classLoader = Deputy::class.java.classLoader
     }
 
 }

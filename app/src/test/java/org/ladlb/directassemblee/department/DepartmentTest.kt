@@ -29,7 +29,6 @@ class DepartmentTest : ParcelableTest<Department>() {
                 code = "",
                 name = ""
         )
-        classLoader = Department::class.java.classLoader
     }
 
 }

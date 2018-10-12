@@ -31,6 +31,5 @@ class DeclarationTest : ParcelableTest<Declaration>() {
                 Date(),
                 ""
         )
-        classLoader = Declaration::class.java.classLoader
     }
 }

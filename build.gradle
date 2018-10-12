@@ -66,14 +66,13 @@ buildscript {
 
     ext.junit = "4.12"
     ext.mockito = "2.18.3"
-    ext.robolectric = "3.8"
+    ext.robolectric = "4.0-beta-2-SNAPSHOT"
     ext.shadowsSupportv4 = "3.3.2"
 
     repositories {
         google()
         jcenter()
         maven { url 'https://maven.fabric.io/public' }
-        maven { url 'https://oss.sonatype.org/content/repositories/releases' }
     }
     dependencies {
         classpath 'io.fabric.tools:gradle:1.26.1'
@@ -89,8 +88,10 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'https://maven.google.com' }
         maven { url "https://jitpack.io" }
+        maven { url 'https://maven.google.com' }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url 'https://oss.sonatype.org/content/repositories/releases' }
     }
 }
 

@@ -30,6 +30,5 @@ class ThemeTest : ParcelableTest<Theme>() {
                 fullName = "",
                 shortName = ""
         )
-        classLoader = Theme::class.java.classLoader
     }
 }

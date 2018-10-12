@@ -26,6 +26,5 @@ class BallotVoteTest : ParcelableTest<BallotVote>() {
     @Throws(Exception::class)
     fun setUp() {
         parcelable = BallotVote()
-        classLoader = BallotVote::class.java.classLoader
     }
 }

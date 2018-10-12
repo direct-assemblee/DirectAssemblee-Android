@@ -26,6 +26,5 @@ class GeometryTest : ParcelableTest<AddressGeometry>() {
     @Throws(Exception::class)
     fun setUp() {
         parcelable = AddressGeometry(doubleArrayOf(4.88164, 45.534858))
-        classLoader = AddressGeometry::class.java.classLoader
     }
 }

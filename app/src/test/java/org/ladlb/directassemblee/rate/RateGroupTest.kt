@@ -1,10 +1,7 @@
-package org.ladlb.directassemblee.deputy
+package org.ladlb.directassemblee.rate
 
 import org.junit.Before
 import org.ladlb.directassemblee.ParcelableTest
-import org.ladlb.directassemblee.department.Department
-import org.ladlb.directassemblee.vote.Vote
-import java.util.*
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -23,28 +20,11 @@ import java.util.*
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyVoteTest : ParcelableTest<DeputyVote>() {
+class RateGroupTest : ParcelableTest<RateGroup>() {
 
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        parcelable = DeputyVote(
-                Deputy(
-                        firstname = "",
-                        lastname = "",
-                        department = Department(code = "", name = ""),
-                        commission = "",
-                        phone = "",
-                        email = "",
-                        job = "",
-                        currentMandateStartDate = Date(),
-                        photoUrl = "",
-                        declarations = arrayOf(),
-                        parliamentGroup = "",
-                        roles = arrayOf()
-                ),
-                Vote.AGAINST
-        )
+        parcelable = RateGroup()
     }
-
 }

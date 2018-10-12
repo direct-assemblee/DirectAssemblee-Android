@@ -29,6 +29,5 @@ class AddressTest : ParcelableTest<Address>() {
                 AddressGeometry(doubleArrayOf(4.88164, 45.534858)),
                 AddressProperties("", "", "")
         )
-        classLoader = AddressGeometry::class.java.classLoader
     }
 }

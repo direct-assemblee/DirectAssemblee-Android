@@ -30,7 +30,6 @@ import org.robolectric.annotation.Config
 open class ParcelableTest<P : Parcelable> {
 
     protected var parcelable: P? = null
-    protected var classLoader: ClassLoader? = null
 
     @Test
     @Throws(Exception::class)
@@ -38,8 +37,10 @@ open class ParcelableTest<P : Parcelable> {
         val parcel = Parcel.obtain()
         parcel.writeParcelable(parcelable, 0)
         parcel.setDataPosition(0)
-        val parcelable = parcel.readParcelable<Parcelable>(classLoader)
-        assertEquals(this.parcelable, parcelable)
+        val readParcelable = parcel.readParcelable<Parcelable>(
+                if (parcelable == null) null else parcelable!!::class.java.classLoader
+        )
+        assertEquals(parcelable, readParcelable)
     }
 
 }

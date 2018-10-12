@@ -26,6 +26,5 @@ class AddressPropertiesTest : ParcelableTest<AddressProperties>() {
     @Throws(Exception::class)
     fun setUp() {
         parcelable = AddressProperties("", "", "")
-        classLoader = AddressProperties::class.java.classLoader
     }
 }
