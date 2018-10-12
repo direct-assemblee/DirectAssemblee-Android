@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_time_line.*
 import kotlinx.android.synthetic.main.view_deputy_header.*
 import org.ladlb.directassemblee.AbstractToolbarFragment
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.deputy.DeputyGetPresenter.GetDeputyView
+import org.ladlb.directassemblee.deputy.DeputyGetPresenter.DeputyGetView
 import org.ladlb.directassemblee.deputy.detail.DeputyDetailsFragment
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
@@ -41,7 +41,7 @@ import org.ladlb.directassemblee.widget.DeputyToolbar
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTabSelectedListener, GetDeputyView {
+class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTabSelectedListener, DeputyGetView {
 
     override fun getClassName(): String = "DeputyFragment"
 

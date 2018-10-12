@@ -23,7 +23,7 @@ import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
 import org.ladlb.directassemblee.helper.ErrorHelper
 import org.ladlb.directassemblee.helper.GoogleHelper
 import org.ladlb.directassemblee.location.LocationGetPresenter
-import org.ladlb.directassemblee.location.LocationGetPresenter.GetLocationView
+import org.ladlb.directassemblee.location.LocationGetPresenter.LocationGetView
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -42,7 +42,7 @@ import org.ladlb.directassemblee.location.LocationGetPresenter.GetLocationView
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmentListener, GetLocationView {
+class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmentListener, LocationGetView {
 
     companion object Factory {
 

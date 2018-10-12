@@ -32,7 +32,7 @@ import org.ladlb.directassemblee.timeline.TimelineItem
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, DeputyListFragmentListener, BallotVoteGetPresenter.GetBallotVotesView {
+class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, DeputyListFragmentListener, BallotVoteGetPresenter.BallotVotesGetView {
 
     override fun getContentView(): Int = R.layout.activity_ballot_vote
 

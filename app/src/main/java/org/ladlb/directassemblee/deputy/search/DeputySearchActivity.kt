@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_deputy_search.*
 import org.ladlb.directassemblee.AbstractToolBarActivity
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter
-import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.GetDeputiesView
+import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.DeputiesGetView
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.DeputyActivity
 import org.ladlb.directassemblee.deputy.DeputyListFragment
@@ -33,7 +33,7 @@ import org.ladlb.directassemblee.helper.ViewHelper
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentListener, GetDeputiesView {
+open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentListener, DeputiesGetView {
 
     companion object Factory {
 

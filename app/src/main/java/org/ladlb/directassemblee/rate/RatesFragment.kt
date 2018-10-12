@@ -26,7 +26,7 @@ import org.ladlb.directassemblee.R
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class RatesFragment : AbstractFragment(), RateGetPresenter.RateByGroupView {
+class RatesFragment : AbstractFragment(), RateGetPresenter.RateGetView {
 
     override fun getClassName(): String = "RatesFragment"
 

@@ -10,12 +10,12 @@ import kotlinx.android.synthetic.main.fragment_deputy_find.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter
-import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.GetDeputiesView
+import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.DeputiesGetView
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.DeputyAdapter
 import org.ladlb.directassemblee.deputy.DeputyAdapter.OnDeputyClickListener
 import org.ladlb.directassemblee.deputy.DeputyGetPresenter
-import org.ladlb.directassemblee.deputy.DeputyGetPresenter.GetDeputyView
+import org.ladlb.directassemblee.deputy.DeputyGetPresenter.DeputyGetView
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.ItemKey
@@ -37,7 +37,7 @@ import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.ItemKey
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyFindFragment : AbstractFragment(), GetDeputiesView, OnDeputyClickListener, GetDeputyView {
+class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickListener, DeputyGetView {
 
     override fun getClassName(): String = "DeputyFindFragment"
 

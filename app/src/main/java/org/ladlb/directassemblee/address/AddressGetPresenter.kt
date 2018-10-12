@@ -5,7 +5,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import org.ladlb.directassemblee.AbstractPresenter
-import org.ladlb.directassemblee.address.GetAddressPresenter.GetAddressPresenterView
+import org.ladlb.directassemblee.address.AddressGetPresenter.AddressGetView
 import org.ladlb.directassemblee.api.dataGouv.AddressRepository
 
 /**
@@ -25,7 +25,7 @@ import org.ladlb.directassemblee.api.dataGouv.AddressRepository
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class GetAddressPresenter(view: GetAddressPresenterView, lifecycle: Lifecycle?) : AbstractPresenter<GetAddressPresenterView>(view, lifecycle) {
+class AddressGetPresenter(view: AddressGetView?, lifecycle: Lifecycle?) : AbstractPresenter<AddressGetView>(view, lifecycle) {
 
     fun get(addressRepository: AddressRepository, query: String) {
 
@@ -50,7 +50,7 @@ class GetAddressPresenter(view: GetAddressPresenterView, lifecycle: Lifecycle?) 
 
     }
 
-    interface GetAddressPresenterView : BaseView {
+    interface AddressGetView : BaseView {
 
         fun onAddressesReceived(query: String, addresses: Array<Address>)
 

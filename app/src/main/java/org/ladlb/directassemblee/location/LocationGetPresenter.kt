@@ -12,7 +12,7 @@ import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.helper.MetricHelper
-import org.ladlb.directassemblee.location.LocationGetPresenter.GetLocationView
+import org.ladlb.directassemblee.location.LocationGetPresenter.LocationGetView
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -31,7 +31,7 @@ import org.ladlb.directassemblee.location.LocationGetPresenter.GetLocationView
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class LocationGetPresenter(view: GetLocationView, context: Context, lifecycle: Lifecycle?) : AbstractPresenter<GetLocationView>(view, lifecycle) {
+class LocationGetPresenter(view: LocationGetView?, context: Context, lifecycle: Lifecycle?) : AbstractPresenter<LocationGetView>(view, lifecycle) {
 
     private var rxLocation: RxLocation = RxLocation(context)
 
@@ -68,7 +68,7 @@ class LocationGetPresenter(view: GetLocationView, context: Context, lifecycle: L
         }
     }
 
-    interface GetLocationView : BaseView {
+    interface LocationGetView : BaseView {
 
         fun onLocationUpdate(location: Location)
 

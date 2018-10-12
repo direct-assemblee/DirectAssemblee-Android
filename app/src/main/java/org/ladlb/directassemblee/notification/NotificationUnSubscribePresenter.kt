@@ -28,7 +28,7 @@ import org.ladlb.directassemblee.preferences.PreferencesStorage
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class NotificationUnSubscribePresenter(view: NotificationUnSubscribeView, lifecycle: Lifecycle?) : AbstractPresenter<NotificationUnSubscribeView>(view, lifecycle) {
+class NotificationUnSubscribePresenter(view: NotificationUnSubscribeView?, lifecycle: Lifecycle?) : AbstractPresenter<NotificationUnSubscribeView>(view, lifecycle) {
 
     fun postUnSubscribe(apiRepository: ApiRepository, preferences: PreferencesStorage, deputyId: Int) {
 

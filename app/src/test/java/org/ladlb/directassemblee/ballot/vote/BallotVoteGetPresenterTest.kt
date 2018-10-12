@@ -32,7 +32,7 @@ class BallotVoteGetPresenterTest : PresenterTest() {
     lateinit var apiRepository: ApiRepository
 
     @Mock
-    lateinit var view: BallotVoteGetPresenter.GetBallotVotesView
+    lateinit var view: BallotVoteGetPresenter.BallotVotesGetView
 
     @Test
     fun getTimeline_Success() {

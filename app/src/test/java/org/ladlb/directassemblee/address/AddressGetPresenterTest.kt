@@ -26,13 +26,13 @@ import org.mockito.Mockito
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class GetAddressPresenterTest : PresenterTest() {
+class AddressGetPresenterTest : PresenterTest() {
 
     @Mock
     lateinit var addressRepository: AddressRepository
 
     @Mock
-    lateinit var view: GetAddressPresenter.GetAddressPresenterView
+    lateinit var view: AddressGetPresenter.AddressGetView
 
     @Test
     fun getDeputies_Success() {
@@ -41,7 +41,7 @@ class GetAddressPresenterTest : PresenterTest() {
 
         Mockito.doReturn(Single.just(result)).`when`(addressRepository).getAddress(anyString())
 
-        GetAddressPresenter(view, null).get(addressRepository, anyString())
+        AddressGetPresenter(view, null).get(addressRepository, anyString())
         Mockito.verify(view, Mockito.atLeastOnce()).onAddressesReceived(result.query, result.features)
 
     }
@@ -51,7 +51,7 @@ class GetAddressPresenterTest : PresenterTest() {
 
         Mockito.doReturn(Single.error<Array<Deputy>>(Throwable())).`when`(addressRepository).getAddress(anyString())
 
-        GetAddressPresenter(view, null).get(addressRepository, anyString())
+        AddressGetPresenter(view, null).get(addressRepository, anyString())
         Mockito.verify(view, Mockito.atLeastOnce()).onGetAddressRequestFailed()
 
     }

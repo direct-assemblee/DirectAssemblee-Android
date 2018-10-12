@@ -4,7 +4,7 @@ import io.reactivex.Single
 import org.junit.Test
 import org.ladlb.directassemblee.PresenterTest
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
-import org.ladlb.directassemblee.timeline.TimelineGetPresenter.GetTimelineView
+import org.ladlb.directassemblee.timeline.TimelineGetPresenter.TimelineGetView
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.Mock
 import org.mockito.Mockito.*
@@ -32,7 +32,7 @@ class TimelineGetPresenterTest : PresenterTest() {
     lateinit var apiRepository: ApiRepository
 
     @Mock
-    lateinit var view: GetTimelineView
+    lateinit var view: TimelineGetView
 
     @Test
     fun getTimeline_Success() {

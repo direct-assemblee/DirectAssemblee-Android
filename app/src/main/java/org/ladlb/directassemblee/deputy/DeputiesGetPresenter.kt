@@ -7,7 +7,7 @@ import io.reactivex.schedulers.Schedulers
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiException
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
-import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.GetDeputiesView
+import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.DeputiesGetView
 import org.ladlb.directassemblee.helper.ComparisonsHelper
 import java.text.Collator
 import java.util.*
@@ -29,7 +29,7 @@ import java.util.*
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputiesGetPresenter(view: GetDeputiesView, lifecycle: Lifecycle?) : AbstractPresenter<GetDeputiesView>(view, lifecycle) {
+class DeputiesGetPresenter(view: DeputiesGetView?, lifecycle: Lifecycle?) : AbstractPresenter<DeputiesGetView>(view, lifecycle) {
 
     fun getDeputies(apiRepository: ApiRepository, latitude: Double, longitude: Double) {
 
@@ -81,7 +81,7 @@ class DeputiesGetPresenter(view: GetDeputiesView, lifecycle: Lifecycle?) : Abstr
 
     }
 
-    interface GetDeputiesView : BaseView {
+    interface DeputiesGetView : BaseView {
 
         fun onDeputiesReceived(deputies: Array<Deputy>)
 

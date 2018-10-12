@@ -31,7 +31,7 @@ class DeputyGetPresenterTest : PresenterTest() {
     lateinit var apiRepository: ApiRepository
 
     @Mock
-    lateinit var view: DeputyGetPresenter.GetDeputyView
+    lateinit var view: DeputyGetPresenter.DeputyGetView
 
     @Test
     fun getDeputies_Success() {

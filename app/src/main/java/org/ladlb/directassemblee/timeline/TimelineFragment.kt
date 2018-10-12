@@ -18,7 +18,7 @@ import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.ItemKey
 import org.ladlb.directassemblee.timeline.TimelineAdapter.TimeLineAdapterListener
-import org.ladlb.directassemblee.timeline.TimelineGetPresenter.GetTimelineView
+import org.ladlb.directassemblee.timeline.TimelineGetPresenter.TimelineGetView
 import org.ladlb.directassemblee.widget.PaginationAdapter.LoadingMoreListener
 
 /**
@@ -38,7 +38,7 @@ import org.ladlb.directassemblee.widget.PaginationAdapter.LoadingMoreListener
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class TimelineFragment : AbstractFragment(), GetTimelineView, LoadingMoreListener, OnRefreshListener, TimeLineAdapterListener {
+class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListener, OnRefreshListener, TimeLineAdapterListener {
 
     override fun getClassName(): String = "TimelineFragment"
 

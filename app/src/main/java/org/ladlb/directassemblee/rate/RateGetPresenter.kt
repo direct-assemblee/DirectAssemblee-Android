@@ -6,7 +6,7 @@ import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
-import org.ladlb.directassemblee.rate.RateGetPresenter.RateByGroupView
+import org.ladlb.directassemblee.rate.RateGetPresenter.RateGetView
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -25,7 +25,7 @@ import org.ladlb.directassemblee.rate.RateGetPresenter.RateByGroupView
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class RateGetPresenter(view: RateByGroupView, lifecycle: Lifecycle?) : AbstractPresenter<RateByGroupView>(view, lifecycle) {
+class RateGetPresenter(view: RateGetView, lifecycle: Lifecycle?) : AbstractPresenter<RateGetView>(view, lifecycle) {
 
     fun getActivityRates(apiRepository: ApiRepository) {
 
@@ -48,7 +48,7 @@ class RateGetPresenter(view: RateByGroupView, lifecycle: Lifecycle?) : AbstractP
 
     }
 
-    interface RateByGroupView : BaseView {
+    interface RateGetView : BaseView {
 
         fun onActivityRatesReceived(rates: Array<Rate>)
 

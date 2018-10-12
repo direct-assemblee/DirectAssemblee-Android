@@ -28,7 +28,7 @@ import org.ladlb.directassemblee.R
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class SearchAddressFragment : AbstractFragment(), GetAddressPresenter.GetAddressPresenterView, SearchAddressAdapter.OnAddressClickListener {
+class SearchAddressFragment : AbstractFragment(), AddressGetPresenter.AddressGetView, SearchAddressAdapter.OnAddressClickListener {
 
     override fun getClassName(): String = "SearchAddressFragment"
 
@@ -64,12 +64,12 @@ class SearchAddressFragment : AbstractFragment(), GetAddressPresenter.GetAddress
 
     private lateinit var adapter: SearchAddressAdapter
 
-    private lateinit var getAddressPresenter: GetAddressPresenter
+    private lateinit var getAddressPresenter: AddressGetPresenter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getAddressPresenter = GetAddressPresenter(
+        getAddressPresenter = AddressGetPresenter(
                 this,
                 lifecycle
         )

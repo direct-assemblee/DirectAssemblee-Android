@@ -7,7 +7,7 @@ import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
-import org.ladlb.directassemblee.timeline.TimelineGetPresenter.GetTimelineView
+import org.ladlb.directassemblee.timeline.TimelineGetPresenter.TimelineGetView
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -26,7 +26,7 @@ import org.ladlb.directassemblee.timeline.TimelineGetPresenter.GetTimelineView
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class TimelineGetPresenter(view: GetTimelineView, lifecycle: Lifecycle?) : AbstractPresenter<GetTimelineView>(view, lifecycle) {
+class TimelineGetPresenter(view: TimelineGetView, lifecycle: Lifecycle?) : AbstractPresenter<TimelineGetView>(view, lifecycle) {
 
     fun getTimeline(apiRepository: ApiRepository, deputyId: Int, page: Int) {
 
@@ -49,7 +49,7 @@ class TimelineGetPresenter(view: GetTimelineView, lifecycle: Lifecycle?) : Abstr
 
     }
 
-    interface GetTimelineView : BaseView {
+    interface TimelineGetView : BaseView {
 
         fun onTimelineReceived(timelineItem: Array<TimelineItem>)
 

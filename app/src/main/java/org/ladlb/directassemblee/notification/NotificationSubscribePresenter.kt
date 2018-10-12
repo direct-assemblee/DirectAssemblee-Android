@@ -29,7 +29,7 @@ import org.ladlb.directassemblee.preferences.PreferencesStorage
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class NotificationSubscribePresenter(view: NotificationSubscribeView, lifecycle: Lifecycle?) : AbstractPresenter<NotificationSubscribeView>(view, lifecycle) {
+class NotificationSubscribePresenter(view: NotificationSubscribeView?, lifecycle: Lifecycle?) : AbstractPresenter<NotificationSubscribeView>(view, lifecycle) {
 
     fun postSubscribe(apiRepository: ApiRepository, preferences: PreferencesStorage, deputyId: Int) {
 

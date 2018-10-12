@@ -26,7 +26,7 @@ import org.ladlb.directassemblee.helper.MetricHelper
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-abstract class AbstractPresenter<K : BaseView>(view: K, lifecycle: Lifecycle?) : LifecycleObserver {
+abstract class AbstractPresenter<K : BaseView>(view: K?, lifecycle: Lifecycle?) : LifecycleObserver {
 
     interface BaseView
 

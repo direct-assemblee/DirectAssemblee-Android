@@ -6,7 +6,7 @@ import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
-import org.ladlb.directassemblee.deputy.DeputyGetPresenter.GetDeputyView
+import org.ladlb.directassemblee.deputy.DeputyGetPresenter.DeputyGetView
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -25,7 +25,7 @@ import org.ladlb.directassemblee.deputy.DeputyGetPresenter.GetDeputyView
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyGetPresenter(view: GetDeputyView, lifecycle: Lifecycle?) : AbstractPresenter<GetDeputyView>(view, lifecycle) {
+class DeputyGetPresenter(view: DeputyGetView?, lifecycle: Lifecycle?) : AbstractPresenter<DeputyGetView>(view, lifecycle) {
 
     fun getDeputy(apiRepository: ApiRepository, departmentId: Int, district: Int) {
 
@@ -48,7 +48,7 @@ class DeputyGetPresenter(view: GetDeputyView, lifecycle: Lifecycle?) : AbstractP
 
     }
 
-    interface GetDeputyView : BaseView {
+    interface DeputyGetView : BaseView {
 
         fun onDeputyReceived(deputy: Deputy)
 

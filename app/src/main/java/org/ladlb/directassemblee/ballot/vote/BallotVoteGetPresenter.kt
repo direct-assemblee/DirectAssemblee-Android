@@ -7,7 +7,7 @@ import io.reactivex.schedulers.Schedulers
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiException
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
-import org.ladlb.directassemblee.ballot.vote.BallotVoteGetPresenter.GetBallotVotesView
+import org.ladlb.directassemblee.ballot.vote.BallotVoteGetPresenter.BallotVotesGetView
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -26,7 +26,7 @@ import org.ladlb.directassemblee.ballot.vote.BallotVoteGetPresenter.GetBallotVot
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class BallotVoteGetPresenter(view: GetBallotVotesView, lifecycle: Lifecycle?) : AbstractPresenter<GetBallotVotesView>(view, lifecycle) {
+class BallotVoteGetPresenter(view: BallotVotesGetView?, lifecycle: Lifecycle?) : AbstractPresenter<BallotVotesGetView>(view, lifecycle) {
 
     fun getVotes(apiRepository: ApiRepository, ballotId: Int) {
 
@@ -53,7 +53,7 @@ class BallotVoteGetPresenter(view: GetBallotVotesView, lifecycle: Lifecycle?) : 
 
     }
 
-    interface GetBallotVotesView : BaseView {
+    interface BallotVotesGetView : BaseView {
 
         fun onBallotVotesReceived(votes: BallotVote)
 
