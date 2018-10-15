@@ -45,6 +45,9 @@
 -keep class org.ladlb.directassemblee.deputy.Deputy { *; }
 -keep class org.ladlb.directassemblee.deputy.DeputyVote { *; }
 
+-keep class org.ladlb.directassemblee.rate.Rate { *; }
+-keep class org.ladlb.directassemblee.rate.RateGroup { *; }
+
 -keep class org.ladlb.directassemblee.role.Role { *; }
 -keep class org.ladlb.directassemblee.role.RolePosition { *; }
 
