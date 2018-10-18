@@ -32,21 +32,18 @@ import org.ladlb.directassemblee.R
 
 class SubView : LinearLayout {
 
-    constructor(context: Context) : super(context) {
-        init()
-    }
+    constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init()
         initAttrs(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init()
         initAttrs(attrs)
     }
 
-    private fun init() {
+    init {
+
         inflate(
                 context,
                 R.layout.item_sub,

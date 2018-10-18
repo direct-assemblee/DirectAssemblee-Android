@@ -27,21 +27,18 @@ import org.ladlb.directassemblee.R
 
 class LoadingView : LinearLayout {
 
-    constructor(context: Context) : super(context) {
-        init()
-    }
+    constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init()
         initAttrs(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init()
         initAttrs(attrs)
     }
 
-    private fun init() {
+    init {
+
         inflate(
                 context,
                 R.layout.view_loading,
@@ -61,7 +58,7 @@ class LoadingView : LinearLayout {
             try {
                 val label = typedArray.getString(R.styleable.LoadingView_loadingViewLabel)
                 if (!TextUtils.isEmpty(label)) {
-                    setLabel(label)
+                    setLabel(label!!)
                 }
             } finally {
                 typedArray.recycle()

@@ -33,19 +33,13 @@ class DeputyDeclarationItemView : androidx.cardview.widget.CardView {
 
     var listener: DeputyDeclarationItemViewListener? = null
 
-    constructor(context: Context) : super(context) {
-        init()
-    }
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init()
-    }
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init()
-    }
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    private fun init() {
+    init {
         inflate(
                 context,
                 R.layout.item_deputy_declaration,
