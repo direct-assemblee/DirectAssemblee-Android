@@ -170,11 +170,12 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
         ballot = item
 
         val ballotInfo = ballot.extraBallotInfo
-        if (ballotInfo == null) {
-            barChart.visibility = View.GONE
-        } else {
-            computeChart(ballotInfo)
-            ballotVoteResult.setBallotInfo(ballotInfo)
+        when (ballotInfo) {
+            null -> barChart.visibility = View.GONE
+            else -> {
+                computeChart(ballotInfo)
+                ballotVoteResult.setBallotInfo(ballotInfo)
+            }
         }
 
         textViewDate.text = FormatHelper.format(
@@ -185,13 +186,16 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
 
         val theme = ballot.theme
         val themeDrawableId: Int
-        if (theme != null) {
-            textViewTheme.text = theme.getLabel()
-            textViewTheme.visibility = if (TextUtils.isEmpty(textViewTheme.text)) View.GONE else View.VISIBLE
-            themeDrawableId = theme.getDrawableId()
-        } else {
-            textViewTheme.visibility = View.INVISIBLE
-            themeDrawableId = R.drawable.ic_uncategorized_24dp
+        when (theme) {
+            null -> {
+                textViewTheme.visibility = View.INVISIBLE
+                themeDrawableId = R.drawable.ic_uncategorized_24dp
+            }
+            else -> {
+                textViewTheme.text = theme.getLabel()
+                textViewTheme.visibility = if (TextUtils.isEmpty(textViewTheme.text)) View.GONE else View.VISIBLE
+                themeDrawableId = theme.getDrawableId()
+            }
         }
 
         imageViewTheme.setImageDrawable(

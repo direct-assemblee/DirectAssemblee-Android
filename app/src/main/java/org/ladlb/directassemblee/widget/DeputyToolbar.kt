@@ -1,10 +1,8 @@
 package org.ladlb.directassemblee.widget
 
 import android.content.Context
-import android.text.TextUtils
 import android.util.AttributeSet
 import androidx.appcompat.widget.Toolbar
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_deputy_toolbar.view.*
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.deputy.Deputy
@@ -50,30 +48,16 @@ class DeputyToolbar : Toolbar {
         )
 
         ViewHelper.hideView(imageViewDeputy, 0)
-        textviewTitle.animate().alpha(0F).duration = 0
-        textviewSubTitle.animate().alpha(0F).duration = 0
+        textViewTitle.animate().alpha(0F).duration = 0
+        textViewSubTitle.animate().alpha(0F).duration = 0
 
     }
 
     fun setDeputy(deputy: Deputy) {
 
-        val deputyPhotoUrl = deputy.photoUrl
-        val deputyPlaceHolderId = R.drawable.img_unknow_deputy
-
-        if (TextUtils.isEmpty(deputyPhotoUrl)) {
-            imageViewDeputy.setImageResource(
-                    deputyPlaceHolderId
-            )
-        } else {
-            Picasso.with(context)
-                    .load(deputy.photoUrl)
-                    .placeholder(deputyPlaceHolderId)
-                    .error(deputyPlaceHolderId)
-                    .into(imageViewDeputy)
-        }
-
-        textviewTitle.text = String.format("%s %s", deputy.firstname, deputy.lastname)
-        textviewSubTitle.text = deputy.parliamentGroup
+        imageViewDeputy.setDeputyUrl(deputy.photoUrl)
+        textViewTitle.text = String.format("%s %s", deputy.firstname, deputy.lastname)
+        textViewSubTitle.text = deputy.parliamentGroup
 
     }
 

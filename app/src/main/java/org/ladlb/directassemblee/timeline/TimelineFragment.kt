@@ -138,17 +138,18 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
 
     override fun onTimelineReceived(timelineItem: Array<TimelineItem>) {
 
-        if (timelineItem.isEmpty()) {
-            showPlaceholderIfNeeded()
-        } else {
-            page++
-            if (swipeRefreshLayout.isRefreshing) {
-                adapter.clear()
+        when {
+            timelineItem.isEmpty() -> showPlaceholderIfNeeded()
+            else -> {
+                page++
+                if (swipeRefreshLayout.isRefreshing) {
+                    adapter.clear()
+                }
+                adapter.addItems(timelineItem)
+                // At the beginning, the loader is hidden
+                adapter.showLoading(true)
+                swipeRefreshLayout.isRefreshing = false
             }
-            adapter.addItems(timelineItem)
-            // At the beginning, the loader is hidden
-            adapter.showLoading(true)
-            swipeRefreshLayout.isRefreshing = false
         }
 
     }

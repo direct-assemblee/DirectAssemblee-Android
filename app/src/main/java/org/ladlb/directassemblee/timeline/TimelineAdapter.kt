@@ -76,13 +76,16 @@ class TimelineAdapter(items: ArrayList<TimelineItem>) : PaginationAdapter<Timeli
 
         val theme = item.theme
         val themDrawableId: Int
-        if (theme != null) {
-            view.textViewTheme.text = theme.getLabel()
-            view.textViewTheme.visibility = if (TextUtils.isEmpty(view.textViewTitle.text)) View.GONE else View.VISIBLE
-            themDrawableId = theme.getDrawableId()
-        } else {
-            view.textViewTheme.visibility = View.INVISIBLE
-            themDrawableId = R.drawable.ic_uncategorized_24dp
+        when (theme) {
+            null -> {
+                view.textViewTheme.visibility = View.INVISIBLE
+                themDrawableId = R.drawable.ic_uncategorized_24dp
+            }
+            else -> {
+                view.textViewTheme.text = theme.getLabel()
+                view.textViewTheme.visibility = if (TextUtils.isEmpty(view.textViewTheme.text)) View.GONE else View.VISIBLE
+                themDrawableId = theme.getDrawableId()
+            }
         }
 
         view.imageViewTheme.setImageDrawable(
@@ -94,22 +97,24 @@ class TimelineAdapter(items: ArrayList<TimelineItem>) : PaginationAdapter<Timeli
         )
 
         val description = item.description
-        if (TextUtils.isEmpty(description)) {
-            view.textViewSubTitle.visibility = View.GONE
-        } else {
-            view.textViewSubTitle.visibility = View.VISIBLE
-            view.textViewSubTitle.text = description
+        when {
+            TextUtils.isEmpty(description) -> view.textViewSubTitle.visibility = View.GONE
+            else -> {
+                view.textViewSubTitle.visibility = View.VISIBLE
+                view.textViewSubTitle.text = description
+            }
         }
 
         val info = item.extraBallotInfo
-        if (info == null) {
-            view.linearLayoutVote.visibility = View.GONE
-        } else {
-            val deputyVote = info.deputyVote
+        when (info) {
+            null -> view.linearLayoutVote.visibility = View.GONE
+            else -> {
+                val deputyVote = info.deputyVote
 
-            view.linearLayoutVote.visibility = View.VISIBLE
-            view.ballotVoteView.setBallotInfo(info)
-            view.deputyVoteView.setDeputyInfo(deputyVote?.voteValue)
+                view.linearLayoutVote.visibility = View.VISIBLE
+                view.ballotVoteView.setBallotInfo(info)
+                view.deputyVoteView.setDeputyInfo(deputyVote?.voteValue)
+            }
         }
     }
 

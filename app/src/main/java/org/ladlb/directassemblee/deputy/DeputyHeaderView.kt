@@ -5,7 +5,6 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_deputy_header.view.*
 import org.ladlb.directassemblee.R
 
@@ -50,19 +49,7 @@ class DeputyHeaderView : RelativeLayout {
 
     fun setDeputy(deputy: Deputy) {
 
-        val deputyPhotoUrl = deputy.photoUrl
-        val deputyPlaceHolderId = R.drawable.img_unknow_deputy
-
-        if (TextUtils.isEmpty(deputyPhotoUrl)) {
-            imageView.setImageResource(
-                    deputyPlaceHolderId
-            )
-        } else {
-            Picasso.with(context)
-                    .load(deputyPhotoUrl)
-                    .placeholder(deputyPlaceHolderId)
-                    .into(imageView)
-        }
+        imageView.setDeputyUrl(deputy.photoUrl)
 
         textViewNames.text = String.format("%s %s", deputy.firstname, deputy.lastname)
 
@@ -70,23 +57,22 @@ class DeputyHeaderView : RelativeLayout {
 
         var districtName = ""
         var departmentName = ""
-        if (deputy.district > 0) {
-            districtName = DeputyHelper.getFormattedDistrict(resources, deputy)
+        when {
+            deputy.district > 0 -> districtName = DeputyHelper.getFormattedDistrict(resources, deputy)
         }
 
         val department = deputy.department
-        if (department != null && !TextUtils.isEmpty(department.name)) {
-            departmentName = department.name!!
+        when {
+            department != null && !TextUtils.isEmpty(department.name) -> departmentName = department.name!!
         }
 
-        if (!TextUtils.isEmpty(districtName) || !TextUtils.isEmpty(departmentName)) {
-            textViewDeputyPlace.text = String.format(
+        when {
+            !TextUtils.isEmpty(districtName) || !TextUtils.isEmpty(departmentName) -> textViewDeputyPlace.text = String.format(
                     "%s - %s",
                     districtName,
                     departmentName
             )
-        } else {
-            textViewDeputyPlace.text = if (TextUtils.isEmpty(districtName)) departmentName else districtName
+            else -> textViewDeputyPlace.text = if (TextUtils.isEmpty(districtName)) departmentName else districtName
         }
 
         textViewActivityValue.text = resources.getString(

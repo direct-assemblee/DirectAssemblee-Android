@@ -34,14 +34,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <org.ladlb.directassemblee.deputy.DeputyImageView
             android:id="@+id/imageView"
             android:layout_width="@dimen/deputy_card_picture_size"
             android:layout_height="@dimen/deputy_card_picture_size"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
-            app:civ_border_color="@color/white"
-            app:civ_border_width="2dp" />
+            app:civ_border_color="@color/white" />
 
         <RelativeLayout
             android:id="@+id/linearLayoutRight"

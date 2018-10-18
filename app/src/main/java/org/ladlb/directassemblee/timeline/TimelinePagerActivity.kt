@@ -75,7 +75,7 @@ class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
             viewPager.currentItem = position
             viewPager.addOnPageChangeListener(this)
 
-            Picasso.with(this)
+            Picasso.get()
                     .load(deputy.photoUrl)
                     .into(imageViewDeputy)
 

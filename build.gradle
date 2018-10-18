@@ -51,7 +51,7 @@ buildscript {
     ext.lifecycle_extensions = '1.1.1'
     ext.lifecycle_compiler = '1.0.0'
 
-    ext.picasso = "2.5.2"
+    ext.picasso = "2.71828"
     ext.retrofit = '2.4.0'
     ext.circleImageView = '2.2.0'
 

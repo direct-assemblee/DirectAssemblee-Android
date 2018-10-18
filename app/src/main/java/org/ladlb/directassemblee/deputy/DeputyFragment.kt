@@ -169,8 +169,8 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
     private fun updateAvatarVisibility(percentage: Float) {
 
         val imageViewDeputy = toolbar?.findViewById<View>(R.id.imageViewDeputy)
-        val textViewTitle = toolbar?.findViewById<TextView>(R.id.textviewTitle)
-        val textViewSubTitle = toolbar?.findViewById<TextView>(R.id.textviewSubTitle)
+        val textViewTitle = toolbar?.findViewById<TextView>(R.id.textViewTitle)
+        val textViewSubTitle = toolbar?.findViewById<TextView>(R.id.textViewSubTitle)
 
         if (percentage >= PERCENTAGE_TO_ANIMATE_AVATAR && isAvatarShown) {
             isAvatarShown = false

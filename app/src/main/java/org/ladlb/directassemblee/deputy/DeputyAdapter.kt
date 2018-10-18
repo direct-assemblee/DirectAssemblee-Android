@@ -1,13 +1,11 @@
 package org.ladlb.directassemblee.deputy
 
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_deputy.view.*
 import kotlinx.android.synthetic.main.item_placeholder.view.*
 import org.ladlb.directassemblee.R
@@ -42,13 +40,11 @@ class DeputyAdapter(items: ArrayList<Deputy>) : PlaceholderAdapter<Deputy>(items
 
     private val filter: DeputyFilter
 
-    private var deputyPlaceHolderId: Int
-
     init {
         setHasStableIds(true)
 
         filter = DeputyFilter(ArrayList(items), this)
-        deputyPlaceHolderId = R.drawable.img_unknow_deputy
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -109,20 +105,7 @@ class DeputyAdapter(items: ArrayList<Deputy>) : PlaceholderAdapter<Deputy>(items
         )
         view.textViewDeputyGroup.text = deputy.parliamentGroup
         view.textViewDeputyPlace.text = DeputyHelper.getFormattedLocality(context.resources, deputy)
-
-        val deputyPhotoUrl = deputy.photoUrl
-
-        if (TextUtils.isEmpty(deputyPhotoUrl)) {
-            view.imageViewDeputy.setImageResource(
-                    deputyPlaceHolderId
-            )
-        } else {
-            Picasso.with(context)
-                    .load(deputyPhotoUrl)
-                    .placeholder(deputyPlaceHolderId)
-                    .error(deputyPlaceHolderId)
-                    .into(view.imageViewDeputy)
-        }
+        view.imageViewDeputy.setDeputyUrl(deputy.photoUrl)
 
     }
 

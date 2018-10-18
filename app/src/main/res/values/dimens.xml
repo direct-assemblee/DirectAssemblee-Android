@@ -47,6 +47,7 @@
     <dimen name="separator">1dp</dimen>
 
     <dimen name="radius">2dp</dimen>
+    <dimen name="border">2dp</dimen>
 
     <!-- Text Size -->
     <dimen name="title">24dp</dimen>
