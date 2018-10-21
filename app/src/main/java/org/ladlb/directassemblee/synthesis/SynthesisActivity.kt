@@ -6,7 +6,6 @@ import android.os.Bundle
 import org.ladlb.directassemblee.AbstractToolBarActivity
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.rate.RatesFragment
-import org.ladlb.directassemblee.synthesis.SynthesisFragment.SynthesisFragmentListener
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -25,7 +24,7 @@ import org.ladlb.directassemblee.synthesis.SynthesisFragment.SynthesisFragmentLi
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class SynthesisActivity : AbstractToolBarActivity(), SynthesisFragmentListener {
+class SynthesisActivity : AbstractToolBarActivity() {
 
     companion object Factory {
 
@@ -44,21 +43,13 @@ class SynthesisActivity : AbstractToolBarActivity(), SynthesisFragmentListener {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(
                     R.id.frameLayout,
-                    SynthesisFragment.newInstance(),
-                    SynthesisFragment.TAG
+                    RatesFragment.newInstance(),
+                    RatesFragment.TAG
             ).commit()
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.synthesis)
-    }
-
-    override fun onRatesByGroupClicked() {
-        supportFragmentManager.beginTransaction().replace(
-                R.id.frameLayout,
-                RatesFragment.newInstance(),
-                RatesFragment.TAG
-        ).addToBackStack(null).commit()
     }
 
 }

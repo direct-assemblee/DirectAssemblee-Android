@@ -31,9 +31,11 @@ class ErrorHelper {
             ).setMessage(
                     errorId
             ).setPositiveButton(
-                    R.string.ok,
-                    { _, _ -> }
-            ).create(
+                    R.string.ok
+            ) {
+                _, _ ->
+
+            }.create(
 
             ).show()
         }
