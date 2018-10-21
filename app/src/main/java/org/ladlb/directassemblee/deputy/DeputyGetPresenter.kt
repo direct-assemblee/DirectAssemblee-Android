@@ -35,9 +35,9 @@ class DeputyGetPresenter(view: DeputyGetView?, lifecycle: Lifecycle?) : Abstract
                 Schedulers.io()
         ).observeOn(
                 AndroidSchedulers.mainThread()
-        ).doOnSubscribe(
-                { disposable -> call(disposable) }
-        ).subscribe(
+        ).doOnSubscribe {
+            disposable -> call(disposable)
+        }.subscribe(
                 Consumer { deputy -> view?.onDeputyReceived(deputy) },
                 object : AbstractPresenter.AbstractErrorConsumer() {
                     override fun onError(t: Throwable) {

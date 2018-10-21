@@ -46,9 +46,9 @@ class NotificationSubscribePresenter(view: NotificationSubscribeView?, lifecycle
                     Schedulers.io()
             ).observeOn(
                     AndroidSchedulers.mainThread()
-            ).doOnSubscribe(
-                    { disposable -> call(disposable) }
-            ).subscribe(
+            ).doOnSubscribe {
+                disposable -> call(disposable)
+            }.subscribe(
                     Action {
                         preferences.setNotificationEnabled(true)
                         view?.onNotificationSubscribeCompleted()

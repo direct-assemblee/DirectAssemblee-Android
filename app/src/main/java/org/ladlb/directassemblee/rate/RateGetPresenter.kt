@@ -35,9 +35,9 @@ class RateGetPresenter(view: RateGetView, lifecycle: Lifecycle?) : AbstractPrese
                 Schedulers.io()
         ).observeOn(
                 AndroidSchedulers.mainThread()
-        ).doOnSubscribe(
-                { disposable -> call(disposable) }
-        ).subscribe(
+        ).doOnSubscribe {
+            disposable -> call(disposable)
+        }.subscribe(
                 Consumer { rates -> view?.onActivityRatesReceived(rates) },
                 object : AbstractPresenter.AbstractErrorConsumer() {
                     override fun onError(t: Throwable) {

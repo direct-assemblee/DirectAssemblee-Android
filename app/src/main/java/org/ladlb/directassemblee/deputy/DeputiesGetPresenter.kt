@@ -39,9 +39,9 @@ class DeputiesGetPresenter(view: DeputiesGetView?, lifecycle: Lifecycle?) : Abst
                 Schedulers.io()
         ).observeOn(
                 AndroidSchedulers.mainThread()
-        ).doOnSubscribe(
-                { disposable -> call(disposable) }
-        ).subscribe(
+        ).doOnSubscribe {
+            disposable -> call(disposable)
+        }.subscribe(
                 Consumer { deputies -> view?.onDeputiesReceived(deputies) },
                 object : AbstractPresenter.AbstractErrorConsumer() {
                     override fun onError(t: Throwable) {
@@ -68,9 +68,9 @@ class DeputiesGetPresenter(view: DeputiesGetView?, lifecycle: Lifecycle?) : Abst
                 Schedulers.io()
         ).observeOn(
                 AndroidSchedulers.mainThread()
-        ).doOnSubscribe(
-                { disposable -> call(disposable) }
-        ).subscribe(
+        ).doOnSubscribe {
+            disposable -> call(disposable)
+        }.subscribe(
                 Consumer { deputies -> view?.onDeputiesReceived(deputies) },
                 object : AbstractPresenter.AbstractErrorConsumer() {
                     override fun onError(t: Throwable) {

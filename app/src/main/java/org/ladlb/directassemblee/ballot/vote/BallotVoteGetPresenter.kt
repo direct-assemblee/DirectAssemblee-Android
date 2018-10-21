@@ -36,9 +36,9 @@ class BallotVoteGetPresenter(view: BallotVotesGetView?, lifecycle: Lifecycle?) :
                 Schedulers.io()
         ).observeOn(
                 AndroidSchedulers.mainThread()
-        ).doOnSubscribe(
-                { disposable -> call(disposable) }
-        ).subscribe(
+        ).doOnSubscribe {
+            disposable -> call(disposable)
+        }.subscribe(
                 Consumer { deputies -> view?.onBallotVotesReceived(deputies) },
                 object : AbstractPresenter.AbstractErrorConsumer() {
                     override fun onError(t: Throwable) {

@@ -45,9 +45,9 @@ class LocationGetPresenter(view: LocationGetView?, context: Context, lifecycle: 
                 Schedulers.io()
         ).observeOn(
                 AndroidSchedulers.mainThread()
-        ).doOnSubscribe(
-                { disposable -> call(disposable) }
-        ).subscribe(
+        ).doOnSubscribe {
+            disposable -> call(disposable)
+        }.subscribe(
                 Consumer { location -> view?.onLocationUpdate(location) },
                 object : AbstractPresenter.AbstractErrorConsumer() {
                     override fun onError(t: Throwable) {
