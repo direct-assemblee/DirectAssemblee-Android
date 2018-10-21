@@ -36,9 +36,9 @@ class TimelineGetPresenter(view: TimelineGetView, lifecycle: Lifecycle?) : Abstr
                 Schedulers.io()
         ).observeOn(
                 AndroidSchedulers.mainThread()
-        ).doOnSubscribe(
-                { t: Disposable -> call(t) }
-        ).subscribe(
+        ).doOnSubscribe {
+            t: Disposable -> call(t)
+        }.subscribe(
                 Consumer { timelineItems -> view?.onTimelineReceived(timelineItems) },
                 object : AbstractPresenter.AbstractErrorConsumer() {
                     override fun onError(t: Throwable) {
