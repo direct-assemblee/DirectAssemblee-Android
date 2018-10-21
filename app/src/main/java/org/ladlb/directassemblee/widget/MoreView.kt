@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_more.view.*
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.helper.ColorHelper
 import org.ladlb.directassemblee.helper.DrawableHelper
+import org.ladlb.directassemblee.helper.getColor
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -41,8 +41,7 @@ class MoreView : LinearLayout {
                 this
         )
 
-        val color = ColorHelper.getColor(
-                context,
+        val color = context.getColor(
                 R.attr.colorAccent,
                 0
         )

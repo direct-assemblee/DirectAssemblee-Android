@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kotlinx.android.synthetic.main.item_address.view.*
 import kotlinx.android.synthetic.main.item_placeholder.view.*
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.helper.ColorHelper
 import org.ladlb.directassemblee.helper.DrawableHelper
+import org.ladlb.directassemblee.helper.getTextColorSecondary
 import org.ladlb.directassemblee.widget.PlaceholderAdapter
 
 /**
@@ -73,7 +73,7 @@ class SearchAddressAdapter(items: ArrayList<Address>) : PlaceholderAdapter<Addre
                 DrawableHelper.getDrawableTintByColor(
                         holder.itemView.resources,
                         R.drawable.ic_empty_place_142dp,
-                        ColorHelper.getTextColorSecondary(holder.itemView.context)
+                        holder.itemView.context.getTextColorSecondary()
                 )
         )
         return holder

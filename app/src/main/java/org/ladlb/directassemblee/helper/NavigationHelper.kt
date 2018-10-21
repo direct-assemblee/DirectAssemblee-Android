@@ -31,7 +31,7 @@ class NavigationHelper {
         fun openURL(context: Context, url: String?) {
             if (!TextUtils.isEmpty(url)) {
                 val builder = CustomTabsIntent.Builder()
-                builder.setToolbarColor(ColorHelper.getColorPrimary(context))
+                builder.setToolbarColor(context.getColorPrimary())
                 val customTabsIntent = builder.build()
                 customTabsIntent.launchUrl(context, Uri.parse(url))
             }

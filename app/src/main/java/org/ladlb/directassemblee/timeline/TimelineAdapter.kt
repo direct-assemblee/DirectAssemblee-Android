@@ -9,9 +9,10 @@ import kotlinx.android.synthetic.main.include_header_timeline_item.view.*
 import kotlinx.android.synthetic.main.item_placeholder.view.*
 import kotlinx.android.synthetic.main.item_timeline.view.*
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.helper.ColorHelper
 import org.ladlb.directassemblee.helper.DrawableHelper
 import org.ladlb.directassemblee.helper.FormatHelper
+import org.ladlb.directassemblee.helper.getColorPrimary
+import org.ladlb.directassemblee.helper.getTextColorSecondary
 import org.ladlb.directassemblee.widget.PaginationAdapter
 
 /**
@@ -92,7 +93,7 @@ class TimelineAdapter(items: ArrayList<TimelineItem>) : PaginationAdapter<Timeli
                 DrawableHelper.getDrawableTintByColor(
                         view.resources,
                         themDrawableId,
-                        ColorHelper.getColorPrimary(context)
+                        context.getColorPrimary()
                 )
         )
 
@@ -142,7 +143,7 @@ class TimelineAdapter(items: ArrayList<TimelineItem>) : PaginationAdapter<Timeli
                 DrawableHelper.getDrawableTintByColor(
                         holder.itemView.resources,
                         R.drawable.ic_empty_list_142dp,
-                        ColorHelper.getTextColorSecondary(holder.itemView.context)
+                        holder.itemView.context.getTextColorSecondary()
                 )
         )
         return holder

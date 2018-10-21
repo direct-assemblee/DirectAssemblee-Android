@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kotlinx.android.synthetic.main.item_placeholder.view.*
 import kotlinx.android.synthetic.main.item_rate.view.*
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.helper.ColorHelper
 import org.ladlb.directassemblee.helper.DrawableHelper
+import org.ladlb.directassemblee.helper.getTextColorSecondary
 import org.ladlb.directassemblee.mandate.MandateAdapter
 import org.ladlb.directassemblee.widget.PlaceholderAdapter
 
@@ -54,7 +54,7 @@ class RateAdapter(items: ArrayList<Rate>) : PlaceholderAdapter<Rate>(items) {
                 DrawableHelper.getDrawableTintByColor(
                         holder.itemView.resources,
                         R.drawable.ic_empty_result_142dp,
-                        ColorHelper.getTextColorSecondary(holder.itemView.context)
+                        holder.itemView.context.getTextColorSecondary()
                 )
         )
         return holder

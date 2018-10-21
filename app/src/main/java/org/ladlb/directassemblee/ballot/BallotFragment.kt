@@ -23,9 +23,9 @@ import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.ballot.vote.BallotVoteActivity
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys
-import org.ladlb.directassemblee.helper.ColorHelper
 import org.ladlb.directassemblee.helper.DrawableHelper
 import org.ladlb.directassemblee.helper.FormatHelper
+import org.ladlb.directassemblee.helper.getColorPrimary
 import org.ladlb.directassemblee.timeline.TimelineItem
 import org.ladlb.directassemblee.vote.Vote
 import java.util.*
@@ -202,7 +202,7 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
                 DrawableHelper.getDrawableTintByColor(
                         resources,
                         themeDrawableId,
-                        ColorHelper.getColorPrimary(context!!)
+                        context!!.getColorPrimary()
                 )
         )
 

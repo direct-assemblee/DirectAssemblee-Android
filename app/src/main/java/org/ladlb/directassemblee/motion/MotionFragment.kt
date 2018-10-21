@@ -15,9 +15,9 @@ import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys
-import org.ladlb.directassemblee.helper.ColorHelper
 import org.ladlb.directassemblee.helper.DrawableHelper
 import org.ladlb.directassemblee.helper.FormatHelper
+import org.ladlb.directassemblee.helper.getColorPrimary
 import org.ladlb.directassemblee.timeline.TimelineItem
 
 /**
@@ -114,7 +114,7 @@ class MotionFragment : AbstractFragment(), OnClickListener {
                 DrawableHelper.getDrawableTintByColor(
                         resources,
                         themeDrawableId,
-                        ColorHelper.getColorPrimary(context!!)
+                        context!!.getColorPrimary()
                 )
         )
 
