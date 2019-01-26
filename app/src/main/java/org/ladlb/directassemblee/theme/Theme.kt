@@ -65,43 +65,39 @@ data class Theme(val id: Int = 0, val name: String? = null, val fullName: String
      */
     @NonNull
     @DrawableRes
-    fun getDrawableId(): Int {
-
-        when (id) {
-            1 -> return R.drawable.ic_foreign_affairs_and_cooperation_24dp
-            2 -> return R.drawable.ic_agriculture_fisheries_24dp
-            3 -> return R.drawable.ic_territory_development_24dp
-            4 -> return R.drawable.ic_veterans_24dp
-            5 -> return R.drawable.ic_budget_24dp
-            6 -> return R.drawable.ic_local_authorities_24dp
-            7 -> return R.drawable.ic_culture_24dp
-            8 -> return R.drawable.ic_defense_24dp
-            9 -> return R.drawable.ic_economy_finance_taxation_24dp
-            10 -> return R.drawable.ic_education_24dp
-            11 -> return R.drawable.ic_energy_24dp
-            12 -> return R.drawable.ic_companies_24dp
-            13 -> return R.drawable.ic_environment_24dp
-            14 -> return R.drawable.ic_family_24dp
-            15 -> return R.drawable.ic_public_function_24dp
-            16 -> return R.drawable.ic_justice_24dp
-            17 -> return R.drawable.ic_housing_urbanism_24dp
-            18 -> return R.drawable.ic_overseas_24dp
-            19 -> return R.drawable.ic_pme_trade_craft_24dp
-            20 -> return R.drawable.ic_police_security_24dp
-            21 -> return R.drawable.ic_public_powers_constitution_24dp
-            22 -> return R.drawable.ic_health_24dp
-            23 -> return R.drawable.ic_science_24dp
-            24 -> return R.drawable.ic_social_services_24dp
-            25 -> return R.drawable.ic_society_24dp
-            26 -> return R.drawable.ic_sports_24dp
-            27 -> return R.drawable.ic_treaties_conventions_24dp
-            28 -> return R.drawable.ic_transports_24dp
-            29 -> return R.drawable.ic_work_24dp
-            30 -> return R.drawable.ic_european_union_24dp
-            31 -> return R.drawable.ic_general_policy_24dp
-            else -> return R.drawable.ic_uncategorized_24dp
-        }
-
+    fun getDrawableId(): Int = when (id) {
+        1 -> R.drawable.ic_foreign_affairs_and_cooperation_24dp
+        2 -> R.drawable.ic_agriculture_fisheries_24dp
+        3 -> R.drawable.ic_territory_development_24dp
+        4 -> R.drawable.ic_veterans_24dp
+        5 -> R.drawable.ic_budget_24dp
+        6 -> R.drawable.ic_local_authorities_24dp
+        7 -> R.drawable.ic_culture_24dp
+        8 -> R.drawable.ic_defense_24dp
+        9 -> R.drawable.ic_economy_finance_taxation_24dp
+        10 -> R.drawable.ic_education_24dp
+        11 -> R.drawable.ic_energy_24dp
+        12 -> R.drawable.ic_companies_24dp
+        13 -> R.drawable.ic_environment_24dp
+        14 -> R.drawable.ic_family_24dp
+        15 -> R.drawable.ic_public_function_24dp
+        16 -> R.drawable.ic_justice_24dp
+        17 -> R.drawable.ic_housing_urbanism_24dp
+        18 -> R.drawable.ic_overseas_24dp
+        19 -> R.drawable.ic_pme_trade_craft_24dp
+        20 -> R.drawable.ic_police_security_24dp
+        21 -> R.drawable.ic_public_powers_constitution_24dp
+        22 -> R.drawable.ic_health_24dp
+        23 -> R.drawable.ic_science_24dp
+        24 -> R.drawable.ic_social_services_24dp
+        25 -> R.drawable.ic_society_24dp
+        26 -> R.drawable.ic_sports_24dp
+        27 -> R.drawable.ic_treaties_conventions_24dp
+        28 -> R.drawable.ic_transports_24dp
+        29 -> R.drawable.ic_work_24dp
+        30 -> R.drawable.ic_european_union_24dp
+        31 -> R.drawable.ic_general_policy_24dp
+        else -> R.drawable.ic_uncategorized_24dp
     }
 
     /**

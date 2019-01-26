@@ -41,11 +41,11 @@ data class BallotVote(@SerializedName("for")
      * @param source the source.
      */
     constructor(source: Parcel) : this(
-            source.createTypedArray(Deputy.CREATOR),
-            source.createTypedArray(Deputy.CREATOR),
-            source.createTypedArray(Deputy.CREATOR),
-            source.createTypedArray(Deputy.CREATOR),
-            source.createTypedArray(Deputy.CREATOR)
+            source.createTypedArray(Deputy.CREATOR)!!,
+            source.createTypedArray(Deputy.CREATOR)!!,
+            source.createTypedArray(Deputy.CREATOR)!!,
+            source.createTypedArray(Deputy.CREATOR)!!,
+            source.createTypedArray(Deputy.CREATOR)!!
     )
 
     /**

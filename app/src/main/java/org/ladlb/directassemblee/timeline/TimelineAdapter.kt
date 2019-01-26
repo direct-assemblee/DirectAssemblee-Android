@@ -76,23 +76,23 @@ class TimelineAdapter(items: ArrayList<TimelineItem>) : PaginationAdapter<Timeli
         view.textViewTitle.text = item.title
 
         val theme = item.theme
-        val themDrawableId: Int
+        val themeDrawableId: Int
         when (theme) {
             null -> {
                 view.textViewTheme.visibility = View.INVISIBLE
-                themDrawableId = R.drawable.ic_uncategorized_24dp
+                themeDrawableId = R.drawable.ic_uncategorized_24dp
             }
             else -> {
                 view.textViewTheme.text = theme.getLabel()
                 view.textViewTheme.visibility = if (TextUtils.isEmpty(view.textViewTheme.text)) View.GONE else View.VISIBLE
-                themDrawableId = theme.getDrawableId()
+                themeDrawableId = theme.getDrawableId()
             }
         }
 
         view.imageViewTheme.setImageDrawable(
                 DrawableHelper.getDrawableTintByColor(
                         view.resources,
-                        themDrawableId,
+                        themeDrawableId,
                         context.getColorPrimary()
                 )
         )

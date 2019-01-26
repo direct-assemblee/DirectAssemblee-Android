@@ -73,7 +73,7 @@ open class AssembleApplication : Application() {
         val picassoBuilder = Picasso.Builder(this)
         if (BuildConfig.DEBUG) {
             picassoBuilder.loggingEnabled(true)
-            picassoBuilder.listener { picasso, uri, exception ->
+            picassoBuilder.listener { _, uri, exception ->
                 Log.e("Picasso", "onImageFailed : uri : " + uri.toString() + ", exception : " + exception.message)
             }
         }

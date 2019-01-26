@@ -9,6 +9,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.annotation.Nullable
 import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_deputy_list.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
@@ -90,7 +91,7 @@ class DeputyListFragment : AbstractFragment(), OnDeputyClickListener, Filterable
         )
         adapter.setOnDeputyClickListener(this)
 
-        val divider = androidx.recyclerview.widget.DividerItemDecoration(context!!, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL)
+        val divider = DividerItemDecoration(context!!, DividerItemDecoration.VERTICAL)
         divider.setDrawable(ResourcesCompat.getDrawable(resources, R.drawable.divider_deputy, null)!!)
 
         recyclerView.adapter = adapter

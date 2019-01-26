@@ -30,8 +30,8 @@ data class RolePosition(val name: String, val instances: Array<String> = arrayOf
      * @param parcel the source.
      */
     constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.createStringArray())
+            parcel.readString()!!,
+            parcel.createStringArray()!!)
 
     /**
      * {@inheritDoc}

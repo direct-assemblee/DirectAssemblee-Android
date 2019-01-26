@@ -64,9 +64,7 @@ class DeputyDetailsFragment : AbstractFragment(), DeputyContactItemView.DeputyCo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val deputy = arguments!!.getParcelable<Deputy>(ARG_DEPUTY)
-        setDeputy(deputy)
+        setDeputy(arguments!!.getParcelable(ARG_DEPUTY)!!)
     }
 
     fun setDeputy(deputy: Deputy) {
