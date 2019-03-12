@@ -43,7 +43,7 @@ buildscript {
 
     ext.androidGms = "16.0.0"
     ext.firebaseMessaging = "17.4.0"
-    ext.firebaseCore = "16.0.6"
+    ext.firebaseCore = "16.0.7"
     ext.crashlytics = '2.9.5'
 
     ext.constraintLayout = '1.1.3'
