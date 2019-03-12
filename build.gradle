@@ -42,7 +42,7 @@ buildscript {
     ext.kotlin_version = '1.3.21'
 
     ext.androidGms = "16.0.0"
-    ext.firebaseMessaging = "17.3.4"
+    ext.firebaseMessaging = "17.4.0"
     ext.firebaseCore = "16.0.6"
     ext.crashlytics = '2.9.5'
 
