@@ -1,9 +1,7 @@
 package org.ladlb.directassemblee.rate
 
 import androidx.lifecycle.Lifecycle
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.rate.RateGetPresenter.RateGetView
@@ -29,22 +27,13 @@ class RateGetPresenter(view: RateGetView, lifecycle: Lifecycle?) : AbstractPrese
 
     fun getActivityRates(apiRepository: ApiRepository) {
 
-        apiRepository.getActivityRates(
-
-        ).subscribeOn(
-                Schedulers.io()
-        ).observeOn(
-                AndroidSchedulers.mainThread()
-        ).doOnSubscribe {
-            disposable -> call(disposable)
-        }.subscribe(
-                Consumer { rates -> view?.onActivityRatesReceived(rates) },
-                object : AbstractPresenter.AbstractErrorConsumer() {
-                    override fun onError(t: Throwable) {
-                        view?.onGetActivityRatesRequestFailed()
-                    }
-                }
-        )
+        launch {
+            try {
+                view?.onActivityRatesReceived(apiRepository.getActivityRates())
+            } catch (e: Throwable) {
+                view?.onGetActivityRatesRequestFailed()
+            }
+        }
 
     }
 

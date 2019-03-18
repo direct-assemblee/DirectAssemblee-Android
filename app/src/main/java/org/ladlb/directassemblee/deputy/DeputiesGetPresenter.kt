@@ -1,16 +1,11 @@
 package org.ladlb.directassemblee.deputy
 
 import androidx.lifecycle.Lifecycle
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
-import org.ladlb.directassemblee.api.ladlb.ApiException
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.DeputiesGetView
-import org.ladlb.directassemblee.helper.ComparisonsHelper
-import java.text.Collator
-import java.util.*
+import retrofit2.HttpException
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -33,51 +28,29 @@ class DeputiesGetPresenter(view: DeputiesGetView?, lifecycle: Lifecycle?) : Abst
 
     fun getDeputies(apiRepository: ApiRepository, latitude: Double, longitude: Double) {
 
-        apiRepository.getDeputies(
-                latitude, longitude
-        ).subscribeOn(
-                Schedulers.io()
-        ).observeOn(
-                AndroidSchedulers.mainThread()
-        ).doOnSubscribe {
-            disposable -> call(disposable)
-        }.subscribe(
-                Consumer { deputies -> view?.onDeputiesReceived(deputies) },
-                object : AbstractPresenter.AbstractErrorConsumer() {
-                    override fun onError(t: Throwable) {
-                        if (t is ApiException && t.response.code() == 404) {
-                            view?.onNoDeputyFound()
-                        } else {
-                            view?.onGetDeputiesRequestFailed()
-                        }
-                    }
+        launch {
+            try {
+                view?.onDeputiesReceived(apiRepository.getDeputies(latitude, longitude))
+            } catch (e: Throwable) {
+                if (e is HttpException && e.code() == 404) {
+                    view?.onNoDeputyFound()
+                } else {
+                    view?.onGetDeputiesRequestFailed()
                 }
-        )
+            }
+        }
 
     }
 
     fun getDeputies(apiRepository: ApiRepository) {
 
-        apiRepository.getDeputies(
-
-        ).map { deputies ->
-            val coll = Collator.getInstance(Locale.FRANCE)
-            coll.strength = Collator.PRIMARY
-            deputies.sortedWith(ComparisonsHelper.compareBy(coll, Deputy::firstname, Deputy::lastname)).toTypedArray()
-        }.subscribeOn(
-                Schedulers.io()
-        ).observeOn(
-                AndroidSchedulers.mainThread()
-        ).doOnSubscribe {
-            disposable -> call(disposable)
-        }.subscribe(
-                Consumer { deputies -> view?.onDeputiesReceived(deputies) },
-                object : AbstractPresenter.AbstractErrorConsumer() {
-                    override fun onError(t: Throwable) {
-                        view?.onGetDeputiesRequestFailed()
-                    }
-                }
-        )
+        launch {
+            try {
+                view?.onDeputiesReceived(apiRepository.getDeputies())
+            } catch (e: Throwable) {
+                view?.onGetDeputiesRequestFailed()
+            }
+        }
 
     }
 

@@ -1,12 +1,13 @@
 package org.ladlb.directassemblee.timeline
 
-import io.reactivex.Single
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.ladlb.directassemblee.PresenterTest
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.timeline.TimelineGetPresenter.TimelineGetView
 import org.mockito.ArgumentMatchers.anyInt
-import org.mockito.Mock
 import org.mockito.Mockito.*
 
 /**
@@ -26,32 +27,42 @@ import org.mockito.Mockito.*
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
+@ExperimentalCoroutinesApi
 class TimelineGetPresenterTest : PresenterTest() {
 
-    @Mock
-    lateinit var apiRepository: ApiRepository
+    private val presenter: TimelineGetPresenter
 
-    @Mock
-    lateinit var view: TimelineGetView
+    private val view = mock(TimelineGetView::class.java)
+
+    private val apiRepository = mock(ApiRepository::class.java)
+
+    init {
+
+        presenter = TimelineGetPresenter(view, null)
+        presenter.context = Dispatchers.Unconfined
+
+    }
 
     @Test
-    fun getTimeline_Success() {
+    fun getTimeline_Success() = runBlocking {
 
         val result = arrayOf<TimelineItem>()
 
-        doReturn(Single.just(result)).`when`(apiRepository).getTimeline(anyInt(), anyInt())
+        `when`(apiRepository.getTimeline(anyInt(), anyInt())).thenReturn(result)
 
-        TimelineGetPresenter(view, null).getTimeline(apiRepository, 0, 0)
+        presenter.getTimeline(apiRepository, anyInt(), anyInt())
+
         verify(view, atLeastOnce()).onTimelineReceived(result)
 
     }
 
     @Test
-    fun getTimeline_Fail() {
+    fun getTimeline_Fail() = runBlocking {
 
-        doReturn(Single.error<Array<TimelineItem>>(Throwable())).`when`(apiRepository).getTimeline(anyInt(), anyInt())
+        `when`(apiRepository.getTimeline(anyInt(), anyInt())).thenThrow(NullPointerException())
 
-        TimelineGetPresenter(view, null).getTimeline(apiRepository, anyInt(), anyInt())
+        presenter.getTimeline(apiRepository, anyInt(), anyInt())
+
         verify(view, atLeastOnce()).onGetTimelineRequestFailed()
 
     }

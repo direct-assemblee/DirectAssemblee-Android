@@ -7,9 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import org.ladlb.directassemblee.BuildConfig
-import org.ladlb.directassemblee.api.ladlb.ApiException
 import java.io.File
-import java.net.HttpURLConnection
 import java.util.concurrent.TimeUnit
 
 /**
@@ -54,25 +52,8 @@ abstract class RetrofitBaseRepository(cacheDir: File) {
                 .addInterceptor(HttpLoggingInterceptor().setLevel(
                         if (BuildConfig.LOG_ENABLED) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE)
                 )
-                .addNetworkInterceptor(NetworkInterceptor())
                 .addNetworkInterceptor(NetworkCacheInterceptor())
                 .build()
-
-    }
-
-    class NetworkInterceptor : Interceptor {
-
-        override fun intercept(chain: Interceptor.Chain): Response {
-
-            val request = chain.request()
-            val response = chain.proceed(request)
-
-            if (response.isSuccessful || response.code() == HttpURLConnection.HTTP_NOT_MODIFIED) {
-                return response
-            } else {
-                throw ApiException(response)
-            }
-        }
 
     }
 

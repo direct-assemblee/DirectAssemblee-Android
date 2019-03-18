@@ -1,7 +1,5 @@
 package org.ladlb.directassemblee.api.ladlb
 
-import io.reactivex.Completable
-import io.reactivex.Single
 import org.ladlb.directassemblee.ballot.vote.BallotVote
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.rate.Rate
@@ -26,20 +24,20 @@ import org.ladlb.directassemblee.timeline.TimelineItem
 
 interface ApiRepository {
 
-    fun getDeputy(departmentId: Int, district: Int): Single<Deputy>
+    suspend fun getDeputy(departmentId: Int, district: Int): Deputy
 
-    fun getDeputies(latitude: Double, longitude: Double): Single<Array<Deputy>>
+    suspend fun getDeputies(): Array<Deputy>
 
-    fun getDeputies(): Single<Array<Deputy>>
+    suspend fun getDeputies(latitude: Double, longitude: Double): Array<Deputy>
 
-    fun getTimeline(deputyId: Int, page: Int): Single<Array<TimelineItem>>
+    suspend fun getTimeline(deputyId: Int, page: Int): Array<TimelineItem>
 
-    fun postSubscribe(id: String, token: String, deputyId: Int): Completable
+    suspend fun postSubscribe(id: String, token: String, deputyId: Int)
 
-    fun postUnSubscribe(id: String, token: String, deputyId: Int): Completable
+    suspend fun postUnSubscribe(id: String, token: String, deputyId: Int)
 
-    fun getBallotVotes(ballotId: Int): Single<BallotVote>
+    suspend fun getBallotVotes(ballotId: Int): BallotVote
 
-    fun getActivityRates(): Single<Array<Rate>>
+    suspend fun getActivityRates(): Array<Rate>
 
 }

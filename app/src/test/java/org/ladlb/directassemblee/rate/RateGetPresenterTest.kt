@@ -1,12 +1,12 @@
 package org.ladlb.directassemblee.rate
 
-import io.reactivex.Single
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.ladlb.directassemblee.PresenterTest
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
-import org.ladlb.directassemblee.deputy.Deputy
-import org.mockito.Mock
-import org.mockito.Mockito
+import org.mockito.Mockito.*
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -25,33 +25,43 @@ import org.mockito.Mockito
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
+@ExperimentalCoroutinesApi
 class RateGetPresenterTest : PresenterTest() {
 
-    @Mock
-    lateinit var apiRepository: ApiRepository
+    private val presenter: RateGetPresenter
 
-    @Mock
-    lateinit var view: RateGetPresenter.RateGetView
+    private val view = mock(RateGetPresenter.RateGetView::class.java)
 
-    @Test
-    fun getActivityRates_Success() {
+    private val apiRepository = mock(ApiRepository::class.java)
 
-        val result = arrayOf<Rate>()
+    init {
 
-        Mockito.doReturn(Single.just(result)).`when`(apiRepository).getActivityRates()
-
-        RateGetPresenter(view, null).getActivityRates(apiRepository)
-        Mockito.verify(view, Mockito.atLeastOnce()).onActivityRatesReceived(result)
+        presenter = RateGetPresenter(view, null)
+        presenter.context = Dispatchers.Unconfined
 
     }
 
     @Test
-    fun getActivityRates_Fail() {
+    fun getActivityRates_Success() = runBlocking {
 
-        Mockito.doReturn(Single.error<Array<Deputy>>(Throwable())).`when`(apiRepository).getActivityRates()
+        val result = arrayOf<Rate>()
 
-        RateGetPresenter(view, null).getActivityRates(apiRepository)
-        Mockito.verify(view, Mockito.atLeastOnce()).onGetActivityRatesRequestFailed()
+        `when`(apiRepository.getActivityRates()).thenReturn(result)
+
+        presenter.getActivityRates(apiRepository)
+
+        verify(view, atLeastOnce()).onActivityRatesReceived(result)
+
+    }
+
+    @Test
+    fun getActivityRates_Fail() = runBlocking {
+
+        `when`(apiRepository.getActivityRates()).thenThrow(NullPointerException())
+
+        presenter.getActivityRates(apiRepository)
+
+        verify(view, atLeastOnce()).onGetActivityRatesRequestFailed()
 
     }
 

@@ -1,6 +1,5 @@
 package org.ladlb.directassemblee.api.dataGouv
 
-import io.reactivex.Single
 import org.ladlb.directassemblee.address.AddressEnvelope
 
 /**
@@ -22,6 +21,6 @@ import org.ladlb.directassemblee.address.AddressEnvelope
 
 interface AddressRepository {
 
-    fun getAddress(query: String): Single<AddressEnvelope>
+    suspend fun getAddress(query: String): AddressEnvelope
 
 }

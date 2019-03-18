@@ -3,9 +3,7 @@ package org.ladlb.directassemblee.notification
 import android.text.TextUtils
 import androidx.lifecycle.Lifecycle
 import com.google.firebase.iid.FirebaseInstanceId
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Action
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.notification.NotificationUnSubscribePresenter.NotificationUnSubscribeView
@@ -40,25 +38,17 @@ class NotificationUnSubscribePresenter(view: NotificationUnSubscribeView?, lifec
         if (TextUtils.isEmpty(token)) {
             throw NullPointerException("Token null or empty")
         } else {
-            apiRepository.postUnSubscribe(
-                    id, token!!, deputyId
-            ).subscribeOn(
-                    Schedulers.io()
-            ).observeOn(
-                    AndroidSchedulers.mainThread()
-            ).doOnSubscribe {
-                disposable -> call(disposable)
-            }.subscribe(
-                    Action {
-                        preferences.setNotificationEnabled(false)
-                        view?.onNotificationUnSubscribeCompleted()
-                    },
-                    object : AbstractPresenter.AbstractErrorConsumer() {
-                        override fun onError(t: Throwable) {
-                            view?.onNotificationUnSubscribeFailed()
-                        }
-                    }
-            )
+
+            launch {
+                try {
+                    apiRepository.postUnSubscribe(id, token!!, deputyId)
+                    preferences.setNotificationEnabled(false)
+                    view?.onNotificationUnSubscribeCompleted()
+                } catch (e: Throwable) {
+                    view?.onNotificationUnSubscribeFailed()
+                }
+            }
+
         }
 
     }

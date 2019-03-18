@@ -1,9 +1,9 @@
 package org.ladlb.directassemblee.api.ladlb
 
-import androidx.annotation.WorkerThread
 import com.google.gson.GsonBuilder
-import io.reactivex.Completable
-import io.reactivex.Single
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.ladlb.directassemblee.api.RetrofitBaseRepository
 import org.ladlb.directassemblee.ballot.vote.BallotVote
 import org.ladlb.directassemblee.deputy.Deputy
@@ -14,6 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import kotlin.coroutines.CoroutineContext
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -32,52 +33,55 @@ import java.io.File
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class RetrofitApiRepository(baseUrl: String, cacheDir: File) : RetrofitBaseRepository(cacheDir), ApiRepository {
+class RetrofitApiRepository(baseUrl: String, cacheDir: File, var context: CoroutineContext = Dispatchers.IO) : RetrofitBaseRepository(cacheDir), ApiRepository {
 
     private val services: ApiServices
 
-    @WorkerThread
-    override fun getDeputies(latitude: Double, longitude: Double): Single<Array<Deputy>> =
-            services.getDeputies(latitude, longitude)
+    override suspend fun getDeputy(departmentId: Int, district: Int): Deputy = withContext(context) {
+        services.getDeputyAsync(departmentId, district).await()
+    }
 
-    @WorkerThread
-    override fun getDeputy(departmentId: Int, district: Int): Single<Deputy> =
-            services.getDeputy(departmentId, district)
+    override suspend fun getDeputies(): Array<Deputy> = withContext(context) {
+        services.getAllDeputiesAsync().await()
+    }
 
-    @WorkerThread
-    override fun getDeputies(): Single<Array<Deputy>> = services.getAllDeputies()
+    override suspend fun getDeputies(latitude: Double, longitude: Double): Array<Deputy> = withContext(context) {
+        services.getDeputiesAsync(latitude, longitude).await()
+    }
 
-    @WorkerThread
-    override fun getTimeline(deputyId: Int, page: Int): Single<Array<TimelineItem>> =
-            services.getTimeline(deputyId, page)
+    override suspend fun getTimeline(deputyId: Int, page: Int): Array<TimelineItem> = withContext(context) {
+        services.getTimelineAsync(deputyId, page).await()
+    }
 
-    @WorkerThread
-    override fun getBallotVotes(ballotId: Int): Single<BallotVote> =
-            services.getBallotVotes(ballotId)
+    override suspend fun getActivityRates(): Array<Rate> = withContext(context) {
+        services.getActivityRatesAsync().await()
+    }
 
-    @WorkerThread
-    override fun getActivityRates(): Single<Array<Rate>> =
-            services.getActivityRates()
+    override suspend fun getBallotVotes(ballotId: Int): BallotVote = withContext(context) {
+        services.getBallotVotesAsync(ballotId).await()
+    }
 
-
-    @WorkerThread
-    override fun postSubscribe(id: String, token: String, deputyId: Int): Completable {
+    override suspend fun postSubscribe(id: String, token: String, deputyId: Int) = withContext(context) {
 
         val body = HashMap<String, String>()
         body["instanceId"] = id
         body["token"] = token
 
-        return services.postSubscribe(body, deputyId)
+        services.postSubscribeAsync(body, deputyId).await()
+
+        return@withContext
 
     }
 
-    override fun postUnSubscribe(id: String, token: String, deputyId: Int): Completable {
+    override suspend fun postUnSubscribe(id: String, token: String, deputyId: Int) = withContext(context) {
 
         val body = HashMap<String, String>()
         body["instanceId"] = id
         body["token"] = token
 
-        return services.postUnSubscribe(body, deputyId)
+        services.postUnSubscribeAsync(body, deputyId).await()
+
+        return@withContext
 
     }
 
@@ -93,11 +97,11 @@ class RetrofitApiRepository(baseUrl: String, cacheDir: File) : RetrofitBaseRepos
         val retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .build()
         services = retrofit.create(ApiServices::class.java)
 
     }
-
 }

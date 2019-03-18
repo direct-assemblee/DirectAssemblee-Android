@@ -1,7 +1,7 @@
 package org.ladlb.directassemblee.api.ladlb
 
-import io.reactivex.Completable
-import io.reactivex.Single
+import kotlinx.coroutines.Deferred
+import okhttp3.ResponseBody
 import org.ladlb.directassemblee.ballot.vote.BallotVote
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.rate.Rate
@@ -29,49 +29,49 @@ interface ApiServices {
 
     @Headers("Cache-Control: max-age=3600")
     @GET("deputy")
-    fun getDeputy(
+    fun getDeputyAsync(
             @Query("departmentId") departmentId: Int,
             @Query("district") district: Int
-    ): Single<Deputy>
+    ): Deferred<Deputy>
 
     @Headers("Cache-Control: max-age=3600")
     @GET("deputies")
-    fun getDeputies(
+    fun getDeputiesAsync(
             @Query("latitude") latitude: Double,
             @Query("longitude") longitude: Double
-    ): Single<Array<Deputy>>
+    ): Deferred<Array<Deputy>>
 
     @Headers("Cache-Control: max-age=3600")
     @GET("alldeputies")
-    fun getAllDeputies(): Single<Array<Deputy>>
+    fun getAllDeputiesAsync(): Deferred<Array<Deputy>>
 
     @Headers("Cache-Control: max-age=60")
     @GET("timeline")
-    fun getTimeline(
+    fun getTimelineAsync(
             @Query("deputyId") deputyId: Int,
             @Query("page") page: Int
-    ): Single<Array<TimelineItem>>
+    ): Deferred<Array<TimelineItem>>
 
     @Headers("Cache-Control: max-age=3600")
     @GET("votes")
-    fun getBallotVotes(
+    fun getBallotVotesAsync(
             @Query("ballotId") ballotId: Int
-    ): Single<BallotVote>
+    ): Deferred<BallotVote>
 
     @Headers("Cache-Control: max-age=3600")
     @GET("activityRates")
-    fun getActivityRates(): Single<Array<Rate>>
+    fun getActivityRatesAsync(): Deferred<Array<Rate>>
 
     @POST("subscribe")
-    fun postSubscribe(
+    fun postSubscribeAsync(
             @Body body: Map<String, String>,
             @Query("deputyId") deputyId: Int
-    ): Completable
+    ): Deferred<ResponseBody>
 
     @POST("unsubscribe")
-    fun postUnSubscribe(
+    fun postUnSubscribeAsync(
             @Body body: Map<String, String>,
             @Query("deputyId") deputyId: Int
-    ): Completable
+    ): Deferred<ResponseBody>
 
 }

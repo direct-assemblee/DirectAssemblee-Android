@@ -1,9 +1,9 @@
 package org.ladlb.directassemblee
 
-import okhttp3.Protocol
-import okhttp3.Request
-import okhttp3.Response
-import org.ladlb.directassemblee.api.ladlb.ApiException
+import okhttp3.MediaType
+import okhttp3.ResponseBody
+import retrofit2.HttpException
+import retrofit2.Response
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -22,6 +22,12 @@ import org.ladlb.directassemblee.api.ladlb.ApiException
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-val apiNotFoundException = ApiException(getResponse(404))
+val apiNotFoundException = HttpException(getResponse(404))
 
-fun getResponse(code: Int): Response = Response.Builder().request(Request.Builder().url("http://direct-assemblee.org").build()).protocol(Protocol.HTTP_2).message("").code(code).build()
+fun getResponse(code: Int): Response<Any> = Response.error(
+        code,
+        ResponseBody.create(
+                MediaType.parse("application/json"),
+                ""
+        )
+);

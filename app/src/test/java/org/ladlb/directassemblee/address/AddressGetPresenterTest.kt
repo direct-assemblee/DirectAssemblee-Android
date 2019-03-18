@@ -1,14 +1,14 @@
 package org.ladlb.directassemblee.address
 
-import io.reactivex.Single
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.ladlb.directassemblee.PresenterTest
 import org.ladlb.directassemblee.address.AddressGetPresenter.AddressGetView
 import org.ladlb.directassemblee.api.dataGouv.AddressRepository
-import org.ladlb.directassemblee.deputy.Deputy
 import org.mockito.ArgumentMatchers.anyString
-import org.mockito.Mock
-import org.mockito.Mockito
+import org.mockito.Mockito.*
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -27,33 +27,43 @@ import org.mockito.Mockito
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
+@ExperimentalCoroutinesApi
 class AddressGetPresenterTest : PresenterTest() {
 
-    @Mock
-    lateinit var addressRepository: AddressRepository
+    private val presenter: AddressGetPresenter
 
-    @Mock
-    lateinit var view: AddressGetView
+    private val view = mock(AddressGetView::class.java)
 
-    @Test
-    fun getDeputies_Success() {
+    private val addressRepository = mock(AddressRepository::class.java)
 
-        val result = AddressEnvelope()
+    init {
 
-        Mockito.doReturn(Single.just(result)).`when`(addressRepository).getAddress(anyString())
-
-        AddressGetPresenter(view, null).get(addressRepository, anyString())
-        Mockito.verify(view, Mockito.atLeastOnce()).onAddressesReceived(result.query, result.features)
+        presenter = AddressGetPresenter(view, null)
+        presenter.context = Dispatchers.Unconfined
 
     }
 
     @Test
-    fun getDeputies_Fail() {
+    fun getAddress_Success() = runBlocking {
 
-        Mockito.doReturn(Single.error<Array<Deputy>>(Throwable())).`when`(addressRepository).getAddress(anyString())
+        val result = AddressEnvelope()
 
-        AddressGetPresenter(view, null).get(addressRepository, anyString())
-        Mockito.verify(view, Mockito.atLeastOnce()).onGetAddressRequestFailed()
+        `when`(addressRepository.getAddress(anyString())).thenReturn(result)
+
+        presenter.get(addressRepository, anyString())
+
+        verify(view, atLeastOnce()).onAddressesReceived(result.query, result.features)
+
+    }
+
+    @Test
+    fun getAddress_Fail() = runBlocking {
+
+        `when`(addressRepository.getAddress(anyString())).thenThrow(NullPointerException())
+
+        presenter.get(addressRepository, anyString())
+
+        verify(view, atLeastOnce()).onGetAddressRequestFailed()
 
     }
 

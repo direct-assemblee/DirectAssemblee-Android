@@ -1,9 +1,7 @@
 package org.ladlb.directassemblee.address
 
 import androidx.lifecycle.Lifecycle
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.address.AddressGetPresenter.AddressGetView
 import org.ladlb.directassemblee.api.dataGouv.AddressRepository
@@ -29,24 +27,14 @@ class AddressGetPresenter(view: AddressGetView?, lifecycle: Lifecycle?) : Abstra
 
     fun get(addressRepository: AddressRepository, query: String) {
 
-        addressRepository.getAddress(
-                query
-        ).subscribeOn(
-                Schedulers.io()
-        ).observeOn(
-                AndroidSchedulers.mainThread()
-        ).doOnSubscribe { disposable ->
-            call(disposable)
-        }.subscribe(
-                Consumer { envelope ->
-                    view?.onAddressesReceived(envelope.query, envelope.features)
-                },
-                object : AbstractPresenter.AbstractErrorConsumer() {
-                    override fun onError(t: Throwable) {
-                        view?.onGetAddressRequestFailed()
-                    }
-                }
-        )
+        launch {
+            try {
+                val result = addressRepository.getAddress(query)
+                view?.onAddressesReceived(result.query, result.features)
+            } catch (e: Throwable) {
+                view?.onGetAddressRequestFailed()
+            }
+        }
 
     }
 

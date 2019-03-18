@@ -1,12 +1,13 @@
 package org.ladlb.directassemblee.ballot.vote
 
-import io.reactivex.Single
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.ladlb.directassemblee.PresenterTest
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.apiNotFoundException
-import org.mockito.ArgumentMatchers.anyInt
-import org.mockito.Mock
+import org.ladlb.directassemblee.ballot.vote.BallotVoteGetPresenter.BallotVotesGetView
 import org.mockito.Mockito.*
 
 /**
@@ -26,42 +27,53 @@ import org.mockito.Mockito.*
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
+@ExperimentalCoroutinesApi
 class BallotVoteGetPresenterTest : PresenterTest() {
 
-    @Mock
-    lateinit var apiRepository: ApiRepository
+    private val presenter: BallotVoteGetPresenter
 
-    @Mock
-    lateinit var view: BallotVoteGetPresenter.BallotVotesGetView
+    private val apiRepository = mock(ApiRepository::class.java)
 
-    @Test
-    fun getTimeline_Success() {
+    private val view: BallotVotesGetView = mock(BallotVotesGetView::class.java)
 
-        val result = BallotVote()
+    init {
 
-        doReturn(Single.just(result)).`when`(apiRepository).getBallotVotes(anyInt())
-
-        BallotVoteGetPresenter(view, null).getVotes(apiRepository, anyInt())
-        verify(view, atLeastOnce()).onBallotVotesReceived(result)
+        presenter = BallotVoteGetPresenter(view, null)
+        presenter.context = Dispatchers.Unconfined
 
     }
 
     @Test
-    fun getTimeline_Fail() {
+    fun getTimeline_Success() = runBlocking {
 
-        doReturn(Single.error<BallotVote>(Throwable())).`when`(apiRepository).getBallotVotes(anyInt())
+        val ballotVote = BallotVote()
 
-        BallotVoteGetPresenter(view, null).getVotes(apiRepository, anyInt())
+        `when`(apiRepository.getBallotVotes(anyInt())).thenReturn(ballotVote)
+
+        presenter.getVotes(apiRepository, anyInt())
+
+        verify(view, atLeastOnce()).onBallotVotesReceived(ballotVote)
+
+    }
+
+    @Test
+    fun getTimeline_Fail() = runBlocking {
+
+        `when`(apiRepository.getBallotVotes(anyInt())).thenThrow(NullPointerException())
+
+        presenter.getVotes(apiRepository, anyInt())
+
         verify(view, atLeastOnce()).onGetBallotVotesRequestFailed()
 
     }
 
     @Test
-    fun getTimeline_NotFound() {
+    fun getTimeline_NotFound() = runBlocking {
 
-        doReturn(Single.error<BallotVote>(apiNotFoundException)).`when`(apiRepository).getBallotVotes(anyInt())
+        `when`(apiRepository.getBallotVotes(anyInt())).thenThrow(apiNotFoundException)
 
-        BallotVoteGetPresenter(view, null).getVotes(apiRepository, anyInt())
+        presenter.getVotes(apiRepository, anyInt())
+
         verify(view, atLeastOnce()).onNoBallotVotesFound()
 
     }

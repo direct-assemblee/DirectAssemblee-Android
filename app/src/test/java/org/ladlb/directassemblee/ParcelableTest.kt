@@ -2,7 +2,7 @@ package org.ladlb.directassemblee
 
 import android.os.Parcel
 import android.os.Parcelable
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner

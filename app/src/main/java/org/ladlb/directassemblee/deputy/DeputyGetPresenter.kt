@@ -1,9 +1,7 @@
 package org.ladlb.directassemblee.deputy
 
 import androidx.lifecycle.Lifecycle
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.deputy.DeputyGetPresenter.DeputyGetView
@@ -29,22 +27,13 @@ class DeputyGetPresenter(view: DeputyGetView?, lifecycle: Lifecycle?) : Abstract
 
     fun getDeputy(apiRepository: ApiRepository, departmentId: Int, district: Int) {
 
-        apiRepository.getDeputy(
-                departmentId, district
-        ).subscribeOn(
-                Schedulers.io()
-        ).observeOn(
-                AndroidSchedulers.mainThread()
-        ).doOnSubscribe {
-            disposable -> call(disposable)
-        }.subscribe(
-                Consumer { deputy -> view?.onDeputyReceived(deputy) },
-                object : AbstractPresenter.AbstractErrorConsumer() {
-                    override fun onError(t: Throwable) {
-                        view?.onGetDeputyRequestFailed()
-                    }
-                }
-        )
+        launch {
+            try {
+                view?.onDeputyReceived(apiRepository.getDeputy(departmentId, district))
+            } catch (e: Throwable) {
+                view?.onGetDeputyRequestFailed()
+            }
+        }
 
     }
 

@@ -1,10 +1,7 @@
 package org.ladlb.directassemblee.timeline
 
 import androidx.lifecycle.Lifecycle
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.timeline.TimelineGetPresenter.TimelineGetView
@@ -30,22 +27,13 @@ class TimelineGetPresenter(view: TimelineGetView, lifecycle: Lifecycle?) : Abstr
 
     fun getTimeline(apiRepository: ApiRepository, deputyId: Int, page: Int) {
 
-        apiRepository.getTimeline(
-                deputyId, page
-        ).subscribeOn(
-                Schedulers.io()
-        ).observeOn(
-                AndroidSchedulers.mainThread()
-        ).doOnSubscribe {
-            t: Disposable -> call(t)
-        }.subscribe(
-                Consumer { timelineItems -> view?.onTimelineReceived(timelineItems) },
-                object : AbstractPresenter.AbstractErrorConsumer() {
-                    override fun onError(t: Throwable) {
-                        view?.onGetTimelineRequestFailed()
-                    }
-                }
-        )
+        launch {
+            try {
+                view?.onTimelineReceived(apiRepository.getTimeline(deputyId, page))
+            } catch (e: Throwable) {
+                view?.onGetTimelineRequestFailed()
+            }
+        }
 
     }
 

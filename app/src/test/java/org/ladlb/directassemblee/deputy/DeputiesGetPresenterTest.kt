@@ -1,12 +1,14 @@
 package org.ladlb.directassemblee.deputy
 
-import io.reactivex.Single
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.ladlb.directassemblee.PresenterTest
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
+import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.DeputiesGetView
 import org.mockito.ArgumentMatchers.anyDouble
-import org.mockito.Mock
-import org.mockito.Mockito
+import org.mockito.Mockito.*
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -25,55 +27,67 @@ import org.mockito.Mockito
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
+@ExperimentalCoroutinesApi
 class DeputiesGetPresenterTest : PresenterTest() {
 
-    @Mock
-    lateinit var apiRepository: ApiRepository
+    private val presenter: DeputiesGetPresenter
 
-    @Mock
-    lateinit var view: DeputiesGetPresenter.DeputiesGetView
+    private val view = mock(DeputiesGetView::class.java)
+
+    private val apiRepository = mock(ApiRepository::class.java)
+
+    init {
+
+        presenter = DeputiesGetPresenter(view, null)
+        presenter.context = Dispatchers.Unconfined
+
+    }
 
     @Test
-    fun getDeputies_Success() {
+    fun getDeputies_Success() = runBlocking {
 
         val result = arrayOf<Deputy>()
 
-        Mockito.doReturn(Single.just(result)).`when`(apiRepository).getDeputies()
+        `when`(apiRepository.getDeputies()).thenReturn(result)
 
-        DeputiesGetPresenter(view, null).getDeputies(apiRepository)
-        Mockito.verify(view, Mockito.atLeastOnce()).onDeputiesReceived(result)
+        presenter.getDeputies(apiRepository)
 
-    }
-
-    @Test
-    fun getDeputies_Fail() {
-
-        Mockito.doReturn(Single.error<Array<Deputy>>(Throwable())).`when`(apiRepository).getDeputies()
-
-        DeputiesGetPresenter(view, null).getDeputies(apiRepository)
-        Mockito.verify(view, Mockito.atLeastOnce()).onGetDeputiesRequestFailed()
+        verify(view, atLeastOnce()).onDeputiesReceived(result)
 
     }
 
     @Test
-    fun getDeputiesCoordinates_Success() {
+    fun getDeputies_Fail() = runBlocking {
+
+        `when`(apiRepository.getDeputies()).thenThrow(NullPointerException())
+
+        presenter.getDeputies(apiRepository)
+
+        verify(view, atLeastOnce()).onGetDeputiesRequestFailed()
+
+    }
+
+    @Test
+    fun getDeputiesCoordinates_Success() = runBlocking {
 
         val result = arrayOf<Deputy>()
 
-        Mockito.doReturn(Single.just(result)).`when`(apiRepository).getDeputies(anyDouble(), anyDouble())
+        `when`(apiRepository.getDeputies(anyDouble(), anyDouble())).thenReturn(result)
 
-        DeputiesGetPresenter(view, null).getDeputies(apiRepository, anyDouble(), anyDouble())
-        Mockito.verify(view, Mockito.atLeastOnce()).onDeputiesReceived(result)
+        presenter.getDeputies(apiRepository, anyDouble(), anyDouble())
+
+        verify(view, atLeastOnce()).onDeputiesReceived(result)
 
     }
 
     @Test
-    fun getDeputiesCoordinates_Fail() {
+    fun getDeputiesCoordinates_Fail() = runBlocking {
 
-        Mockito.doReturn(Single.error<Array<Deputy>>(Throwable())).`when`(apiRepository).getDeputies(anyDouble(), anyDouble())
+        `when`(apiRepository.getDeputies(anyDouble(), anyDouble())).thenThrow(NullPointerException())
 
-        DeputiesGetPresenter(view, null).getDeputies(apiRepository, anyDouble(), anyDouble())
-        Mockito.verify(view, Mockito.atLeastOnce()).onGetDeputiesRequestFailed()
+        presenter.getDeputies(apiRepository, anyDouble(), anyDouble())
+
+        verify(view, atLeastOnce()).onGetDeputiesRequestFailed()
 
     }
 

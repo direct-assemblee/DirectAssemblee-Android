@@ -1,6 +1,6 @@
 package org.ladlb.directassemblee.api.dataGouv
 
-import io.reactivex.Single
+import kotlinx.coroutines.Deferred
 import org.ladlb.directassemblee.address.AddressEnvelope
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -27,8 +27,8 @@ interface AddressServices {
 
     @Headers("Cache-Control: max-age=3600")
     @GET("search/?type=housenumber&limit=10")
-    fun getAddress(
+    fun getAddressAsync(
             @Query("q") query: String
-    ): Single<AddressEnvelope>
+    ): Deferred<AddressEnvelope>
 
 }

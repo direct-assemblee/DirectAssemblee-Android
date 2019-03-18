@@ -1,13 +1,11 @@
 package org.ladlb.directassemblee.ballot.vote
 
 import androidx.lifecycle.Lifecycle
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
-import org.ladlb.directassemblee.api.ladlb.ApiException
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.ballot.vote.BallotVoteGetPresenter.BallotVotesGetView
+import retrofit2.HttpException
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -30,26 +28,17 @@ class BallotVoteGetPresenter(view: BallotVotesGetView?, lifecycle: Lifecycle?) :
 
     fun getVotes(apiRepository: ApiRepository, ballotId: Int) {
 
-        apiRepository.getBallotVotes(
-                ballotId
-        ).subscribeOn(
-                Schedulers.io()
-        ).observeOn(
-                AndroidSchedulers.mainThread()
-        ).doOnSubscribe {
-            disposable -> call(disposable)
-        }.subscribe(
-                Consumer { deputies -> view?.onBallotVotesReceived(deputies) },
-                object : AbstractPresenter.AbstractErrorConsumer() {
-                    override fun onError(t: Throwable) {
-                        if (t is ApiException && t.response.code() == 404) {
-                            view?.onNoBallotVotesFound()
-                        } else {
-                            view?.onGetBallotVotesRequestFailed()
-                        }
-                    }
+        launch {
+            try {
+                view?.onBallotVotesReceived(apiRepository.getBallotVotes(ballotId))
+            } catch (e: Throwable) {
+                if (e is HttpException && e.code() == 404) {
+                    view?.onNoBallotVotesFound()
+                } else {
+                    view?.onGetBallotVotesRequestFailed()
                 }
-        )
+            }
+        }
 
     }
 

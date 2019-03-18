@@ -24,10 +24,6 @@ open class PresenterTest {
 
     @Suppress("unused")
     @get:Rule
-    val rxJavaSchedulersTestRule = RxJavaSchedulersTestRule()
-
-    @Suppress("unused")
-    @get:Rule
     val mockitoInit = MockitoJUnit.rule()!!
 
 }
