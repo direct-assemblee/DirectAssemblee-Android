@@ -1,7 +1,6 @@
 package org.ladlb.directassemblee.notification
 
 import android.text.TextUtils
-import androidx.lifecycle.Lifecycle
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
@@ -26,7 +25,7 @@ import org.ladlb.directassemblee.preferences.PreferencesStorage
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class NotificationUnSubscribePresenter(view: NotificationUnSubscribeView?, lifecycle: Lifecycle?) : AbstractPresenter<NotificationUnSubscribeView>(view, lifecycle) {
+class NotificationUnSubscribePresenter(view: NotificationUnSubscribeView) : AbstractPresenter<NotificationUnSubscribeView>(view) {
 
     fun postUnSubscribe(apiRepository: ApiRepository, preferences: PreferencesStorage, deputyId: Int) {
 

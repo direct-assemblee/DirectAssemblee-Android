@@ -24,6 +24,7 @@ import org.ladlb.directassemblee.helper.ErrorHelper
 import org.ladlb.directassemblee.helper.GoogleHelper
 import org.ladlb.directassemblee.location.LocationGetPresenter
 import org.ladlb.directassemblee.location.LocationGetPresenter.LocationGetView
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -59,16 +60,11 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
 
     }
 
-    private var locationGetPresenter: LocationGetPresenter? = null
+    @Inject
+    lateinit var locationGetPresenter: LocationGetPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        locationGetPresenter = LocationGetPresenter(
-                this,
-                this,
-                lifecycle
-        )
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().add(
@@ -93,7 +89,7 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
                 getFireBaseAnalytics().logEvent(
                         Event.SEARCH_DEPUTY_GEOLOCATION
                 )
-                locationGetPresenter?.getLocation()
+                locationGetPresenter.getLocation(this)
             } else {
                 ActivityCompat.requestPermissions(
                         this,

@@ -10,6 +10,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.google.firebase.iid.FirebaseInstanceId
 import org.ladlb.directassemblee.AbstractPreferenceFragment
 import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.retrieve.DeputyRetrieveActivity
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
@@ -22,6 +23,7 @@ import org.ladlb.directassemblee.notification.NotificationSubscribePresenter
 import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.NotificationSubscribeView
 import org.ladlb.directassemblee.notification.NotificationUnSubscribePresenter
 import org.ladlb.directassemblee.notification.NotificationUnSubscribePresenter.NotificationUnSubscribeView
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -61,9 +63,14 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
 
     }
 
-    private lateinit var subscribeNotificationPresenter: NotificationSubscribePresenter
+    @Inject
+    lateinit var subscribeNotificationPresenter: NotificationSubscribePresenter
 
-    private lateinit var unSubscribeNotificationPresenter: NotificationUnSubscribePresenter
+    @Inject
+    lateinit var unSubscribeNotificationPresenter: NotificationUnSubscribePresenter
+
+    @Inject
+    lateinit var apiRepository: RetrofitApiRepository
 
     private var isChangeDeputy = false
 
@@ -75,17 +82,6 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
         super.onCreate(savedInstanceState)
 
         deputy = getPreferences().loadDeputy()!!
-
-        subscribeNotificationPresenter = NotificationSubscribePresenter(
-                this,
-                lifecycle
-        )
-
-        unSubscribeNotificationPresenter = NotificationUnSubscribePresenter(
-                this,
-                lifecycle
-        )
-
     }
 
     private var listener: SettingsFragmentListener? = null
@@ -196,7 +192,7 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
 
             isChangeDeputy = true
             unSubscribeNotificationPresenter.postUnSubscribe(
-                    getApiServices(),
+                    apiRepository,
                     getPreferences(),
                     deputyId
             )
@@ -230,13 +226,13 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
 
         if (enable) {
             subscribeNotificationPresenter.postSubscribe(
-                    getApiServices(),
+                    apiRepository,
                     getPreferences(),
                     deputyId
             )
         } else {
             unSubscribeNotificationPresenter.postUnSubscribe(
-                    getApiServices(),
+                    apiRepository,
                     getPreferences(),
                     deputyId
             )

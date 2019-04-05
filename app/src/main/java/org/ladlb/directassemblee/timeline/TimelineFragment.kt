@@ -12,6 +12,7 @@ import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_time_line.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.data.CacheManager
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
@@ -20,6 +21,7 @@ import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.ItemKey
 import org.ladlb.directassemblee.timeline.TimelineAdapter.TimeLineAdapterListener
 import org.ladlb.directassemblee.timeline.TimelineGetPresenter.TimelineGetView
 import org.ladlb.directassemblee.widget.PaginationAdapter.LoadingMoreListener
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -62,23 +64,22 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
 
     }
 
+    @Inject
+    lateinit var timelineGetPresenter: TimelineGetPresenter
+
+    @Inject
+    lateinit var apiRepository: RetrofitApiRepository
+
     private var appBarLayout: AppBarLayout? = null
 
     private var page = 0
 
     private lateinit var adapter: TimelineAdapter
 
-    private lateinit var timelineGetPresenter: TimelineGetPresenter
-
     private lateinit var deputy: Deputy
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        timelineGetPresenter = TimelineGetPresenter(
-                this,
-                lifecycle
-        )
 
         adapter = TimelineAdapter(arrayListOf())
         adapter.showPlaceholder(false)
@@ -173,7 +174,7 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
         swipeRefreshLayout.isRefreshing = true
 
         timelineGetPresenter.getTimeline(
-                getApiServices(),
+                apiRepository,
                 deputy.id,
                 page
         )
@@ -197,7 +198,7 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
         )
 
         timelineGetPresenter.getTimeline(
-                getApiServices(),
+                apiRepository,
                 deputy.id,
                 page
         )

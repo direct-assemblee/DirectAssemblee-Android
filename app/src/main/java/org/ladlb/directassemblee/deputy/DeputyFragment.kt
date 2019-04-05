@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_time_line.*
 import kotlinx.android.synthetic.main.view_deputy_header.*
 import org.ladlb.directassemblee.AbstractToolbarFragment
 import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.deputy.DeputyGetPresenter.DeputyGetView
 import org.ladlb.directassemblee.deputy.detail.DeputyDetailsFragment
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
@@ -23,6 +24,7 @@ import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
 import org.ladlb.directassemblee.helper.ViewHelper
 import org.ladlb.directassemblee.timeline.TimelineFragment
 import org.ladlb.directassemblee.widget.DeputyToolbar
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -48,7 +50,11 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
     private var isAvatarShown = true
     private var isTextShown = true
 
-    private lateinit var deputyGetPresenter: DeputyGetPresenter
+    @Inject
+    lateinit var deputyGetPresenter: DeputyGetPresenter
+
+    @Inject
+    lateinit var apiRepository: RetrofitApiRepository
 
     private var adapter: DeputyPagerAdapter? = null
 
@@ -76,15 +82,6 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
 
         }
 
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        deputyGetPresenter = DeputyGetPresenter(
-                this,
-                lifecycle
-        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View {
@@ -128,7 +125,7 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
     private fun updateContent() {
 
         deputyGetPresenter.getDeputy(
-                getApiServices(),
+                apiRepository,
                 deputy.department!!.id,
                 deputy.district
         )

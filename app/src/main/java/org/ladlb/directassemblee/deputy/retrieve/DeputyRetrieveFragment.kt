@@ -40,12 +40,12 @@ class DeputyRetrieveFragment : AbstractFragment(), OnClickListener {
 
     }
 
-    private var mListener: DeputyRetrieveLocationFragmentListener? = null
+    private var listener: DeputyRetrieveLocationFragmentListener? = null
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         try {
-            mListener = activity as DeputyRetrieveLocationFragmentListener?
+            listener = activity as DeputyRetrieveLocationFragmentListener?
         } catch (e: ClassCastException) {
             throw ClassCastException(activity!!.toString() + " must implement DeputyRetrieveLocationFragmentListener")
         }
@@ -53,7 +53,7 @@ class DeputyRetrieveFragment : AbstractFragment(), OnClickListener {
 
     override fun onDetach() {
         super.onDetach()
-        mListener = null
+        listener = null
     }
 
     override fun onCreateView(inflater: LayoutInflater, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View {
@@ -74,9 +74,9 @@ class DeputyRetrieveFragment : AbstractFragment(), OnClickListener {
     override fun onClick(v: View?) {
 
         when (v?.id) {
-            R.id.textViewName -> mListener?.onSearchByNamesClicked()
-            R.id.textViewGeolocation -> mListener?.onSearchByGeolocationClicked()
-            R.id.textViewAddress -> mListener?.onSearchByAddressClicked()
+            R.id.textViewName -> listener?.onSearchByNamesClicked()
+            R.id.textViewGeolocation -> listener?.onSearchByGeolocationClicked()
+            R.id.textViewAddress -> listener?.onSearchByAddressClicked()
         }
 
     }

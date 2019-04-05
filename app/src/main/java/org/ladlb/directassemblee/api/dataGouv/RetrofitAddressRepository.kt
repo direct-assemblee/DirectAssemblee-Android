@@ -1,14 +1,10 @@
 package org.ladlb.directassemblee.api.dataGouv
 
-import com.google.gson.GsonBuilder
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.ladlb.directassemblee.address.AddressEnvelope
-import org.ladlb.directassemblee.api.RetrofitBaseRepository
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.io.File
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -28,28 +24,11 @@ import kotlin.coroutines.CoroutineContext
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class RetrofitAddressRepository(baseUrl: String, cacheDir: File, var context: CoroutineContext = Dispatchers.IO) : RetrofitBaseRepository(cacheDir), AddressRepository {
-
-    private val services: AddressServices
+@Singleton
+class RetrofitAddressRepository @Inject constructor(private val addressServices: AddressServices, var context: CoroutineContext = Dispatchers.IO) : AddressRepository {
 
     override suspend fun getAddress(query: String): AddressEnvelope = withContext(context) {
-        services.getAddressAsync(query).await()
+        addressServices.getAddressAsync(query).await()
     }
 
-    init {
-
-        val gsonBuilder = GsonBuilder()
-        gsonBuilder.setPrettyPrinting()
-
-        val gson = gsonBuilder.create()
-
-        val retrofit = Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                .client(okHttpClient)
-                .build()
-        services = retrofit.create(AddressServices::class.java)
-
-    }
 }

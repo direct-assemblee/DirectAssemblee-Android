@@ -2,9 +2,8 @@ package org.ladlb.directassemblee
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
-import org.ladlb.directassemblee.api.dataGouv.RetrofitAddressRepository
+import dagger.android.support.DaggerAppCompatActivity
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.data.CacheManager
 import org.ladlb.directassemblee.firebase.FireBaseAnalyticsManager
@@ -27,7 +26,7 @@ import org.ladlb.directassemblee.preferences.PreferencesStorage
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-abstract class AbstractActivity : AppCompatActivity() {
+abstract class AbstractActivity : DaggerAppCompatActivity() {
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
@@ -37,9 +36,6 @@ abstract class AbstractActivity : AppCompatActivity() {
 
     fun getApiServices(): RetrofitApiRepository =
             (application as AssembleApplication).getApiServices()
-
-    fun getAddressServices(): RetrofitAddressRepository =
-            (application as AssembleApplication).getAddressServices()
 
     fun getPreferences(): PreferencesStorage = (application as AssembleApplication).getPreferences()
 
@@ -51,6 +47,7 @@ abstract class AbstractActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         getFireBaseAnalytics().initInstance(this)
 
         /*

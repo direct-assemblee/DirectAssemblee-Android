@@ -1,6 +1,5 @@
 package org.ladlb.directassemblee.address
 
-import androidx.lifecycle.Lifecycle
 import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.address.AddressGetPresenter.AddressGetView
@@ -23,7 +22,7 @@ import org.ladlb.directassemblee.api.dataGouv.AddressRepository
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class AddressGetPresenter(view: AddressGetView?, lifecycle: Lifecycle?) : AbstractPresenter<AddressGetView>(view, lifecycle) {
+class AddressGetPresenter(view: AddressGetView) : AbstractPresenter<AddressGetView>(view) {
 
     fun get(addressRepository: AddressRepository, query: String) {
 

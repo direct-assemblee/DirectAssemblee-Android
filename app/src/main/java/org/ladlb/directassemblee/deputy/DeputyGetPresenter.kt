@@ -1,10 +1,10 @@
 package org.ladlb.directassemblee.deputy
 
-import androidx.lifecycle.Lifecycle
 import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.deputy.DeputyGetPresenter.DeputyGetView
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -23,7 +23,8 @@ import org.ladlb.directassemblee.deputy.DeputyGetPresenter.DeputyGetView
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyGetPresenter(view: DeputyGetView?, lifecycle: Lifecycle?) : AbstractPresenter<DeputyGetView>(view, lifecycle) {
+class DeputyGetPresenter @Inject
+constructor(view: DeputyGetView) : AbstractPresenter<DeputyGetView>(view) {
 
     fun getDeputy(apiRepository: ApiRepository, departmentId: Int, district: Int) {
 

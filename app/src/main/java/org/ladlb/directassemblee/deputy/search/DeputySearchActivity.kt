@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SearchView
 import kotlinx.android.synthetic.main.activity_deputy_search.*
 import org.ladlb.directassemblee.AbstractToolBarActivity
 import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.DeputiesGetView
 import org.ladlb.directassemblee.deputy.Deputy
@@ -15,6 +16,7 @@ import org.ladlb.directassemblee.deputy.DeputyActivity
 import org.ladlb.directassemblee.deputy.DeputyListFragment
 import org.ladlb.directassemblee.deputy.DeputyListFragment.DeputyListFragmentListener
 import org.ladlb.directassemblee.helper.ViewHelper
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -41,7 +43,11 @@ open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentL
 
     }
 
-    private lateinit var deputiesGetPresenter: DeputiesGetPresenter
+    @Inject
+    lateinit var retrofitApiRepository: RetrofitApiRepository
+
+    @Inject
+    lateinit var deputiesGetPresenter: DeputiesGetPresenter
 
     override fun getContentView(): Int = R.layout.activity_deputy_search
 
@@ -49,12 +55,8 @@ open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        deputiesGetPresenter = DeputiesGetPresenter(
-                this,
-                lifecycle
-        )
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         searchView.visibility = View.GONE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -73,7 +75,7 @@ open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentL
             }
         })
 
-        deputiesGetPresenter.getDeputies(getApiServices())
+        deputiesGetPresenter.getDeputies(retrofitApiRepository)
 
     }
 

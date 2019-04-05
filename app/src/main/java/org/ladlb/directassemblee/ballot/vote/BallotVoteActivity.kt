@@ -11,6 +11,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import kotlinx.android.synthetic.main.activity_ballot_vote.*
 import org.ladlb.directassemblee.AbstractToolBarActivity
 import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.ballot.vote.BallotVoteGetPresenter.BallotVotesGetView
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.DeputyListFragment.DeputyListFragmentListener
 import org.ladlb.directassemblee.timeline.TimelineItem
@@ -32,7 +33,7 @@ import org.ladlb.directassemblee.timeline.TimelineItem
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, DeputyListFragmentListener, BallotVoteGetPresenter.BallotVotesGetView {
+class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, DeputyListFragmentListener, BallotVotesGetView {
 
     override fun getContentView(): Int = R.layout.activity_ballot_vote
 
@@ -70,10 +71,7 @@ class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, Dep
 
         ballot = intent.getParcelableExtra(EXTRA_BALLOT)
 
-        ballotVotesGetPresenter = BallotVoteGetPresenter(
-                this,
-                lifecycle
-        )
+        ballotVotesGetPresenter = BallotVoteGetPresenter(this)
 
         searchView.visibility = View.GONE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

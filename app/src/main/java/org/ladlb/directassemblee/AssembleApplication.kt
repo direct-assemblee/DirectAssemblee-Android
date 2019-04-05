@@ -1,14 +1,14 @@
 package org.ladlb.directassemblee
 
-import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.crashlytics.android.Crashlytics
 import com.google.android.gms.security.ProviderInstaller
 import com.squareup.picasso.Picasso
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import io.fabric.sdk.android.Fabric
-import org.ladlb.directassemblee.api.dataGouv.RetrofitAddressRepository
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.data.CacheManager
 import org.ladlb.directassemblee.firebase.FireBaseAnalyticsManager
@@ -33,11 +33,9 @@ import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-open class AssembleApplication : Application() {
+open class AssembleApplication : DaggerApplication() {
 
     private lateinit var apiServices: RetrofitApiRepository
-
-    private lateinit var addressServices: RetrofitAddressRepository
 
     private lateinit var preferences: PreferencesStorage
 
@@ -54,9 +52,6 @@ open class AssembleApplication : Application() {
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
 
-        apiServices = RetrofitApiRepository(BuildConfig.BASE_URL, cacheDir)
-        addressServices = RetrofitAddressRepository(getString(R.string.url_adresse_data_gouv), cacheDir)
-
         preferences = PreferencesStorageImpl(
                 getSharedPreferences(
                         "directAssembee",
@@ -66,6 +61,12 @@ open class AssembleApplication : Application() {
 
         firebaseAnalytics = FireBaseAnalyticsManager()
 
+    }
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        val appComponent = DaggerAppComponent.builder().application(this).build()
+        appComponent.inject(this)
+        return appComponent
     }
 
     private fun initPicasso() {
@@ -78,6 +79,7 @@ open class AssembleApplication : Application() {
             }
         }
         Picasso.setSingletonInstance(picassoBuilder.build())
+
     }
 
     open fun initFabric() {
@@ -99,8 +101,6 @@ open class AssembleApplication : Application() {
     }
 
     fun getApiServices(): RetrofitApiRepository = apiServices
-
-    fun getAddressServices(): RetrofitAddressRepository = addressServices
 
     fun getPreferences(): PreferencesStorage = preferences
 

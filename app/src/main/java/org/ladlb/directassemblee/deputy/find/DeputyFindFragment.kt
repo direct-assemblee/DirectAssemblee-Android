@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.fragment_deputy_find.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.DeputiesGetView
 import org.ladlb.directassemblee.deputy.Deputy
@@ -19,6 +20,7 @@ import org.ladlb.directassemblee.deputy.DeputyGetPresenter.DeputyGetView
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.ItemKey
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -63,11 +65,16 @@ class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickLis
         }
     }
 
+    @Inject
+    lateinit var deputiesGetPresenter: DeputiesGetPresenter
+
+    @Inject
+    lateinit var deputyGetPresenter: DeputyGetPresenter
+
+    @Inject
+    lateinit var apiRepository: RetrofitApiRepository
+
     private lateinit var adapter: DeputyAdapter
-
-    private lateinit var deputiesGetPresenter: DeputiesGetPresenter
-
-    private lateinit var deputyGetPresenter: DeputyGetPresenter
 
     private var listener: DeputyFindFragmentListener? = null
 
@@ -99,16 +106,6 @@ class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickLis
         )
         adapter.setOnDeputyClickListener(this)
 
-        deputiesGetPresenter = DeputiesGetPresenter(
-                this,
-                lifecycle
-        )
-
-        deputyGetPresenter = DeputyGetPresenter(
-                this,
-                lifecycle
-        )
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -117,7 +114,7 @@ class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickLis
         loadingView.setLabel(getString(R.string.deputy_retrieve_loading_search))
 
         deputiesGetPresenter.getDeputies(
-                getApiServices(),
+                apiRepository,
                 arguments!!.getDouble(ARG_LATITUDE),
                 arguments!!.getDouble(ARG_LONGITUDE)
         )
@@ -194,7 +191,7 @@ class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickLis
         loadingView.setLabel(getString(R.string.deputy_retrieve_loading_details))
 
         deputyGetPresenter.getDeputy(
-                getApiServices(),
+                apiRepository,
                 deputy.department!!.id,
                 deputy.district
         )

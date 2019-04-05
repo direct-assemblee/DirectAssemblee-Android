@@ -38,7 +38,7 @@ class DeputiesGetPresenterTest : PresenterTest() {
 
     init {
 
-        presenter = DeputiesGetPresenter(view, null)
+        presenter = DeputiesGetPresenter(view)
         presenter.context = Dispatchers.Unconfined
 
     }

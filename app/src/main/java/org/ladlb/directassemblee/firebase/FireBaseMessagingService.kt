@@ -26,22 +26,19 @@ import org.ladlb.directassemblee.preferences.PreferencesStorage
 
 class FireBaseMessagingService : FirebaseMessagingService() {
 
-    private lateinit var mSubscribeNotificationPresenter: NotificationSubscribePresenter
+    private lateinit var subscribeNotificationPresenter: NotificationSubscribePresenter
 
     override fun onCreate() {
         super.onCreate()
 
-        mSubscribeNotificationPresenter = NotificationSubscribePresenter(
-                null,
-                null
-        )
+        subscribeNotificationPresenter = NotificationSubscribePresenter(null)
 
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-        mSubscribeNotificationPresenter.onDestroy()
+        subscribeNotificationPresenter.onDestroy()
 
     }
 
@@ -57,7 +54,7 @@ class FireBaseMessagingService : FirebaseMessagingService() {
         val deputy = getPreferences().loadDeputy()
 
         if (getPreferences().isNotificationEnabled() && deputy != null) {
-            mSubscribeNotificationPresenter.postSubscribe(
+            subscribeNotificationPresenter.postSubscribe(
                     getApiServices(),
                     getPreferences(),
                     deputy.id

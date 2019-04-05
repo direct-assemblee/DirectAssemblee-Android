@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import kotlinx.android.synthetic.main.fragment_address_list.*
-import org.ladlb.directassemblee.AbstractFragment
+import org.ladlb.directassemblee.AbstractToolbarFragment
 import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.api.dataGouv.RetrofitAddressRepository
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -28,7 +30,7 @@ import org.ladlb.directassemblee.R
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class SearchAddressFragment : AbstractFragment(), AddressGetPresenter.AddressGetView, SearchAddressAdapter.OnAddressClickListener {
+class SearchAddressFragment : AbstractToolbarFragment(), AddressGetPresenter.AddressGetView, SearchAddressAdapter.OnAddressClickListener {
 
     override fun getClassName(): String = "SearchAddressFragment"
 
@@ -39,6 +41,14 @@ class SearchAddressFragment : AbstractFragment(), AddressGetPresenter.AddressGet
         fun newInstance(): SearchAddressFragment = SearchAddressFragment()
 
     }
+
+    @Inject
+    lateinit var retrofitAddressRepository: RetrofitAddressRepository
+
+    @Inject
+    lateinit var getAddressPresenter: AddressGetPresenter
+
+    private lateinit var adapter: SearchAddressAdapter
 
     private var listener: SearchAddressFragmentListener? = null
 
@@ -62,17 +72,8 @@ class SearchAddressFragment : AbstractFragment(), AddressGetPresenter.AddressGet
         return inflater.inflate(R.layout.fragment_address_list, container, false)
     }
 
-    private lateinit var adapter: SearchAddressAdapter
-
-    private lateinit var getAddressPresenter: AddressGetPresenter
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        getAddressPresenter = AddressGetPresenter(
-                this,
-                lifecycle
-        )
 
         adapter = SearchAddressAdapter(
                 arrayListOf()
@@ -108,7 +109,7 @@ class SearchAddressFragment : AbstractFragment(), AddressGetPresenter.AddressGet
             adapter.clear()
             adapter.showPlaceholder(false)
         } else {
-            getAddressPresenter.get(getAddressServices(), query!!)
+            getAddressPresenter.get(retrofitAddressRepository, query!!)
         }
     }
 

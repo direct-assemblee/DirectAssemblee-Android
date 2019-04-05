@@ -52,10 +52,7 @@ class RatesFragment : AbstractFragment(), RateGetPresenter.RateGetView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = RateGetPresenter(
-                this,
-                lifecycle
-        )
+        presenter = RateGetPresenter(this)
 
     }
 

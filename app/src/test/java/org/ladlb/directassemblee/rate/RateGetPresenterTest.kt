@@ -36,7 +36,7 @@ class RateGetPresenterTest : PresenterTest() {
 
     init {
 
-        presenter = RateGetPresenter(view, null)
+        presenter = RateGetPresenter(view)
         presenter.context = Dispatchers.Unconfined
 
     }

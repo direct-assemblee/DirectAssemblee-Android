@@ -1,7 +1,6 @@
 package org.ladlb.directassemblee.notification
 
 import android.text.TextUtils
-import androidx.lifecycle.Lifecycle
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
@@ -9,6 +8,7 @@ import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.helper.MetricHelper
 import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.NotificationSubscribeView
 import org.ladlb.directassemblee.preferences.PreferencesStorage
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -27,7 +27,8 @@ import org.ladlb.directassemblee.preferences.PreferencesStorage
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class NotificationSubscribePresenter(view: NotificationSubscribeView?, lifecycle: Lifecycle?) : AbstractPresenter<NotificationSubscribeView>(view, lifecycle) {
+class NotificationSubscribePresenter @Inject
+constructor(view: NotificationSubscribeView?) : AbstractPresenter<NotificationSubscribeView>(view) {
 
     fun postSubscribe(apiRepository: ApiRepository, preferences: PreferencesStorage, deputyId: Int) {
 

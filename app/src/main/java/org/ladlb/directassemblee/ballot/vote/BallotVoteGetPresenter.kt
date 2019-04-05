@@ -1,11 +1,11 @@
 package org.ladlb.directassemblee.ballot.vote
 
-import androidx.lifecycle.Lifecycle
 import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.ballot.vote.BallotVoteGetPresenter.BallotVotesGetView
 import retrofit2.HttpException
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -24,7 +24,8 @@ import retrofit2.HttpException
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class BallotVoteGetPresenter(view: BallotVotesGetView?, lifecycle: Lifecycle?) : AbstractPresenter<BallotVotesGetView>(view, lifecycle) {
+class BallotVoteGetPresenter @Inject
+constructor(view: BallotVotesGetView) : AbstractPresenter<BallotVotesGetView>(view) {
 
     fun getVotes(apiRepository: ApiRepository, ballotId: Int) {
 

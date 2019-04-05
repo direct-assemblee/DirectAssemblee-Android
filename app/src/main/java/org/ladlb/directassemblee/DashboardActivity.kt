@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.DeputyFragment
 import org.ladlb.directassemblee.deputy.search.DeputySearchActivity
@@ -22,6 +23,7 @@ import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.Not
 import org.ladlb.directassemblee.settings.SettingsActivity
 import org.ladlb.directassemblee.synthesis.SynthesisActivity
 import org.ladlb.directassemblee.timeline.TimelineFragment.DeputyTimeLineFragmentListener
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -60,15 +62,14 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
 
     private lateinit var deputy: Deputy
 
-    private lateinit var subscribeNotificationPresenter: NotificationSubscribePresenter
+    @Inject
+    lateinit var subscribeNotificationPresenter: NotificationSubscribePresenter
+
+    @Inject
+    lateinit var apiRepository: RetrofitApiRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        subscribeNotificationPresenter = NotificationSubscribePresenter(
-                this,
-                lifecycle
-        )
 
         deputy = intent.getParcelableExtra(EXTRA_DEPUTY)
 
@@ -130,7 +131,7 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
                     R.string.vote_result_for
             ) { _, _ ->
                 subscribeNotificationPresenter.postSubscribe(
-                        getApiServices(),
+                        apiRepository,
                         getPreferences(),
                         deputy.id
                 )

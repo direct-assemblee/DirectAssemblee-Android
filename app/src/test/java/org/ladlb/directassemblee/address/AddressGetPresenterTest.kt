@@ -38,7 +38,7 @@ class AddressGetPresenterTest : PresenterTest() {
 
     init {
 
-        presenter = AddressGetPresenter(view, null)
+        presenter = AddressGetPresenter(view)
         presenter.context = Dispatchers.Unconfined
 
     }

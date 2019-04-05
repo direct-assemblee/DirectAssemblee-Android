@@ -38,7 +38,7 @@ class BallotVoteGetPresenterTest : PresenterTest() {
 
     init {
 
-        presenter = BallotVoteGetPresenter(view, null)
+        presenter = BallotVoteGetPresenter(view)
         presenter.context = Dispatchers.Unconfined
 
     }

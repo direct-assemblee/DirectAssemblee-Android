@@ -38,7 +38,7 @@ class TimelineGetPresenterTest : PresenterTest() {
 
     init {
 
-        presenter = TimelineGetPresenter(view, null)
+        presenter = TimelineGetPresenter(view)
         presenter.context = Dispatchers.Unconfined
 
     }

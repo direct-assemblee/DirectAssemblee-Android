@@ -1,6 +1,5 @@
 package org.ladlb.directassemblee.rate
 
-import androidx.lifecycle.Lifecycle
 import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
@@ -23,7 +22,7 @@ import org.ladlb.directassemblee.rate.RateGetPresenter.RateGetView
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class RateGetPresenter(view: RateGetView, lifecycle: Lifecycle?) : AbstractPresenter<RateGetView>(view, lifecycle) {
+class RateGetPresenter(view: RateGetView) : AbstractPresenter<RateGetView>(view) {
 
     fun getActivityRates(apiRepository: ApiRepository) {
 
