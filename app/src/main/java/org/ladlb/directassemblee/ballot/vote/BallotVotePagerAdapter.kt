@@ -65,14 +65,14 @@ class BallotVotePagerAdapter(private val context: Context, fragmentManager: Frag
         val styledString = SpannableString(
                 String.format("%s\n%d", label, count)
         )
-        styledString.setSpan(AbsoluteSizeSpan(
-                context.resources.getDimensionPixelSize(R.dimen.tabBallotVoteTitleSize)),
+        styledString.setSpan(
+                AbsoluteSizeSpan(context.resources.getDimensionPixelSize(R.dimen.tabBallotVoteTitleSize)),
                 0,
                 label.length,
                 0
         )
-        styledString.setSpan(AbsoluteSizeSpan(
-                context.resources.getDimensionPixelSize(R.dimen.tabBallotVoteCountSize)),
+        styledString.setSpan(
+                AbsoluteSizeSpan(context.resources.getDimensionPixelSize(R.dimen.tabBallotVoteCountSize)),
                 styledString.length - count.toString().length,
                 styledString.length,
                 0

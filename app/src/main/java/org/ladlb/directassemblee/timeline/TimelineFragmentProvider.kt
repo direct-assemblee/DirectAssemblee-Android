@@ -1,4 +1,4 @@
-package org.ladlb.directassemblee.address
+package org.ladlb.directassemblee.timeline
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -21,8 +21,9 @@ import dagger.android.ContributesAndroidInjector
  */
 
 @Module
-abstract class SearchFragmentProvider {
+abstract class TimelineFragmentProvider {
 
-    @ContributesAndroidInjector(modules = [SearchAddressFragmentModule::class])
-    internal abstract fun provideSearchAddressFragment(): SearchAddressFragment
+    @ContributesAndroidInjector(modules = [TimelineFragmentModule::class])
+    internal abstract fun provideTimeLineFragment(): TimelineFragment
+
 }

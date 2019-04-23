@@ -28,7 +28,8 @@ import kotlin.coroutines.CoroutineContext
  */
 
 @Singleton
-class RetrofitApiRepository @Inject constructor(private val apiServices: ApiServices, var coroutineContext: CoroutineContext = Dispatchers.IO) : ApiRepository {
+class RetrofitApiRepository @Inject
+constructor(private val apiServices: ApiServices, var coroutineContext: CoroutineContext = Dispatchers.IO) : ApiRepository {
 
     override suspend fun getDeputy(departmentId: Int, district: Int): Deputy = withContext(coroutineContext) {
         apiServices.getDeputyAsync(departmentId, district).await()

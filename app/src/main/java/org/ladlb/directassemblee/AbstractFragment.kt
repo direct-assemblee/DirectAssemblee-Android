@@ -4,7 +4,7 @@ import android.content.Intent
 import dagger.android.support.DaggerFragment
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.data.CacheManager
-import org.ladlb.directassemblee.firebase.FireBaseAnalyticsManager
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
 import org.ladlb.directassemblee.preferences.PreferencesStorage
 
 /**
@@ -36,7 +36,7 @@ abstract class AbstractFragment : DaggerFragment() {
     fun getPreferences(): PreferencesStorage =
             (activity as AbstractActivity).getPreferences()
 
-    fun getFireBaseAnalytics(): FireBaseAnalyticsManager =
+    fun getFireBaseAnalytics(): FirebaseAnalyticsManager =
             (activity as AbstractActivity).getFireBaseAnalytics()
 
     fun getCacheManager(): CacheManager =

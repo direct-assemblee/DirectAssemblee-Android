@@ -6,15 +6,19 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Filterable
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import kotlinx.android.synthetic.main.activity_ballot_vote.*
+import kotlinx.android.synthetic.main.fragment_deputy_list.*
 import org.ladlb.directassemblee.AbstractToolBarActivity
 import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.ballot.vote.BallotVoteGetPresenter.BallotVotesGetView
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.DeputyListFragment.DeputyListFragmentListener
 import org.ladlb.directassemblee.timeline.TimelineItem
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -37,7 +41,11 @@ class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, Dep
 
     override fun getContentView(): Int = R.layout.activity_ballot_vote
 
-    private lateinit var ballotVotesGetPresenter: BallotVoteGetPresenter
+    @Inject
+    lateinit var ballotVotesGetPresenter: BallotVoteGetPresenter
+
+    @Inject
+    lateinit var apiRepository: RetrofitApiRepository
 
     private lateinit var adapter: BallotVotePagerAdapter
 
@@ -71,8 +79,6 @@ class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, Dep
 
         ballot = intent.getParcelableExtra(EXTRA_BALLOT)
 
-        ballotVotesGetPresenter = BallotVoteGetPresenter(this)
-
         searchView.visibility = View.GONE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -103,13 +109,13 @@ class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, Dep
         tabLayout.setupWithViewPager(viewPager)
         tabLayout.addOnTabSelectedListener(this)
 
-        ballotVotesGetPresenter.getVotes(getApiServices(), ballot.id)
+        ballotVotesGetPresenter.getVotes(apiRepository, ballot.id)
 
     }
 
     override fun onTabReselected(tab: TabLayout.Tab?) {
         when (viewPager.currentItem) {
-        //0, 1, 2, 3, 4 -> (recyclerView.layoutManager as LinearLayoutManager).scrollToPosition(0)
+            0, 1, 2, 3, 4 -> (recyclerView.layoutManager as LinearLayoutManager).scrollToPosition(0)
         }
     }
 
@@ -138,6 +144,7 @@ class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, Dep
 
         loadingView.visibility = View.GONE
         searchView.visibility = View.VISIBLE
+
     }
 
     override fun onNoBallotVotesFound() {

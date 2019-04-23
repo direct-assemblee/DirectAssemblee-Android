@@ -2,7 +2,7 @@ package org.ladlb.directassemblee
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
-import org.ladlb.directassemblee.firebase.FireBaseAnalyticsManager
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
 import org.ladlb.directassemblee.preferences.PreferencesStorage
 
 /**
@@ -30,7 +30,7 @@ abstract class AbstractBottomSheetDialogFragment : BottomSheetDialogFragment() {
     fun getPreferences(): PreferencesStorage =
             (activity as AbstractActivity).getPreferences()
 
-    fun getFireBaseAnalytics(): FireBaseAnalyticsManager =
+    fun getFireBaseAnalytics(): FirebaseAnalyticsManager =
             (activity as AbstractActivity).getFireBaseAnalytics()
 
     override fun onResume() {

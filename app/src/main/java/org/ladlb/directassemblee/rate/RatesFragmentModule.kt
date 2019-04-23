@@ -1,7 +1,9 @@
-package org.ladlb.directassemblee.address
+package org.ladlb.directassemblee.rate
 
+import dagger.Binds
 import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import dagger.Provides
+import org.ladlb.directassemblee.rate.RateGetPresenter.RateGetView
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -21,8 +23,20 @@ import dagger.android.ContributesAndroidInjector
  */
 
 @Module
-abstract class SearchFragmentProvider {
+abstract class RatesFragmentModule {
 
-    @ContributesAndroidInjector(modules = [SearchAddressFragmentModule::class])
-    internal abstract fun provideSearchAddressFragment(): SearchAddressFragment
+    @Binds
+    internal abstract fun provideRateGetView(rateFragment: RatesFragment): RateGetView
+
+    @Module
+    companion object {
+
+        @Provides
+        @JvmStatic
+        internal fun provideRateGetPresenter(view: RateGetView): RateGetPresenter {
+            return RateGetPresenter(view)
+        }
+
+    }
+
 }

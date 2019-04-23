@@ -4,6 +4,7 @@ import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.rate.RateGetPresenter.RateGetView
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -22,7 +23,8 @@ import org.ladlb.directassemblee.rate.RateGetPresenter.RateGetView
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class RateGetPresenter(view: RateGetView) : AbstractPresenter<RateGetView>(view) {
+class RateGetPresenter @Inject
+constructor(view: RateGetView) : AbstractPresenter<RateGetView>(view) {
 
     fun getActivityRates(apiRepository: ApiRepository) {
 

@@ -11,7 +11,7 @@ import dagger.android.DaggerApplication
 import io.fabric.sdk.android.Fabric
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.data.CacheManager
-import org.ladlb.directassemblee.firebase.FireBaseAnalyticsManager
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
 import org.ladlb.directassemblee.helper.MetricHelper
 import org.ladlb.directassemblee.preferences.PreferencesStorage
 import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
@@ -39,7 +39,7 @@ open class AssembleApplication : DaggerApplication() {
 
     private lateinit var preferences: PreferencesStorage
 
-    private lateinit var firebaseAnalytics: FireBaseAnalyticsManager
+    private lateinit var firebaseAnalytics: FirebaseAnalyticsManager
 
     override fun onCreate() {
         super.onCreate()
@@ -59,7 +59,7 @@ open class AssembleApplication : DaggerApplication() {
                 )
         )
 
-        firebaseAnalytics = FireBaseAnalyticsManager()
+        firebaseAnalytics = FirebaseAnalyticsManager()
 
     }
 
@@ -104,7 +104,7 @@ open class AssembleApplication : DaggerApplication() {
 
     fun getPreferences(): PreferencesStorage = preferences
 
-    fun getFireBaseAnalytics(): FireBaseAnalyticsManager = firebaseAnalytics
+    fun getFireBaseAnalytics(): FirebaseAnalyticsManager = firebaseAnalytics
 
     fun getCacheManager(): CacheManager = CacheManager.getInstance()
 

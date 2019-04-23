@@ -28,7 +28,7 @@ import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class FireBaseAnalyticsManager {
+class FirebaseAnalyticsManager {
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
