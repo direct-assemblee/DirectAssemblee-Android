@@ -18,7 +18,9 @@ import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys
 import org.ladlb.directassemblee.helper.DrawableHelper
 import org.ladlb.directassemblee.helper.FormatHelper
 import org.ladlb.directassemblee.helper.getColorPrimary
+import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
 import org.ladlb.directassemblee.timeline.TimelineItem
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -42,6 +44,9 @@ class MotionFragment : AbstractFragment(), OnClickListener {
     override fun getTagName(): String = getClassName() + " " + timelineItem.id
 
     override fun getClassName(): String = "MotionFragment"
+
+    @Inject
+    lateinit var preferenceStorage: PreferencesStorageImpl
 
     private lateinit var timelineItem: TimelineItem
 
@@ -151,14 +156,14 @@ class MotionFragment : AbstractFragment(), OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        getFireBaseAnalytics().logEvent(
+        firebaseAnalyticsManager.logEvent(
                 FirebaseAnalyticsKeys.Event.DISPLAY_TIMELINE_EVENT_DETAIL,
                 FirebaseAnalyticsHelper.addDeputy(
                         FirebaseAnalyticsHelper.addTimeLineItem(
                                 Bundle(),
                                 timelineItem
                         ),
-                        getPreferences().loadDeputy()!!
+                        preferenceStorage.loadDeputy()!!
                 )
         )
     }

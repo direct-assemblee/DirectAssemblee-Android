@@ -143,7 +143,7 @@ class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickLis
     }
 
     private fun tagDeputyFound(deputy: Deputy) {
-        getFireBaseAnalytics().logEvent(
+        firebaseAnalyticsManager.logEvent(
                 Event.DEPUTY_FOUND,
                 FirebaseAnalyticsHelper.addDeputy(
                         Bundle(),
@@ -165,7 +165,7 @@ class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickLis
     private fun tagMultipleDeputiesFound(deputies: Array<Deputy>) {
         val bundle = Bundle()
         bundle.putInt(ItemKey.NUMBER, deputies.size)
-        getFireBaseAnalytics().logEvent(
+        firebaseAnalyticsManager.logEvent(
                 Event.MULTIPLE_DEPUTIES_FOUND,
                 bundle
         )

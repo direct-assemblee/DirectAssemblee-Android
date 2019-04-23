@@ -53,7 +53,7 @@ class DeputyFindActivity : AbstractToolBarActivity(), DeputyFindFragmentListener
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         android.R.id.home -> {
-            getFireBaseAnalytics().logEvent(Event.CANCEL_SEARCH_DEPUTY)
+            firebaseAnalyticsManager.logEvent(Event.CANCEL_SEARCH_DEPUTY)
             super.onOptionsItemSelected(item)
         }
         else -> super.onOptionsItemSelected(item)

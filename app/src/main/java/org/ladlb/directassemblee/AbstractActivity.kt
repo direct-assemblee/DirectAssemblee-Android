@@ -2,12 +2,9 @@ package org.ladlb.directassemblee
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.android.support.DaggerAppCompatActivity
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
-import org.ladlb.directassemblee.data.CacheManager
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
-import org.ladlb.directassemblee.preferences.PreferencesStorage
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -28,27 +25,17 @@ import org.ladlb.directassemblee.preferences.PreferencesStorage
 
 abstract class AbstractActivity : DaggerAppCompatActivity() {
 
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
+    @Inject
+    lateinit var firebaseAnalyticsManager: FirebaseAnalyticsManager
 
     fun onDialogFragmentResult(requestCode: Int, resultCode: Int, data: Intent?) {
         onActivityResult(requestCode, resultCode, data)
     }
 
-    fun getApiServices(): RetrofitApiRepository =
-            (application as AssembleApplication).getApiServices()
-
-    fun getPreferences(): PreferencesStorage = (application as AssembleApplication).getPreferences()
-
-    fun getFireBaseAnalytics(): FirebaseAnalyticsManager =
-            (application as AssembleApplication).getFireBaseAnalytics()
-
-    fun getCacheManager(): CacheManager =
-            (application as AssembleApplication).getCacheManager()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        getFireBaseAnalytics().initInstance(this)
+        firebaseAnalyticsManager.initInstance(this)
 
         /*
             Used for make app screenshots

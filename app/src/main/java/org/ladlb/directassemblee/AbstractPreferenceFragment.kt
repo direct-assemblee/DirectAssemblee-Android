@@ -6,10 +6,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.preference.PreferenceFragmentCompat
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
-import org.ladlb.directassemblee.data.CacheManager
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
-import org.ladlb.directassemblee.preferences.PreferencesStorage
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -30,6 +28,9 @@ import org.ladlb.directassemblee.preferences.PreferencesStorage
 
 abstract class AbstractPreferenceFragment : PreferenceFragmentCompat(), LifecycleOwner {
 
+    @Inject
+    lateinit var firebaseAnalyticsManager: FirebaseAnalyticsManager
+
     private lateinit var lifecycleRegistry: LifecycleRegistry
 
     override fun getLifecycle(): LifecycleRegistry = lifecycleRegistry
@@ -42,19 +43,6 @@ abstract class AbstractPreferenceFragment : PreferenceFragmentCompat(), Lifecycl
         onActivityResult(requestCode, resultCode, data)
     }
 
-    fun getApiServices(): RetrofitApiRepository =
-            (activity as AbstractActivity).getApiServices()
-
-    fun getPreferences(): PreferencesStorage =
-            (activity as AbstractActivity).getPreferences()
-
-    fun getFireBaseAnalytics(): FirebaseAnalyticsManager =
-            (activity as AbstractActivity).getFireBaseAnalytics()
-
-    fun getDataManager(): CacheManager =
-            (activity as AbstractActivity).getCacheManager()
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleRegistry = LifecycleRegistry(this)
@@ -63,7 +51,7 @@ abstract class AbstractPreferenceFragment : PreferenceFragmentCompat(), Lifecycl
 
     override fun onResume() {
         super.onResume()
-        getFireBaseAnalytics().setCurrentScreen((activity as AbstractActivity), this)
+        firebaseAnalyticsManager.setCurrentScreen((activity as AbstractActivity), this)
     }
 
     override fun onDestroy() {

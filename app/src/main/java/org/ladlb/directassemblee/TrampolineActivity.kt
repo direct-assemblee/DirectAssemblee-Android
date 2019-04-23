@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.retrieve.DeputyRetrieveActivity
+import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -25,6 +27,9 @@ import org.ladlb.directassemblee.deputy.retrieve.DeputyRetrieveActivity
 
 class TrampolineActivity : AbstractActivity() {
 
+    @Inject
+    lateinit var preferenceStorage: PreferencesStorageImpl
+
     companion object {
 
         fun getIntent(context: Context): Intent = Intent(
@@ -37,13 +42,13 @@ class TrampolineActivity : AbstractActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val deputy = getPreferences().loadDeputy()
+        val deputy = preferenceStorage.loadDeputy()
 
         if (deputy == null) {
-            getFireBaseAnalytics().clearUserDeputyProperties()
+            firebaseAnalyticsManager.clearUserDeputyProperties()
             startRetrieveDeputyActivity()
         } else {
-            getFireBaseAnalytics().setUserDeputyProperties(deputy)
+            firebaseAnalyticsManager.setUserDeputyProperties(deputy)
             startDeputyActivity(deputy)
         }
         finish()

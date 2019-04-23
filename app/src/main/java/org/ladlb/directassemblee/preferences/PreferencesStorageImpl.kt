@@ -8,6 +8,8 @@ import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deserializer.DateDeserializer
 import org.ladlb.directassemblee.deserializer.DateSerializer
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -26,7 +28,9 @@ import java.util.*
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class PreferencesStorageImpl(private val mPreferences: SharedPreferences) : PreferencesStorage {
+@Singleton
+class PreferencesStorageImpl @Inject
+constructor(private val preferences: SharedPreferences) : PreferencesStorage {
 
     companion object {
 
@@ -43,7 +47,7 @@ class PreferencesStorageImpl(private val mPreferences: SharedPreferences) : Pref
 
     override fun loadDeputy(): Deputy? {
 
-        val json = mPreferences.getString(
+        val json = preferences.getString(
                 KEY_DEPUTY,
                 null
         )
@@ -57,35 +61,35 @@ class PreferencesStorageImpl(private val mPreferences: SharedPreferences) : Pref
     }
 
     override fun saveDeputy(deputy: Deputy?) {
-        mPreferences.edit().putString(
+        preferences.edit().putString(
                 KEY_DEPUTY,
                 gson.toJson(deputy)
         ).apply()
     }
 
     override fun setNotificationDialogShowed(isShow: Boolean) {
-        mPreferences.edit().putBoolean(
+        preferences.edit().putBoolean(
                 KEY_NOTIFICATION_DIALOG,
                 isShow
         ).apply()
     }
 
     override fun isNotificationDialogShowed(): Boolean {
-        return mPreferences.getBoolean(
+        return preferences.getBoolean(
                 KEY_NOTIFICATION_DIALOG,
                 false
         )
     }
 
     override fun setNotificationEnabled(isEnable: Boolean) {
-        mPreferences.edit().putBoolean(
+        preferences.edit().putBoolean(
                 KEY_NOTIFICATION,
                 isEnable
         ).apply()
     }
 
     override fun isNotificationEnabled(): Boolean {
-        return mPreferences.getBoolean(
+        return preferences.getBoolean(
                 KEY_NOTIFICATION,
                 false
         )

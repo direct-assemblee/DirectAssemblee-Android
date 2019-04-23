@@ -1,6 +1,5 @@
 package org.ladlb.directassemblee
 
-import android.content.Context
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.crashlytics.android.Crashlytics
@@ -9,12 +8,7 @@ import com.squareup.picasso.Picasso
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import io.fabric.sdk.android.Fabric
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
-import org.ladlb.directassemblee.data.CacheManager
-import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
 import org.ladlb.directassemblee.helper.MetricHelper
-import org.ladlb.directassemblee.preferences.PreferencesStorage
-import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -35,12 +29,6 @@ import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
 
 open class AssembleApplication : DaggerApplication() {
 
-    private lateinit var apiServices: RetrofitApiRepository
-
-    private lateinit var preferences: PreferencesStorage
-
-    private lateinit var firebaseAnalytics: FirebaseAnalyticsManager
-
     override fun onCreate() {
         super.onCreate()
 
@@ -51,15 +39,6 @@ open class AssembleApplication : DaggerApplication() {
         initPicasso()
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-
-        preferences = PreferencesStorageImpl(
-                getSharedPreferences(
-                        "directAssembee",
-                        Context.MODE_PRIVATE
-                )
-        )
-
-        firebaseAnalytics = FirebaseAnalyticsManager()
 
     }
 
@@ -99,13 +78,5 @@ open class AssembleApplication : DaggerApplication() {
             MetricHelper.track(e)
         }
     }
-
-    fun getApiServices(): RetrofitApiRepository = apiServices
-
-    fun getPreferences(): PreferencesStorage = preferences
-
-    fun getFireBaseAnalytics(): FirebaseAnalyticsManager = firebaseAnalytics
-
-    fun getCacheManager(): CacheManager = CacheManager.getInstance()
 
 }

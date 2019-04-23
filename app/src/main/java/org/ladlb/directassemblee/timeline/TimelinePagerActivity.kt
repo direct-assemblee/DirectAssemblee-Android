@@ -14,6 +14,7 @@ import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.data.CacheManager
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.DeputyHelper
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -52,6 +53,9 @@ class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
 
     }
 
+    @Inject
+    lateinit var cacheManager: CacheManager
+
     private lateinit var adapter: TimelinePagerAdapter
 
     override fun getContentView(): Int = R.layout.activity_timeline_pager
@@ -68,7 +72,7 @@ class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
             @Suppress("UNCHECKED_CAST")
             adapter = TimelinePagerAdapter(
                     supportFragmentManager,
-                    getCacheManager().get(CacheManager.timeLine) as ArrayList<TimelineItem>
+                    cacheManager.get(CacheManager.timeLine) as ArrayList<TimelineItem>
             )
 
             viewPager.adapter = adapter

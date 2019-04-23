@@ -2,6 +2,7 @@ package org.ladlb.directassemblee
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Binds
@@ -15,6 +16,8 @@ import org.ladlb.directassemblee.api.NetworkCacheInterceptor
 import org.ladlb.directassemblee.api.dataGouv.AddressServices
 import org.ladlb.directassemblee.api.ladlb.ApiServices
 import org.ladlb.directassemblee.api.ladlb.VoteDeserializer
+import org.ladlb.directassemblee.data.CacheManager
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
 import org.ladlb.directassemblee.vote.Vote
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -58,11 +61,31 @@ abstract class AppModule {
         @Singleton
         fun provideCoroutineContext(): CoroutineContext = Dispatchers.IO
 
+        @Provides
+        @JvmStatic
+        @Singleton
+        fun provideCacheManager(): CacheManager = CacheManager()
+
+        @Provides
+        @JvmStatic
+        @Singleton
+        fun provideFirebaseAnalyticsManager(): FirebaseAnalyticsManager = FirebaseAnalyticsManager()
+
         @Singleton
         @JvmStatic
         @Provides
         fun provideCacheDir(context: Context): File {
             return context.cacheDir
+        }
+
+        @Singleton
+        @JvmStatic
+        @Provides
+        fun provideSharedPreferences(context: Context): SharedPreferences {
+            return context.getSharedPreferences(
+                    "directAssembee",
+                    Context.MODE_PRIVATE
+            )
         }
 
         @Singleton

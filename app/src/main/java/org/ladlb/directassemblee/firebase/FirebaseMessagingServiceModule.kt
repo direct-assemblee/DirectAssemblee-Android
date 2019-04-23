@@ -1,4 +1,10 @@
-package org.ladlb.directassemblee.data
+package org.ladlb.directassemblee.firebase
+
+import dagger.Binds
+import dagger.Module
+import dagger.Provides
+import org.ladlb.directassemblee.notification.NotificationSubscribePresenter
+import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.NotificationSubscribeView
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -17,13 +23,20 @@ package org.ladlb.directassemblee.data
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class CacheManager : androidx.collection.LruCache<String, Any?>(cacheSize) {
+@Module
+abstract class FirebaseMessagingServiceModule {
 
+    @Binds
+    abstract fun provideNotificationSubscribeView(firebaseMessagingService: FirebaseMessagingService): NotificationSubscribeView
+
+    @Module
     companion object {
 
-        private const val cacheSize = 10 * 1024 * 1024
-
-        const val timeLine = "TIMELINE"
+        @Provides
+        @JvmStatic
+        internal fun provideNotificationSubscribePresenter(view: NotificationSubscribeView): NotificationSubscribePresenter {
+            return NotificationSubscribePresenter(view)
+        }
 
     }
 

@@ -22,6 +22,7 @@ import org.ladlb.directassemblee.deputy.detail.DeputyDetailsFragment
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
 import org.ladlb.directassemblee.helper.ViewHelper
+import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
 import org.ladlb.directassemblee.timeline.TimelineFragment
 import org.ladlb.directassemblee.widget.DeputyToolbar
 import javax.inject.Inject
@@ -55,6 +56,9 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
 
     @Inject
     lateinit var apiRepository: RetrofitApiRepository
+
+    @Inject
+    lateinit var preferenceStorage: PreferencesStorageImpl
 
     private var adapter: DeputyPagerAdapter? = null
 
@@ -224,14 +228,14 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
         when (tab?.position) {
-            0 -> getFireBaseAnalytics().logEvent(
+            0 -> firebaseAnalyticsManager.logEvent(
                     Event.DEPUTY_TIMELINE,
                     FirebaseAnalyticsHelper.addDeputy(
                             Bundle(),
                             deputy
                     )
             )
-            1 -> getFireBaseAnalytics().logEvent(
+            1 -> firebaseAnalyticsManager.logEvent(
                     Event.DEPUTY_PROFILE,
                     FirebaseAnalyticsHelper.addDeputy(
                             Bundle(),
@@ -244,7 +248,7 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
     override fun onDeputyReceived(deputy: Deputy) {
 
         if (isPrimaryDeputy(deputy)) {
-            getPreferences().saveDeputy(deputy)
+            preferenceStorage.saveDeputy(deputy)
         }
 
         onGetDeputyFinished(deputy)
@@ -252,7 +256,7 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
     }
 
     private fun isPrimaryDeputy(deputy: Deputy): Boolean {
-        val primaryDeputy = getPreferences().loadDeputy()
+        val primaryDeputy = preferenceStorage.loadDeputy()
         return (primaryDeputy != null && primaryDeputy.id == deputy.id)
     }
 

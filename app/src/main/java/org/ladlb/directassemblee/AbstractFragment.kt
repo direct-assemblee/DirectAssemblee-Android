@@ -2,10 +2,8 @@ package org.ladlb.directassemblee
 
 import android.content.Intent
 import dagger.android.support.DaggerFragment
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
-import org.ladlb.directassemblee.data.CacheManager
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
-import org.ladlb.directassemblee.preferences.PreferencesStorage
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -26,21 +24,12 @@ import org.ladlb.directassemblee.preferences.PreferencesStorage
 
 abstract class AbstractFragment : DaggerFragment() {
 
+    @Inject
+    lateinit var firebaseAnalyticsManager: FirebaseAnalyticsManager
+
     fun onDialogFragmentResult(requestCode: Int, resultCode: Int, data: Intent?) {
         onActivityResult(requestCode, resultCode, data)
     }
-
-    fun getApiServices(): RetrofitApiRepository =
-            (activity as AbstractActivity).getApiServices()
-
-    fun getPreferences(): PreferencesStorage =
-            (activity as AbstractActivity).getPreferences()
-
-    fun getFireBaseAnalytics(): FirebaseAnalyticsManager =
-            (activity as AbstractActivity).getFireBaseAnalytics()
-
-    fun getCacheManager(): CacheManager =
-            (activity as AbstractActivity).getCacheManager()
 
     override fun onResume() {
         super.onResume()
@@ -54,7 +43,7 @@ abstract class AbstractFragment : DaggerFragment() {
 
     private fun updateCurrentScreen() {
         if (userVisibleHint && activity is AbstractActivity) {
-            getFireBaseAnalytics().setCurrentScreen((activity as AbstractActivity), this)
+            firebaseAnalyticsManager.setCurrentScreen((activity as AbstractActivity), this)
         }
     }
 

@@ -20,6 +20,7 @@ import org.ladlb.directassemblee.helper.ErrorHelper
 import org.ladlb.directassemblee.helper.NavigationHelper
 import org.ladlb.directassemblee.notification.NotificationSubscribePresenter
 import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.NotificationSubscribeView
+import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
 import org.ladlb.directassemblee.settings.SettingsActivity
 import org.ladlb.directassemblee.synthesis.SynthesisActivity
 import org.ladlb.directassemblee.timeline.TimelineFragment.DeputyTimeLineFragmentListener
@@ -67,6 +68,9 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
 
     @Inject
     lateinit var apiRepository: RetrofitApiRepository
+
+    @Inject
+    lateinit var preferenceStorage: PreferencesStorageImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,9 +123,9 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
 
     private fun showNotificationDialogIfNeeded() {
 
-        if (!getPreferences().isNotificationDialogShowed()) {
+        if (!preferenceStorage.isNotificationDialogShowed()) {
 
-            getPreferences().setNotificationDialogShowed(true)
+            preferenceStorage.setNotificationDialogShowed(true)
 
             AlertDialog.Builder(
                     this
@@ -132,7 +136,7 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
             ) { _, _ ->
                 subscribeNotificationPresenter.postSubscribe(
                         apiRepository,
-                        getPreferences(),
+                        preferenceStorage,
                         deputy.id
                 )
             }.setNegativeButton(
@@ -159,7 +163,7 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
                 ItemKey.ENABLE,
                 enable
         )
-        getFireBaseAnalytics().logEvent(
+        firebaseAnalyticsManager.logEvent(
                 Event.NOTIFICATIONS_ENABLE,
                 bundle
         )
@@ -189,7 +193,7 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
             R.id.nav_search -> startDeputySearchActivity()
             R.id.nav_share -> {
 
-                getFireBaseAnalytics().logEvent(
+                firebaseAnalyticsManager.logEvent(
                         Event.SHARE,
                         Bundle()
                 )

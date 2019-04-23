@@ -96,7 +96,7 @@ class DeclarationBottomSheetDialogFragment : AbstractBottomSheetDialogFragment()
                 FirebaseAnalyticsKeys.ItemKey.DECLARATION_URL,
                 declaration.url
         )
-        getFireBaseAnalytics().logEvent(
+        firebaseAnalyticsManager.logEvent(
                 FirebaseAnalyticsKeys.Event.DISPLAY_DEPUTY_DECLARATION,
                 bundle
         )

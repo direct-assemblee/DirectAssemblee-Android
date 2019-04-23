@@ -20,6 +20,8 @@ import org.ladlb.directassemblee.deputy.search.DeputySearchActivity
 import org.ladlb.directassemblee.deputy.search.DeputySearchActivityModule
 import org.ladlb.directassemblee.deputy.search.PrimaryDeputySearchActivity
 import org.ladlb.directassemblee.deputy.search.PrimaryDeputySearchActivityModule
+import org.ladlb.directassemblee.firebase.FirebaseMessagingService
+import org.ladlb.directassemblee.firebase.FirebaseMessagingServiceModule
 import org.ladlb.directassemblee.motion.MotionFragmentProvider
 import org.ladlb.directassemblee.rate.RatesFragmentProvider
 import org.ladlb.directassemblee.settings.SettingsActivity
@@ -83,5 +85,8 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [RatesFragmentProvider::class])
     internal abstract fun bindSynthesisActivity(): SynthesisActivity
+
+    @ContributesAndroidInjector(modules = [FirebaseMessagingServiceModule::class])
+    internal abstract fun bindFirebaseMessagingService(): FirebaseMessagingService
 
 }

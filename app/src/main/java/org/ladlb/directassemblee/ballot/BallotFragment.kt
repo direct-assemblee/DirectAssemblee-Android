@@ -26,9 +26,11 @@ import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys
 import org.ladlb.directassemblee.helper.DrawableHelper
 import org.ladlb.directassemblee.helper.FormatHelper
 import org.ladlb.directassemblee.helper.getColorPrimary
+import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
 import org.ladlb.directassemblee.timeline.TimelineItem
 import org.ladlb.directassemblee.vote.Vote
 import java.util.*
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -52,6 +54,9 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
     override fun getClassName(): String = "BallotFragment"
 
     override fun getTagName(): String = getClassName() + " " + ballot.id
+
+    @Inject
+    lateinit var preferenceStorage: PreferencesStorageImpl
 
     private lateinit var ballot: TimelineItem
 
@@ -235,14 +240,14 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
     }
 
     override fun onClick(v: View?) {
-        getFireBaseAnalytics().logEvent(
+        firebaseAnalyticsManager.logEvent(
                 FirebaseAnalyticsKeys.Event.DISPLAY_TIMELINE_EVENT_DETAIL,
                 FirebaseAnalyticsHelper.addDeputy(
                         FirebaseAnalyticsHelper.addTimeLineItem(
                                 Bundle(),
                                 ballot
                         ),
-                        getPreferences().loadDeputy()!!
+                        preferenceStorage.loadDeputy()!!
                 )
         )
     }

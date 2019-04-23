@@ -1,9 +1,8 @@
 package org.ladlb.directassemblee
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
-import org.ladlb.directassemblee.preferences.PreferencesStorage
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -24,14 +23,8 @@ import org.ladlb.directassemblee.preferences.PreferencesStorage
 
 abstract class AbstractBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
-    fun getApiServices(): RetrofitApiRepository =
-            (activity as AbstractActivity).getApiServices()
-
-    fun getPreferences(): PreferencesStorage =
-            (activity as AbstractActivity).getPreferences()
-
-    fun getFireBaseAnalytics(): FirebaseAnalyticsManager =
-            (activity as AbstractActivity).getFireBaseAnalytics()
+    @Inject
+    lateinit var firebaseAnalyticsManager: FirebaseAnalyticsManager
 
     override fun onResume() {
         super.onResume()
@@ -45,7 +38,7 @@ abstract class AbstractBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     private fun updateCurrentScreen() {
         if (userVisibleHint && activity is AbstractActivity) {
-            getFireBaseAnalytics().setCurrentScreen((activity as AbstractActivity), this)
+            firebaseAnalyticsManager.setCurrentScreen((activity as AbstractActivity), this)
         }
     }
 

@@ -18,6 +18,7 @@ import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.ItemKey
+import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
 import org.ladlb.directassemblee.timeline.TimelineAdapter.TimeLineAdapterListener
 import org.ladlb.directassemblee.timeline.TimelineGetPresenter.TimelineGetView
 import org.ladlb.directassemblee.widget.PaginationAdapter.LoadingMoreListener
@@ -69,6 +70,12 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
 
     @Inject
     lateinit var apiRepository: RetrofitApiRepository
+
+    @Inject
+    lateinit var cacheManager: CacheManager
+
+    @Inject
+    lateinit var preferenceStorage: PreferencesStorageImpl
 
     private var appBarLayout: AppBarLayout? = null
 
@@ -189,11 +196,11 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
                 page
         )
 
-        getFireBaseAnalytics().logEvent(
+        firebaseAnalyticsManager.logEvent(
                 Event.DEPUTY_TIMELINE_LOAD_MORE,
                 FirebaseAnalyticsHelper.addDeputy(
                         bundle,
-                        getPreferences().loadDeputy()!!
+                        preferenceStorage.loadDeputy()!!
                 )
         )
 
@@ -214,7 +221,7 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
 
         val items = adapter.getItems()
 
-        getFireBaseAnalytics().logEvent(
+        firebaseAnalyticsManager.logEvent(
                 Event.DISPLAY_TIMELINE_EVENT_DETAIL,
                 FirebaseAnalyticsHelper.addDeputy(
                         FirebaseAnalyticsHelper.addTimeLineItem(
@@ -225,7 +232,7 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
                 )
         )
 
-        getCacheManager().put(
+        cacheManager.put(
                 CacheManager.timeLine,
                 items
         )

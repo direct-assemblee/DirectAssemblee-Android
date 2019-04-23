@@ -2,10 +2,12 @@ package org.ladlb.directassemblee.firebase
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import org.ladlb.directassemblee.AssembleApplication
+import dagger.android.AndroidInjection
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.notification.NotificationSubscribePresenter
-import org.ladlb.directassemblee.preferences.PreferencesStorage
+import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.NotificationSubscribeView
+import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -24,15 +26,21 @@ import org.ladlb.directassemblee.preferences.PreferencesStorage
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class FirebaseMessagingService : FirebaseMessagingService() {
+class FirebaseMessagingService : FirebaseMessagingService(), NotificationSubscribeView {
 
-    private lateinit var subscribeNotificationPresenter: NotificationSubscribePresenter
+    @Inject
+    lateinit var retrofitApiRepository: RetrofitApiRepository
+
+    @Inject
+    lateinit var subscribeNotificationPresenter: NotificationSubscribePresenter
+
+    @Inject
+    lateinit var preferenceStorage: PreferencesStorageImpl
 
     override fun onCreate() {
         super.onCreate()
 
-        subscribeNotificationPresenter = NotificationSubscribePresenter(null)
-
+        AndroidInjection.inject(this)
     }
 
     override fun onDestroy() {
@@ -43,7 +51,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(p0: RemoteMessage?) {
-        if (getPreferences().isNotificationEnabled()) {
+        if (preferenceStorage.isNotificationEnabled()) {
             super.onMessageReceived(p0)
         }
     }
@@ -51,20 +59,23 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(p0: String?) {
         super.onNewToken(p0)
 
-        val deputy = getPreferences().loadDeputy()
+        val deputy = preferenceStorage.loadDeputy()
 
-        if (getPreferences().isNotificationEnabled() && deputy != null) {
+        if (preferenceStorage.isNotificationEnabled() && deputy != null) {
             subscribeNotificationPresenter.postSubscribe(
-                    getApiServices(),
-                    getPreferences(),
+                    retrofitApiRepository,
+                    preferenceStorage,
                     deputy.id
             )
         }
     }
 
-    fun getPreferences(): PreferencesStorage = (application as AssembleApplication).getPreferences()
+    override fun onNotificationSubscribeCompleted() {
+        // Nothing to do
+    }
 
-    fun getApiServices(): RetrofitApiRepository =
-            (application as AssembleApplication).getApiServices()
+    override fun onNotificationSubscribeFailed() {
+        // Nothing to do
+    }
 
 }

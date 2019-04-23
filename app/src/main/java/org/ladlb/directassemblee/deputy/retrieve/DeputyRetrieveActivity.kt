@@ -24,6 +24,7 @@ import org.ladlb.directassemblee.helper.ErrorHelper
 import org.ladlb.directassemblee.helper.GoogleHelper
 import org.ladlb.directassemblee.location.LocationGetPresenter
 import org.ladlb.directassemblee.location.LocationGetPresenter.LocationGetView
+import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
 import javax.inject.Inject
 
 /**
@@ -63,6 +64,9 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
     @Inject
     lateinit var locationGetPresenter: LocationGetPresenter
 
+    @Inject
+    lateinit var preferenceStorage: PreferencesStorageImpl
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -77,7 +81,7 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
     }
 
     override fun onSearchByNamesClicked() {
-        getFireBaseAnalytics().logEvent(Event.SEARCH_DEPUTY_IN_LIST)
+        firebaseAnalyticsManager.logEvent(Event.SEARCH_DEPUTY_IN_LIST)
         startDeputySearchableActivity()
     }
 
@@ -86,7 +90,7 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
         if (GoogleHelper.isGooglePlayServicesAvailable(this)) {
 
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                getFireBaseAnalytics().logEvent(
+                firebaseAnalyticsManager.logEvent(
                         Event.SEARCH_DEPUTY_GEOLOCATION
                 )
                 locationGetPresenter.getLocation(this)
@@ -122,10 +126,9 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
 
     private fun onDeputyRetrieved(deputy: Deputy) {
 
-        val preferences = getPreferences()
-        preferences.saveDeputy(deputy)
+        preferenceStorage.saveDeputy(deputy)
 
-        getFireBaseAnalytics().setUserDeputyProperties(deputy)
+        firebaseAnalyticsManager.setUserDeputyProperties(deputy)
 
         startDeputyActivity(deputy)
         finish()
@@ -161,7 +164,7 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
             REQUEST_SEARCH_ADDRESS ->
                 when (resultCode) {
                     Activity.RESULT_OK -> {
-                        getFireBaseAnalytics().logEvent(
+                        firebaseAnalyticsManager.logEvent(
                                 Event.ADDRESS_SELECTED
                         )
                         val address = intent?.getParcelableExtra<Address>(SearchAddressActivity.EXTRA_ADDRESS)
@@ -175,7 +178,7 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
 
                     }
                     Activity.RESULT_CANCELED -> {
-                        getFireBaseAnalytics().logEvent(
+                        firebaseAnalyticsManager.logEvent(
                                 Event.BACK_FROM_SELECT_ADDRESS
                         )
                     }

@@ -6,8 +6,10 @@ import android.text.TextUtils
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
+import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.SwitchPreferenceCompat
 import com.google.firebase.iid.FirebaseInstanceId
+import dagger.android.support.AndroidSupportInjection
 import org.ladlb.directassemblee.AbstractPreferenceFragment
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
@@ -23,6 +25,7 @@ import org.ladlb.directassemblee.notification.NotificationSubscribePresenter
 import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.NotificationSubscribeView
 import org.ladlb.directassemblee.notification.NotificationUnSubscribePresenter
 import org.ladlb.directassemblee.notification.NotificationUnSubscribePresenter.NotificationUnSubscribeView
+import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
 import javax.inject.Inject
 
 /**
@@ -42,7 +45,7 @@ import javax.inject.Inject
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView, NotificationUnSubscribeView, Preference.OnPreferenceChangeListener {
+class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView, NotificationUnSubscribeView, OnPreferenceChangeListener {
 
     override fun getClassName(): String = "SettingsFragment"
 
@@ -72,6 +75,9 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
     @Inject
     lateinit var apiRepository: RetrofitApiRepository
 
+    @Inject
+    lateinit var preferenceStorage: PreferencesStorageImpl
+
     private var isChangeDeputy = false
 
     private lateinit var notificationSwitchPreference: SwitchPreferenceCompat
@@ -81,7 +87,9 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        deputy = getPreferences().loadDeputy()!!
+        AndroidSupportInjection.inject(this)
+
+        deputy = preferenceStorage.loadDeputy()!!
     }
 
     private var listener: SettingsFragmentListener? = null
@@ -111,18 +119,18 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
             MetricHelper.track("Token empty in settings")
             notificationSwitchPreference.isEnabled = false
         } else {
-            notificationSwitchPreference.isChecked = getPreferences().isNotificationEnabled()
+            notificationSwitchPreference.isChecked = preferenceStorage.isNotificationEnabled()
             notificationSwitchPreference.onPreferenceChangeListener = this
         }
 
         findPreference(getString(R.string.preferences_settings_key_deputy_change)).onPreferenceClickListener =
-                Preference.OnPreferenceClickListener { _ ->
+                Preference.OnPreferenceClickListener {
                     showSearchDialog()
                     return@OnPreferenceClickListener true
                 }
 
         findPreference(getString(R.string.preferences_settings_key_faq)).onPreferenceClickListener =
-                Preference.OnPreferenceClickListener { _ ->
+                Preference.OnPreferenceClickListener {
                     NavigationHelper.openURL(
                             context!!,
                             getString(R.string.url_faq)
@@ -131,7 +139,7 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
                 }
 
         findPreference(getString(R.string.preferences_settings_key_policy)).onPreferenceClickListener =
-                Preference.OnPreferenceClickListener { _ ->
+                Preference.OnPreferenceClickListener {
                     NavigationHelper.openURL(
                             context!!,
                             getString(R.string.url_policy)
@@ -160,7 +168,7 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
         builder.setPositiveButton(
                 R.string.ok
         ) { _, _ ->
-            getFireBaseAnalytics().logEvent(
+            firebaseAnalyticsManager.logEvent(
                     Event.CONFIRM_CHANGE_DEPUTY,
                     FirebaseAnalyticsHelper.addDeputy(
                             Bundle(),
@@ -172,7 +180,7 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
         builder.setNegativeButton(
                 R.string.cancel
         ) { _, _ ->
-            getFireBaseAnalytics().logEvent(
+            firebaseAnalyticsManager.logEvent(
                     Event.DENY_CHANGE_DEPUTY,
                     FirebaseAnalyticsHelper.addDeputy(
                             Bundle(),
@@ -186,14 +194,14 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
 
     private fun startClearDeputy() {
 
-        val preferences = getPreferences()
+        val preferences = preferenceStorage
         if (preferences.isNotificationEnabled()) {
             val deputyId = preferences.loadDeputy()!!.id
 
             isChangeDeputy = true
             unSubscribeNotificationPresenter.postUnSubscribe(
                     apiRepository,
-                    getPreferences(),
+                    preferenceStorage,
                     deputyId
             )
 
@@ -206,10 +214,10 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
     }
 
     private fun finishClearDeputy() {
-        val preferences = getPreferences()
+        val preferences = preferenceStorage
         preferences.saveDeputy(null)
         preferences.setNotificationDialogShowed(false)
-        getFireBaseAnalytics().clearUserDeputyProperties()
+        firebaseAnalyticsManager.clearUserDeputyProperties()
         startRetrieveDeputyActivity()
     }
 
@@ -221,19 +229,19 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
 
         notificationSwitchPreference.isEnabled = false
 
-        val preferences = getPreferences()
+        val preferences = preferenceStorage
         val deputyId = preferences.loadDeputy()!!.id
 
         if (enable) {
             subscribeNotificationPresenter.postSubscribe(
                     apiRepository,
-                    getPreferences(),
+                    preferenceStorage,
                     deputyId
             )
         } else {
             unSubscribeNotificationPresenter.postUnSubscribe(
                     apiRepository,
-                    getPreferences(),
+                    preferenceStorage,
                     deputyId
             )
         }
@@ -290,7 +298,7 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
                 FirebaseAnalyticsKeys.ItemKey.ENABLE,
                 enable
         )
-        getFireBaseAnalytics().logEvent(
+        firebaseAnalyticsManager.logEvent(
                 Event.NOTIFICATIONS_ENABLE,
                 bundle
         )
