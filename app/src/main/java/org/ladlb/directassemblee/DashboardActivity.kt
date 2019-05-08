@@ -8,6 +8,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.deputy.Deputy
@@ -136,8 +137,10 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
             ) { _, _ ->
                 subscribeNotificationPresenter.postSubscribe(
                         apiRepository,
-                        preferenceStorage,
-                        deputy.id
+                        FirebaseInstanceId.getInstance().id,
+                        preferenceStorage.getFirebaseToken(),
+                        deputy.id,
+                        preferenceStorage
                 )
             }.setNegativeButton(
                     R.string.vote_result_against

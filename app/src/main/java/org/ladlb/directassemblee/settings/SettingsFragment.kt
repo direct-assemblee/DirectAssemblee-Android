@@ -113,9 +113,7 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
 
         notificationSwitchPreference = findPreference(getString(R.string.preferences_settings_key_notifications)) as SwitchPreferenceCompat
 
-        val fireBaseInstanceId = FirebaseInstanceId.getInstance()
-
-        if (TextUtils.isEmpty(fireBaseInstanceId.token)) {
+        if (TextUtils.isEmpty(preferenceStorage.getFirebaseToken())) {
             MetricHelper.track("Token empty in settings")
             notificationSwitchPreference.isEnabled = false
         } else {
@@ -235,8 +233,10 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
         if (enable) {
             subscribeNotificationPresenter.postSubscribe(
                     apiRepository,
-                    preferenceStorage,
-                    deputyId
+                    FirebaseInstanceId.getInstance().id,
+                    preferenceStorage.getFirebaseToken(),
+                    deputy.id,
+                    preferenceStorage
             )
         } else {
             unSubscribeNotificationPresenter.postUnSubscribe(

@@ -25,6 +25,10 @@ interface PreferencesStorage {
 
     fun saveDeputy(deputy: Deputy?)
 
+    fun getFirebaseToken(): String?
+
+    fun saveFirebaseToken(token: String?)
+
     fun setNotificationDialogShowed(isShow: Boolean)
 
     fun isNotificationDialogShowed(): Boolean

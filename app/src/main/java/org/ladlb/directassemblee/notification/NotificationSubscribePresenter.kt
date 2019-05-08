@@ -1,7 +1,6 @@
 package org.ladlb.directassemblee.notification
 
 import android.text.TextUtils
-import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
@@ -30,24 +29,21 @@ import javax.inject.Inject
 class NotificationSubscribePresenter @Inject
 constructor(view: NotificationSubscribeView?) : AbstractPresenter<NotificationSubscribeView>(view) {
 
-    fun postSubscribe(apiRepository: ApiRepository, preferences: PreferencesStorage, deputyId: Int) {
-
-        val fireBaseInstanceId = FirebaseInstanceId.getInstance()
-
-        val id = fireBaseInstanceId.id
-        val token = fireBaseInstanceId.token
+    fun postSubscribe(apiRepository: ApiRepository, id: String, token: String?, deputyId: Int, preferences: PreferencesStorage?) {
 
         if (TextUtils.isEmpty(token)) {
             MetricHelper.track("Token empty in subscribe")
+            preferences?.setNotificationEnabled(false)
             view?.onNotificationSubscribeFailed()
         } else {
 
             launch {
                 try {
                     apiRepository.postSubscribe(id, token!!, deputyId)
-                    preferences.setNotificationEnabled(true)
+                    preferences?.setNotificationEnabled(true)
                     view?.onNotificationSubscribeCompleted()
                 } catch (e: Throwable) {
+                    preferences?.setNotificationEnabled(false)
                     view?.onNotificationSubscribeFailed()
                 }
             }

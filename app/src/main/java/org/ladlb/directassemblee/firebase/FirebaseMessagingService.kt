@@ -1,5 +1,6 @@
 package org.ladlb.directassemblee.firebase
 
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dagger.android.AndroidInjection
@@ -56,16 +57,20 @@ class FirebaseMessagingService : FirebaseMessagingService(), NotificationSubscri
         }
     }
 
-    override fun onNewToken(p0: String?) {
-        super.onNewToken(p0)
+    override fun onNewToken(token: String?) {
+        super.onNewToken(token)
+
+        preferenceStorage.saveFirebaseToken(token)
 
         val deputy = preferenceStorage.loadDeputy()
 
         if (preferenceStorage.isNotificationEnabled() && deputy != null) {
             subscribeNotificationPresenter.postSubscribe(
                     retrofitApiRepository,
-                    preferenceStorage,
-                    deputy.id
+                    FirebaseInstanceId.getInstance().id,
+                    token,
+                    deputy.id,
+                    preferenceStorage
             )
         }
     }

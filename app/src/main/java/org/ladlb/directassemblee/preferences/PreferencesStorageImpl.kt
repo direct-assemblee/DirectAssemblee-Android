@@ -35,6 +35,7 @@ constructor(private val preferences: SharedPreferences) : PreferencesStorage {
     companion object {
 
         private const val KEY_DEPUTY = "KEY_DEPUTY"
+        private const val KEY_FIREBASE_TOKEN = "KEY_FIREBASE_TOKEN"
         private const val KEY_NOTIFICATION = "KEY_NOTIFICATION"
         private const val KEY_NOTIFICATION_DIALOG = "KEY_NOTIFICATION_DIALOG"
 
@@ -64,6 +65,20 @@ constructor(private val preferences: SharedPreferences) : PreferencesStorage {
         preferences.edit().putString(
                 KEY_DEPUTY,
                 gson.toJson(deputy)
+        ).apply()
+    }
+
+    override fun getFirebaseToken(): String? {
+        return preferences.getString(
+                KEY_FIREBASE_TOKEN,
+                null
+        )
+    }
+
+    override fun saveFirebaseToken(token: String?) {
+        preferences.edit().putString(
+                KEY_FIREBASE_TOKEN,
+                token
         ).apply()
     }
 
