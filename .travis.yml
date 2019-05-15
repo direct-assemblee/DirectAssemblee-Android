@@ -1,0 +1,10 @@
+language: android
+jdk: oraclejdk8
+android:
+  components:
+    - build-tools-28.0.3
+    - android-28
+    - add-on
+    - extra
+script:
+  - ./gradlew assembleTravis
