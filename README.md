@@ -1,5 +1,6 @@
 Direct Assemblée for Android 
 ===============
+[![Build Status](https://travis-ci.org/direct-assemblee/DirectAssemblee-Android.svg?branch=master)](https://travis-ci.org/direct-assemblee/DirectAssemblee-Android)
 
 Download on the [Google Play Store](https://play.google.com/store/apps/details?id=org.ladlb.directassemblee).
 
