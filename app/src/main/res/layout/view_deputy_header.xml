@@ -40,7 +40,7 @@
             android:layout_height="@dimen/deputy_card_picture_size"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
-            app:civ_border_color="@color/white" />
+            app:civ_border_color="?android:textColorPrimaryInverse" />
 
         <RelativeLayout
             android:id="@+id/linearLayoutRight"

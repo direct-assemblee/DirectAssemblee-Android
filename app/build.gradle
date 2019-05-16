@@ -143,7 +143,7 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "androidx.vectordrawable:vectordrawable:1.0.1"
     implementation "androidx.browser:browser:1.0.0"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha4"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta1"
     implementation "androidx.lifecycle:lifecycle-runtime:2.0.0"
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
     kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
@@ -171,7 +171,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:16.0.0"
 
     implementation "com.google.firebase:firebase-messaging:17.6.0"
-    implementation "com.google.firebase:firebase-core:16.0.8"
+    implementation "com.google.firebase:firebase-core:16.0.9"
 
     implementation "de.hdodenhof:circleimageview:2.2.0"
 
