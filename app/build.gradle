@@ -85,11 +85,27 @@ android {
 
         }
 
+        travis {
+
+            buildConfigField BOOLEAN, CRASH_TRACKER_ENABLED, "false"
+
+            proguardFile 'proguard-rules-debug.pro'
+
+            ext.enableCrashlytics = false
+
+        }
+
 
     }
 
     signingConfigs {
         debug {
+            storeFile file("code-signing/debug/debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+        travis {
             storeFile file("code-signing/debug/debug.keystore")
             storePassword "android"
             keyAlias "androiddebugkey"
@@ -109,6 +125,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+
 }
 
 dependencies {
@@ -125,7 +146,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha4"
     implementation "androidx.lifecycle:lifecycle-runtime:2.0.0"
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
 
     implementation "com.google.android.material:material:1.0.0"
 
@@ -177,3 +198,9 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+android.applicationVariants.all { variant ->
+    if (variant.name == 'travis') {
+        project.tasks.getByName('process' + variant.name.capitalize() + 'GoogleServices').enabled = false
+    }
+}
