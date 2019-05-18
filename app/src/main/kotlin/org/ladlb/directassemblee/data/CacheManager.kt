@@ -1,5 +1,8 @@
 package org.ladlb.directassemblee.data
 
+import javax.inject.Inject
+import javax.inject.Singleton
+
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
  *
@@ -17,7 +20,9 @@ package org.ladlb.directassemblee.data
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class CacheManager : androidx.collection.LruCache<String, Any?>(cacheSize) {
+@Singleton
+class CacheManager @Inject
+constructor() : androidx.collection.LruCache<String, Any?>(cacheSize) {
 
     companion object {
 
