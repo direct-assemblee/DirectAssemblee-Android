@@ -16,7 +16,6 @@ import org.ladlb.directassemblee.api.NetworkCacheInterceptor
 import org.ladlb.directassemblee.api.dataGouv.AddressServices
 import org.ladlb.directassemblee.api.ladlb.ApiServices
 import org.ladlb.directassemblee.api.ladlb.VoteDeserializer
-import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
 import org.ladlb.directassemblee.vote.Vote
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -59,11 +58,6 @@ abstract class AppModule {
         @JvmStatic
         @Singleton
         fun provideCoroutineContext(): CoroutineContext = Dispatchers.IO
-
-        @Provides
-        @JvmStatic
-        @Singleton
-        fun provideFirebaseAnalyticsManager(): FirebaseAnalyticsManager = FirebaseAnalyticsManager()
 
         @Singleton
         @JvmStatic

@@ -10,6 +10,8 @@ import org.ladlb.directassemblee.AbstractPreferenceFragment
 import org.ladlb.directassemblee.BuildConfig
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -28,7 +30,9 @@ import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class FirebaseAnalyticsManager {
+@Singleton
+class FirebaseAnalyticsManager @Inject
+constructor() {
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
