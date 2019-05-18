@@ -41,11 +41,16 @@ class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
 
         var EXTRA_POSITION: String = "EXTRA_POSITION"
 
-        fun getIntent(context: Context, deputy: Deputy, position: Int): Intent {
+        fun getIntent(context: Context, cacheManager: CacheManager, deputy: Deputy, position: Int, items: ArrayList<TimelineItem>): Intent {
 
             val intent = Intent(context, TimelinePagerActivity::class.java)
             intent.putExtra(EXTRA_DEPUTY, deputy)
             intent.putExtra(EXTRA_POSITION, position)
+
+            cacheManager.put(
+                    CacheManager.timeLine,
+                    items
+            )
 
             return intent
 

@@ -232,16 +232,13 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
                 )
         )
 
-        cacheManager.put(
-                CacheManager.timeLine,
-                items
-        )
-
         startActivityForResult(
                 TimelinePagerActivity.getIntent(
                         context!!,
+                        cacheManager,
                         deputy,
-                        itemPosition
+                        itemPosition,
+                        items
                 ),
                 requestTimeLinePager
         )
