@@ -68,33 +68,29 @@ class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (savedInstanceState == null) {
+        val bundle = intent.extras!!
+        val position = bundle.getInt(EXTRA_POSITION, 0)
+        val deputy = bundle.getParcelable(EXTRA_DEPUTY) as Deputy
 
-            val bundle = intent.extras!!
-            val position = bundle.getInt(EXTRA_POSITION, 0)
-            val deputy = bundle.getParcelable(EXTRA_DEPUTY) as Deputy
+        @Suppress("UNCHECKED_CAST")
+        adapter = TimelinePagerAdapter(
+                supportFragmentManager,
+                cacheManager.get(CacheManager.timeLine) as ArrayList<TimelineItem>
+        )
 
-            @Suppress("UNCHECKED_CAST")
-            adapter = TimelinePagerAdapter(
-                    supportFragmentManager,
-                    cacheManager.get(CacheManager.timeLine) as ArrayList<TimelineItem>
-            )
+        viewPager.adapter = adapter
+        viewPager.currentItem = position
+        viewPager.addOnPageChangeListener(this)
 
-            viewPager.adapter = adapter
-            viewPager.currentItem = position
-            viewPager.addOnPageChangeListener(this)
+        Picasso.get()
+                .load(deputy.photoUrl)
+                .into(imageViewDeputy)
 
-            Picasso.get()
-                    .load(deputy.photoUrl)
-                    .into(imageViewDeputy)
+        textViewDeputyName.text = String.format("%s %s", deputy.firstname, deputy.lastname)
+        textViewDeputyGroup.text = deputy.parliamentGroup
+        textViewDeputyPlace.text = DeputyHelper.getFormattedLocality(resources, deputy)
 
-            textViewDeputyName.text = String.format("%s %s", deputy.firstname, deputy.lastname)
-            textViewDeputyGroup.text = deputy.parliamentGroup
-            textViewDeputyPlace.text = DeputyHelper.getFormattedLocality(resources, deputy)
-
-            onPageSelected(position)
-
-        }
+        onPageSelected(position)
 
     }
 
