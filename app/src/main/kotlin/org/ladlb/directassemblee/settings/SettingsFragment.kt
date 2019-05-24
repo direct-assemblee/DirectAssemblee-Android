@@ -194,13 +194,14 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
 
         val preferences = preferenceStorage
         if (preferences.isNotificationEnabled()) {
-            val deputyId = preferences.loadDeputy()!!.id
 
             isChangeDeputy = true
             unSubscribeNotificationPresenter.postUnSubscribe(
                     apiRepository,
-                    preferenceStorage,
-                    deputyId
+                    FirebaseInstanceId.getInstance().id,
+                    preferenceStorage.getFirebaseToken(),
+                    deputy.id,
+                    preferenceStorage
             )
 
             listener?.showLoadingView(getString(R.string.notification_popup_unsubscribe))
@@ -228,7 +229,6 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
         notificationSwitchPreference.isEnabled = false
 
         val preferences = preferenceStorage
-        val deputyId = preferences.loadDeputy()!!.id
 
         if (enable) {
             subscribeNotificationPresenter.postSubscribe(
@@ -241,8 +241,10 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
         } else {
             unSubscribeNotificationPresenter.postUnSubscribe(
                     apiRepository,
-                    preferenceStorage,
-                    deputyId
+                    FirebaseInstanceId.getInstance().id,
+                    preferenceStorage.getFirebaseToken(),
+                    deputy.id,
+                    preferenceStorage
             )
         }
 

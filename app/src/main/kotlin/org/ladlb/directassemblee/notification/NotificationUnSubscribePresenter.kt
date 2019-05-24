@@ -1,7 +1,6 @@
 package org.ladlb.directassemblee.notification
 
 import android.text.TextUtils
-import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
@@ -27,12 +26,7 @@ import org.ladlb.directassemblee.preferences.PreferencesStorage
 
 class NotificationUnSubscribePresenter(view: NotificationUnSubscribeView) : AbstractPresenter<NotificationUnSubscribeView>(view) {
 
-    fun postUnSubscribe(apiRepository: ApiRepository, preferences: PreferencesStorage, deputyId: Int) {
-
-        val fireBaseInstanceId = FirebaseInstanceId.getInstance()
-
-        val id = fireBaseInstanceId.id
-        val token = fireBaseInstanceId.token
+    fun postUnSubscribe(apiRepository: ApiRepository, id: String, token: String?, deputyId: Int, preferences: PreferencesStorage?) {
 
         if (TextUtils.isEmpty(token)) {
             throw NullPointerException("Token null or empty")
@@ -41,7 +35,7 @@ class NotificationUnSubscribePresenter(view: NotificationUnSubscribeView) : Abst
             launch {
                 try {
                     apiRepository.postUnSubscribe(id, token!!, deputyId)
-                    preferences.setNotificationEnabled(false)
+                    preferences?.setNotificationEnabled(false)
                     view?.onNotificationUnSubscribeCompleted()
                 } catch (e: Throwable) {
                     view?.onNotificationUnSubscribeFailed()
