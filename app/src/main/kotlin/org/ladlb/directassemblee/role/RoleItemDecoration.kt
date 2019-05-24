@@ -40,9 +40,8 @@ class RoleItemDecoration(resources: Resources) : ItemDecoration() {
 
         val position = parent.getChildAdapterPosition(view)
         val adapter = parent.adapter
-        val itemViewType = adapter!!.getItemViewType(position)
 
-        when (itemViewType) {
+        when (adapter!!.getItemViewType(position)) {
             RoleAdapter.typeRole -> {
                 outRect.left = horizontalMargin
                 outRect.top = verticalMargin

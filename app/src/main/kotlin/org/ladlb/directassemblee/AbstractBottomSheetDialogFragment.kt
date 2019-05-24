@@ -1,6 +1,8 @@
 package org.ladlb.directassemblee
 
+import android.os.Bundle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.android.support.AndroidSupportInjection
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
 import javax.inject.Inject
 
@@ -25,6 +27,12 @@ abstract class AbstractBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     @Inject
     lateinit var firebaseAnalyticsManager: FirebaseAnalyticsManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        AndroidSupportInjection.inject(this)
+    }
 
     override fun onResume() {
         super.onResume()

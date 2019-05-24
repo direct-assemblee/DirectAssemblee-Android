@@ -31,8 +31,6 @@
     <string name="preferences_settings_key_version">settings_key_version</string>
     <string name="preferences_settings_key_policy">settings_key_policy</string>
 
-    <string name="preferences_synthesis_rates_by_group">preferences_synthesis_rates_by_group</string>
-
     <plurals name="declaration">
         <item quantity="one">@string/declaration</item>
         <item quantity="other">@string/declarations</item>
@@ -42,7 +40,6 @@
 
     <string name="month">%d mois</string>
 
-    <string name="year">%d année</string>
     <plurals name="years">
         <item quantity="one">%d année</item>
         <item quantity="other">%d années</item>

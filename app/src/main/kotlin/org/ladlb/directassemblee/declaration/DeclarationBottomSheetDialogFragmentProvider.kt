@@ -1,9 +1,7 @@
-package org.ladlb.directassemblee.vote
+package org.ladlb.directassemblee.declaration
 
-import android.content.Context
-import android.util.AttributeSet
-import android.widget.LinearLayout
-import org.ladlb.directassemblee.R
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -22,28 +20,10 @@ import org.ladlb.directassemblee.R
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-open class VoteView : LinearLayout {
+@Module
+abstract class DeclarationBottomSheetDialogFragmentProvider {
 
-    constructor(context: Context) : super(context)
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
-
-    init {
-
-        inflate()
-
-        orientation = VERTICAL
-
-    }
-
-    private fun inflate() {
-        inflate(
-                context,
-                R.layout.view_vote,
-                this
-        )
-    }
+    @ContributesAndroidInjector
+    internal abstract fun provideDeclarationBottomSheetDialogFragment(): DeclarationBottomSheetDialogFragment
 
 }

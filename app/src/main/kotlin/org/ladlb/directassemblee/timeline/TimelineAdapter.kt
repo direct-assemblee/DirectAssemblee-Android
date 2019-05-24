@@ -106,8 +106,7 @@ class TimelineAdapter(items: ArrayList<TimelineItem>) : PaginationAdapter<Timeli
             }
         }
 
-        val info = item.extraBallotInfo
-        when (info) {
+        when (val info = item.extraBallotInfo) {
             null -> view.linearLayoutVote.visibility = View.GONE
             else -> {
                 val deputyVote = info.deputyVote

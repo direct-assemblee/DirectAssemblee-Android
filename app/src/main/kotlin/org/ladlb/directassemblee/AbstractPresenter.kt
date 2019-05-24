@@ -47,8 +47,12 @@ abstract class AbstractPresenter<K : BaseView>(view: K?, var context: CoroutineC
 
     init {
         if (view is LifecycleOwner) {
-            view.lifecycle.addObserver(this)
+            observe(view)
         }
+    }
+
+    private fun observe(view: LifecycleOwner?) {
+        view?.lifecycle?.addObserver(this)
     }
 
     protected fun call(disposable: Disposable) {

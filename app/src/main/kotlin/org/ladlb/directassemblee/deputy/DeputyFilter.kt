@@ -25,7 +25,7 @@ class DeputyFilter(private val items: List<Deputy>, private val listener: Deputy
 
     override fun performFiltering(constraint: CharSequence): FilterResults {
 
-        val filterResults = Filter.FilterResults()
+        val filterResults = FilterResults()
         val charString = constraint.toString()
 
         if (TextUtils.isEmpty(charString)) {

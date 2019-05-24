@@ -53,7 +53,7 @@ class DeputyGetPresenterTest : PresenterTest() {
 
         presenter.getDeputy(apiRepository, anyInt(), anyInt())
 
-        verify(view, Mockito.atLeastOnce()).onDeputyReceived(result)
+        verify(view, atLeastOnce()).onDeputyReceived(result)
 
     }
 
@@ -64,7 +64,7 @@ class DeputyGetPresenterTest : PresenterTest() {
 
         presenter.getDeputy(apiRepository, anyInt(), anyInt())
 
-        Mockito.verify(view, Mockito.atLeastOnce()).onGetDeputyRequestFailed()
+        Mockito.verify(view, atLeastOnce()).onGetDeputyRequestFailed()
 
     }
 }

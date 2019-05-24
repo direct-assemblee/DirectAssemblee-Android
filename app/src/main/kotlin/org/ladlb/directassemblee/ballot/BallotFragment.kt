@@ -124,9 +124,8 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
         xAxis.axisMaximum = 4.5f
         xAxis.granularity = 1f
         xAxis.valueFormatter = IAxisValueFormatter { value, _ ->
-            val position = value.toInt()
 
-            when (position) {
+            when (value.toInt()) {
                 0 -> return@IAxisValueFormatter getString(Vote.FOR.labelId)
                 1 -> return@IAxisValueFormatter getString(Vote.AGAINST.labelId)
                 2 -> return@IAxisValueFormatter getString(Vote.BLANK.labelId)
@@ -174,8 +173,7 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
 
         ballot = item
 
-        val ballotInfo = ballot.extraBallotInfo
-        when (ballotInfo) {
+        when (val ballotInfo = ballot.extraBallotInfo) {
             null -> barChart.visibility = View.GONE
             else -> {
                 computeChart(ballotInfo)

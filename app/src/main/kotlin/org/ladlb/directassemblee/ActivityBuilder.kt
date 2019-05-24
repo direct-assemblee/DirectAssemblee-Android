@@ -7,6 +7,7 @@ import org.ladlb.directassemblee.address.SearchFragmentProvider
 import org.ladlb.directassemblee.ballot.BallotFragmentProvider
 import org.ladlb.directassemblee.ballot.vote.BallotVoteActivity
 import org.ladlb.directassemblee.ballot.vote.BallotVoteActivityModule
+import org.ladlb.directassemblee.declaration.DeclarationBottomSheetDialogFragmentProvider
 import org.ladlb.directassemblee.deputy.DeputyActivity
 import org.ladlb.directassemblee.deputy.DeputyFragmentProvider
 import org.ladlb.directassemblee.deputy.DeputyListFragmentProvider
@@ -68,13 +69,13 @@ abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = [SearchFragmentProvider::class])
     internal abstract fun bindSearchAddressActivity(): SearchAddressActivity
 
-    @ContributesAndroidInjector(modules = [DashboardActivityModule::class, DeputyFragmentProvider::class, TimelineFragmentProvider::class, DeputyDetailsFragmentProvider::class])
+    @ContributesAndroidInjector(modules = [DashboardActivityModule::class, DeputyFragmentProvider::class, TimelineFragmentProvider::class, DeputyDetailsFragmentProvider::class, DeclarationBottomSheetDialogFragmentProvider::class])
     internal abstract fun bindDashboardActivity(): DashboardActivity
 
     @ContributesAndroidInjector(modules = [BallotVoteActivityModule::class, DeputyListFragmentProvider::class])
     internal abstract fun bindBallotVoteActivity(): BallotVoteActivity
 
-    @ContributesAndroidInjector(modules = [DeputyFragmentProvider::class, TimelineFragmentProvider::class, DeputyDetailsFragmentProvider::class])
+    @ContributesAndroidInjector(modules = [DeputyFragmentProvider::class, TimelineFragmentProvider::class, DeputyDetailsFragmentProvider::class, DeclarationBottomSheetDialogFragmentProvider::class])
     internal abstract fun bindDeputyActivity(): DeputyActivity
 
     @ContributesAndroidInjector(modules = [SettingsFragmentProvider::class])

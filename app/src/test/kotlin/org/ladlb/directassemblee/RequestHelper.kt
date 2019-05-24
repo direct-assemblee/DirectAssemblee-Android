@@ -30,4 +30,4 @@ fun getResponse(code: Int): Response<Any> = Response.error(
                 MediaType.parse("application/json"),
                 ""
         )
-);
+)

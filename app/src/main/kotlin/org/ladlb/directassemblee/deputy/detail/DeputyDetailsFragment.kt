@@ -84,7 +84,7 @@ class DeputyDetailsFragment : AbstractFragment(), DeputyContactItemView.DeputyCo
 
     override fun onDeputyPhoneClicked(phone: String) {
         firebaseAnalyticsManager.logEvent(
-                FirebaseAnalyticsKeys.Event.CALL_DEPUTY,
+                Event.CALL_DEPUTY,
                 FirebaseAnalyticsHelper.addDeputy(
                         Bundle(),
                         deputy
@@ -99,7 +99,7 @@ class DeputyDetailsFragment : AbstractFragment(), DeputyContactItemView.DeputyCo
 
     override fun onDeputyEmailClicked(email: String) {
         firebaseAnalyticsManager.logEvent(
-                FirebaseAnalyticsKeys.Event.SEND_EMAIL_DEPUTY,
+                Event.SEND_EMAIL_DEPUTY,
                 FirebaseAnalyticsHelper.addDeputy(
                         Bundle(),
                         deputy
