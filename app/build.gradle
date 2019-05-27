@@ -35,7 +35,7 @@ android {
         applicationId "org.ladlb.directassemblee"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 29
+        versionCode 30
         versionName "1.6.2"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
