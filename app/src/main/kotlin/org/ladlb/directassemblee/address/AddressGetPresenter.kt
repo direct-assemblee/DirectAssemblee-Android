@@ -4,6 +4,7 @@ import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.address.AddressGetPresenter.AddressGetView
 import org.ladlb.directassemblee.api.dataGouv.AddressRepository
+import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -22,7 +23,8 @@ import org.ladlb.directassemblee.api.dataGouv.AddressRepository
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class AddressGetPresenter(view: AddressGetView) : AbstractPresenter<AddressGetView>(view) {
+class AddressGetPresenter @Inject
+constructor(view: AddressGetView) : AbstractPresenter<AddressGetView>(view) {
 
     fun get(addressRepository: AddressRepository, query: String) {
 

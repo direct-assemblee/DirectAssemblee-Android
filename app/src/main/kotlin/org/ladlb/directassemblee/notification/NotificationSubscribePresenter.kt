@@ -27,7 +27,7 @@ import javax.inject.Inject
  */
 
 class NotificationSubscribePresenter @Inject
-constructor(view: NotificationSubscribeView?) : AbstractPresenter<NotificationSubscribeView>(view) {
+constructor(view: NotificationSubscribeView) : AbstractPresenter<NotificationSubscribeView>(view) {
 
     fun postSubscribe(apiRepository: ApiRepository, id: String, token: String?, deputyId: Int, preferences: PreferencesStorage?) {
 

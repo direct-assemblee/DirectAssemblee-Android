@@ -2,7 +2,6 @@ package org.ladlb.directassemblee.rate
 
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import org.ladlb.directassemblee.rate.RateGetPresenter.RateGetView
 
 /**
@@ -27,16 +26,5 @@ abstract class RatesFragmentModule {
 
     @Binds
     internal abstract fun provideRateGetView(rateFragment: RatesFragment): RateGetView
-
-    @Module
-    companion object {
-
-        @Provides
-        @JvmStatic
-        internal fun provideRateGetPresenter(view: RateGetView): RateGetPresenter {
-            return RateGetPresenter(view)
-        }
-
-    }
 
 }

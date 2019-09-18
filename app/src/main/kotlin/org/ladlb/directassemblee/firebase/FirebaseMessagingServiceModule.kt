@@ -2,8 +2,6 @@ package org.ladlb.directassemblee.firebase
 
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
-import org.ladlb.directassemblee.notification.NotificationSubscribePresenter
 import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.NotificationSubscribeView
 
 /**
@@ -28,16 +26,5 @@ abstract class FirebaseMessagingServiceModule {
 
     @Binds
     abstract fun provideNotificationSubscribeView(firebaseMessagingService: FirebaseMessagingService): NotificationSubscribeView
-
-    @Module
-    companion object {
-
-        @Provides
-        @JvmStatic
-        internal fun provideNotificationSubscribePresenter(view: NotificationSubscribeView): NotificationSubscribePresenter {
-            return NotificationSubscribePresenter(view)
-        }
-
-    }
 
 }
