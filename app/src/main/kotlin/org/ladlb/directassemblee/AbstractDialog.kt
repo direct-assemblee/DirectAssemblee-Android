@@ -31,7 +31,7 @@ abstract class AbstractDialog : DialogFragment() {
 
     private var mRequestCode: Int = 0
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         mAbstractActivity = activity as AbstractActivity
     }
@@ -65,7 +65,7 @@ abstract class AbstractDialog : DialogFragment() {
             )
         }
 
-        dialog.cancel()
+        dialog?.cancel()
 
     }
 

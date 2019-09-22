@@ -61,7 +61,7 @@ class DeclarationBottomSheetDialogFragment : AbstractBottomSheetDialogFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        deputy = arguments!!.getParcelable(ARG_DEPUTY) as Deputy
+        deputy = arguments!!.getParcelable(ARG_DEPUTY)!!
 
         adapter = DeclarationAdapter(context!!)
         adapter.addItems(deputy.declarations)

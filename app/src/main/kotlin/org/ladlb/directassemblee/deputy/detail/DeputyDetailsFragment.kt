@@ -134,7 +134,7 @@ class DeputyDetailsFragment : AbstractFragment(), DeputyContactItemView.DeputyCo
 
     override fun onDeputyMoreDeclarationsClicked(deputy: Deputy) {
         DeclarationBottomSheetDialogFragment.newInstance(deputy).show(
-                fragmentManager,
+                requireFragmentManager(),
                 DeclarationBottomSheetDialogFragment.TAG
         )
     }

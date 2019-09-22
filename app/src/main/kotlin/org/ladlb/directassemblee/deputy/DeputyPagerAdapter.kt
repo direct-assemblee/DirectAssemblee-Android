@@ -27,10 +27,10 @@ import org.ladlb.directassemblee.timeline.TimelineFragment
 
 class DeputyPagerAdapter(private val context: Context, fragmentManager: FragmentManager, private val deputy: Deputy) : FragmentStatePagerAdapter(fragmentManager) {
 
-    override fun getItem(position: Int): Fragment? = when (position) {
+    override fun getItem(position: Int): Fragment = when (position) {
         0 -> TimelineFragment.newInstance(deputy)
         1 -> DeputyDetailsFragment.newInstance(deputy)
-        else -> null
+        else -> throw IndexOutOfBoundsException()
     }
 
     override fun getCount(): Int = 2

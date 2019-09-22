@@ -25,7 +25,7 @@ import org.ladlb.directassemblee.motion.MotionFragment
 
 class TimelinePagerAdapter(fragmentManager: FragmentManager, private val timelineItems: ArrayList<TimelineItem>) : FragmentStatePagerAdapter(fragmentManager) {
 
-    override fun getItem(position: Int): Fragment? {
+    override fun getItem(position: Int): Fragment {
 
         val timelineItem = timelineItems[position]
         val info = timelineItem.extraBallotInfo

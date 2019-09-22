@@ -45,19 +45,17 @@ class FirebaseMessagingService : FirebaseMessagingService(), NotificationSubscri
     }
 
     override fun onDestroy() {
-        super.onDestroy()
-
         subscribeNotificationPresenter.onDestroy()
-
+        super.onDestroy()
     }
 
-    override fun onMessageReceived(p0: RemoteMessage?) {
+    override fun onMessageReceived(p0: RemoteMessage) {
         if (preferenceStorage.isNotificationEnabled()) {
             super.onMessageReceived(p0)
         }
     }
 
-    override fun onNewToken(token: String?) {
+    override fun onNewToken(token: String) {
         super.onNewToken(token)
 
         preferenceStorage.saveFirebaseToken(token)

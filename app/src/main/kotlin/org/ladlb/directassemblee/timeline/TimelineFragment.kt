@@ -97,7 +97,7 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
 
     private var listener: DeputyTimeLineFragmentListener? = null
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
             listener = activity as DeputyTimeLineFragmentListener?

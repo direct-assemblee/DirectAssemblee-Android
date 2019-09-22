@@ -29,13 +29,13 @@ import org.ladlb.directassemblee.vote.Vote
 
 class BallotVotePagerAdapter(private val context: Context, fragmentManager: FragmentManager, private val values: BallotVote) : FragmentStatePagerAdapter(fragmentManager) {
 
-    override fun getItem(position: Int): Fragment? = when (position) {
+    override fun getItem(position: Int): Fragment = when (position) {
         0 -> DeputyListFragment.newInstance(values.voteFor)
         1 -> DeputyListFragment.newInstance(values.voteAgainst)
         2 -> DeputyListFragment.newInstance(values.voteBlank)
         3 -> DeputyListFragment.newInstance(values.voteNonVoting)
         4 -> DeputyListFragment.newInstance(values.voteMissing)
-        else -> null
+        else -> throw IndexOutOfBoundsException()
     }
 
     override fun getCount(): Int = 5

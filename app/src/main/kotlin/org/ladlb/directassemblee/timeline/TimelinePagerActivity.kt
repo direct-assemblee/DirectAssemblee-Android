@@ -70,7 +70,7 @@ class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
 
         val bundle = intent.extras!!
         val position = bundle.getInt(EXTRA_POSITION, 0)
-        val deputy = bundle.getParcelable(EXTRA_DEPUTY) as Deputy
+        val deputy = bundle.getParcelable<Deputy>(EXTRA_DEPUTY)!!
 
         @Suppress("UNCHECKED_CAST")
         adapter = TimelinePagerAdapter(

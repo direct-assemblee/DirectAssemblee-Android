@@ -42,7 +42,7 @@ class DeputyRetrieveFragment : AbstractFragment(), OnClickListener {
 
     private var listener: DeputyRetrieveLocationFragmentListener? = null
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
             listener = activity as DeputyRetrieveLocationFragmentListener?

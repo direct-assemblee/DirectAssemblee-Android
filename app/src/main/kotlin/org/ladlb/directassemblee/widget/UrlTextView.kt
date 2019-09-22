@@ -53,7 +53,7 @@ class UrlTextView : AppCompatTextView, OnClickListener {
 
     private var onClickListener: OnClickListener? = null
 
-    override fun setOnClickListener(onClickListener: OnClickListener) {
+    override fun setOnClickListener(onClickListener: OnClickListener?) {
         this.onClickListener = onClickListener
     }
 

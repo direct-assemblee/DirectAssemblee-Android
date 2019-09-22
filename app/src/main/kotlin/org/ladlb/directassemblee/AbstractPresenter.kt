@@ -1,9 +1,7 @@
 package org.ladlb.directassemblee
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
@@ -31,7 +29,7 @@ import kotlin.coroutines.CoroutineContext
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-abstract class AbstractPresenter<K : BaseView>(view: K?, var context: CoroutineContext = Dispatchers.Main) : LifecycleObserver, CoroutineScope {
+abstract class AbstractPresenter<K : BaseView>(view: K?, var context: CoroutineContext = Dispatchers.Main) : DefaultLifecycleObserver, CoroutineScope {
 
     interface BaseView
 
@@ -59,7 +57,10 @@ abstract class AbstractPresenter<K : BaseView>(view: K?, var context: CoroutineC
         compositeDisposable.add(disposable)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    override fun onDestroy(owner: LifecycleOwner) {
+        onDestroy();
+    }
+
     fun onDestroy() {
         view = null
         compositeDisposable.dispose()

@@ -1,10 +1,7 @@
 package org.ladlb.directassemblee
 
 import android.content.Intent
-import android.os.Bundle
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
 import androidx.preference.PreferenceFragmentCompat
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
 import javax.inject.Inject
@@ -31,10 +28,6 @@ abstract class AbstractPreferenceFragment : PreferenceFragmentCompat(), Lifecycl
     @Inject
     lateinit var firebaseAnalyticsManager: FirebaseAnalyticsManager
 
-    private lateinit var lifecycleRegistry: LifecycleRegistry
-
-    override fun getLifecycle(): LifecycleRegistry = lifecycleRegistry
-
     open fun getTagName(): String = getClassName()
 
     abstract fun getClassName(): String
@@ -43,20 +36,9 @@ abstract class AbstractPreferenceFragment : PreferenceFragmentCompat(), Lifecycl
         onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycleRegistry = LifecycleRegistry(this)
-        lifecycleRegistry.markState(Lifecycle.State.CREATED)
-    }
-
     override fun onResume() {
         super.onResume()
         firebaseAnalyticsManager.setCurrentScreen((activity as AbstractActivity), this)
-    }
-
-    override fun onDestroy() {
-        lifecycleRegistry.markState(Lifecycle.State.DESTROYED)
-        super.onDestroy()
     }
 
 }

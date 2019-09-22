@@ -31,7 +31,7 @@ class ClipboardHelper {
         fun clipText(context: Context, label: String?, text: String?) {
             if (!TextUtils.isEmpty(label) && !TextUtils.isEmpty(text)) {
                 val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                clipboard.primaryClip = ClipData.newPlainText(label, text)
+                clipboard.setPrimaryClip(ClipData.newPlainText(label, text))
                 Toast.makeText(
                         context,
                         context.getString(

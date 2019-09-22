@@ -13,7 +13,7 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import kotlinx.android.synthetic.main.fragment_ballot.*
@@ -123,18 +123,17 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
         xAxis.axisMinimum = -0.5f
         xAxis.axisMaximum = 4.5f
         xAxis.granularity = 1f
-        xAxis.valueFormatter = IAxisValueFormatter { value, _ ->
-
-            when (value.toInt()) {
-                0 -> return@IAxisValueFormatter getString(Vote.FOR.labelId)
-                1 -> return@IAxisValueFormatter getString(Vote.AGAINST.labelId)
-                2 -> return@IAxisValueFormatter getString(Vote.BLANK.labelId)
-                3 -> return@IAxisValueFormatter getString(Vote.NON_VOTING.labelId)
-                4 -> return@IAxisValueFormatter getString(Vote.MISSING.labelId)
+        xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return when (value.toInt()) {
+                    0 -> getString(Vote.FOR.labelId)
+                    1 -> getString(Vote.AGAINST.labelId)
+                    2 -> getString(Vote.BLANK.labelId)
+                    3 -> getString(Vote.NON_VOTING.labelId)
+                    4 -> getString(Vote.MISSING.labelId)
+                    else -> ""
+                }
             }
-
-            ""
-
         }
 
         val yAxisLeft = barChart.axisLeft

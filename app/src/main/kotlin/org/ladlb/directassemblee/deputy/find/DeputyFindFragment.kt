@@ -78,7 +78,7 @@ class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickLis
 
     private var listener: DeputyFindFragmentListener? = null
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
             listener = activity as DeputyFindFragmentListener?

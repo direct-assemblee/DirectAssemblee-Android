@@ -94,7 +94,7 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
 
     private var listener: SettingsFragmentListener? = null
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
             listener = activity as SettingsFragmentListener?
