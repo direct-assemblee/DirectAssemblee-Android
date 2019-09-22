@@ -20,32 +20,39 @@ import java.util.*
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ComparisonsHelper {
+class ComparisonHelper {
 
     companion object {
 
-        fun <T> compareBy(collator: Collator, vararg selectors: (T) -> Comparable<*>?): Comparator<T> {
+        fun <T> compareBy(vararg selectors: (T) -> Comparable<*>?): Comparator<T> {
             require(selectors.isNotEmpty())
-            return Comparator { a, b -> compareValuesByImpl(collator, selectors, a, b) }
+            return Comparator { a, b ->
+                compareValuesByImpl(
+                        Collator.getInstance(Locale.FRANCE).apply {
+                            strength = Collator.SECONDARY
+                        },
+                        selectors,
+                        a,
+                        b
+                )
+            }
         }
 
         private fun <T> compareValuesByImpl(collator: Collator, selectors: Array<out (T) -> Comparable<*>?>, a: T, b: T): Int {
             for (fn in selectors) {
-                val v1 = fn(a)
-                val v2 = fn(b)
-                val diff = compareValues(collator, v1, v2)
+                val diff = compareValues(collator, fn(a), fn(b))
                 if (diff != 0) return diff
             }
             return 0
         }
 
         private fun <T : Comparable<*>> compareValues(collator: Collator, a: T?, b: T?): Int {
-            if (a === b) return 0
-            if (a == null) return -1
-            if (b == null) return 1
-
-            @Suppress("UNCHECKED_CAST")
-            return collator.compare((a as Comparable<Any>), b)
+            return when {
+                (a === b) -> 0
+                (a == null) -> -1
+                (b == null) -> 1
+                else -> collator.compare(a, b)
+            }
         }
 
     }

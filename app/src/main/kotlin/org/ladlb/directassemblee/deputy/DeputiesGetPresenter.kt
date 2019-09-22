@@ -4,6 +4,7 @@ import kotlinx.coroutines.launch
 import org.ladlb.directassemblee.AbstractPresenter
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.DeputiesGetView
+import org.ladlb.directassemblee.helper.ComparisonHelper
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -31,7 +32,7 @@ constructor(view: DeputiesGetView) : AbstractPresenter<DeputiesGetView>(view) {
 
         launch {
             try {
-                view?.onDeputiesReceived(apiRepository.getDeputies())
+                onDeputiesReceived(apiRepository.getDeputies())
             } catch (e: Throwable) {
                 view?.onGetDeputiesRequestFailed()
             }
@@ -43,7 +44,7 @@ constructor(view: DeputiesGetView) : AbstractPresenter<DeputiesGetView>(view) {
 
         launch {
             try {
-                view?.onDeputiesReceived(apiRepository.getDeputies(latitude, longitude))
+                onDeputiesReceived(apiRepository.getDeputies(latitude, longitude))
             } catch (e: Throwable) {
                 if (e is HttpException && e.code() == 404) {
                     view?.onNoDeputyFound()
@@ -52,6 +53,19 @@ constructor(view: DeputiesGetView) : AbstractPresenter<DeputiesGetView>(view) {
                 }
             }
         }
+
+    }
+
+    private fun onDeputiesReceived(deputies: Array<Deputy>) {
+
+        view?.onDeputiesReceived(
+                deputies.sortedWith(
+                        ComparisonHelper.compareBy(
+                                Deputy::lastname,
+                                Deputy::firstname
+                        )
+                ).toTypedArray()
+        )
 
     }
 
