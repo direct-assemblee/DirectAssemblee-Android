@@ -1,7 +1,7 @@
 package org.ladlb.directassemblee
 
-import okhttp3.MediaType
-import okhttp3.ResponseBody
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
 
@@ -26,8 +26,5 @@ val apiNotFoundException = HttpException(getResponse(404))
 
 fun getResponse(code: Int): Response<Any> = Response.error(
         code,
-        ResponseBody.create(
-                MediaType.parse("application/json"),
-                ""
-        )
+        "".toResponseBody("application/json".toMediaType())
 )

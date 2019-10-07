@@ -1,7 +1,6 @@
 package org.ladlb.directassemblee.rate
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.ladlb.directassemblee.PresenterTest
@@ -25,7 +24,6 @@ import org.mockito.Mockito.*
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-@ExperimentalCoroutinesApi
 class RateGetPresenterTest : PresenterTest() {
 
     private val presenter: RateGetPresenter
