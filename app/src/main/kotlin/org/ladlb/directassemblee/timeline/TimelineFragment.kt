@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.fragment_time_line.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
-import org.ladlb.directassemblee.data.CacheManager
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
@@ -72,7 +71,7 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
     lateinit var apiRepository: RetrofitApiRepository
 
     @Inject
-    lateinit var cacheManager: CacheManager
+    lateinit var cacheManager: TimelineCacheManager
 
     @Inject
     lateinit var preferenceStorage: PreferencesStorageImpl
@@ -132,7 +131,7 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent)
 
         this.deputy = arguments!!.getParcelable(ARG_DEPUTY)!!
-        loadTimeLine()
+        loadTimeLine(deputy.id)
 
     }
 
@@ -140,7 +139,7 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
         val deputyId = this.deputy.id
         this.deputy = deputy
         if (deputyId != this.deputy.id) {
-            loadTimeLine()
+            loadTimeLine(deputyId)
         }
     }
 
@@ -173,39 +172,54 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
         swipeRefreshLayout.isRefreshing = false
     }
 
-    private fun loadTimeLine() {
-        page = 0
+    private fun loadTimeLine(deputyId: Int) {
 
-        adapter.showLoading(false)
+        val cache = cacheManager.getAll(deputyId)
+        if (cache == null) {
 
-        swipeRefreshLayout.isRefreshing = true
+            page = 0
 
-        timelineGetPresenter.getTimeline(
-                apiRepository,
-                deputy.id,
-                page
-        )
+            adapter.showLoading(false)
+
+            swipeRefreshLayout.isRefreshing = true
+
+            timelineGetPresenter.getTimeline(
+                    apiRepository,
+                    cacheManager,
+                    deputy.id,
+                    page
+            )
+
+        } else {
+
+            page = cache.first
+            adapter.clear()
+            adapter.addItems(cache.second)
+
+            swipeRefreshLayout.isRefreshing = false
+
+        }
+
     }
 
     override fun onLoadMore() {
 
-        val bundle = Bundle()
-
-        bundle.putInt(
-                ItemKey.PAGE,
-                page
-        )
-
         firebaseAnalyticsManager.logEvent(
                 Event.DEPUTY_TIMELINE_LOAD_MORE,
                 FirebaseAnalyticsHelper.addDeputy(
-                        bundle,
-                        preferenceStorage.loadDeputy()!!
+                        Bundle().apply {
+                            putInt(
+                                    ItemKey.PAGE,
+                                    page
+                            )
+                        },
+                        deputy
                 )
         )
 
         timelineGetPresenter.getTimeline(
                 apiRepository,
+                cacheManager,
                 deputy.id,
                 page
         )
@@ -213,7 +227,7 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
     }
 
     override fun onRefresh() {
-        loadTimeLine()
+        loadTimeLine(deputy.id)
         listener!!.onRefreshTimeLine(deputy)
     }
 
@@ -235,10 +249,8 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
         startActivityForResult(
                 TimelinePagerActivity.getIntent(
                         context!!,
-                        cacheManager,
                         deputy,
-                        itemPosition,
-                        items
+                        itemPosition
                 ),
                 requestTimeLinePager
         )
@@ -252,6 +264,7 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
                 when (resultCode) {
                     Activity.RESULT_OK -> {
                         appBarLayout?.setExpanded(false)
+                        onRefresh()
                         (recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).scrollToPositionWithOffset(
                                 intent!!.getIntExtra(
                                         TimelinePagerActivity.EXTRA_POSITION,

@@ -26,11 +26,16 @@ import javax.inject.Inject
 class TimelineGetPresenter @Inject
 constructor(view: TimelineGetView) : AbstractPresenter<TimelineGetView>(view) {
 
-    fun getTimeline(apiRepository: ApiRepository, deputyId: Int, page: Int) {
+    fun getTimeline(apiRepository: ApiRepository, timelineCacheManager: TimelineCacheManager, deputyId: Int, page: Int) {
 
         launch {
             try {
-                view?.onTimelineReceived(apiRepository.getTimeline(deputyId, page))
+                var items = timelineCacheManager.get(deputyId, page)
+                if (items == null || items.isEmpty()) {
+                    items = apiRepository.getTimeline(deputyId, page)
+                    timelineCacheManager.put(deputyId, page, items)
+                }
+                view?.onTimelineReceived(items)
             } catch (e: Throwable) {
                 view?.onGetTimelineRequestFailed()
             }

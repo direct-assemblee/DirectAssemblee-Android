@@ -26,6 +26,7 @@ import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
 import org.ladlb.directassemblee.timeline.TimelineFragment
 import org.ladlb.directassemblee.widget.DeputyToolbar
 import javax.inject.Inject
+import kotlin.math.abs
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -161,7 +162,7 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
 
         val maxScroll = appBarLayout.totalScrollRange
-        val percentage = Math.abs(verticalOffset).toFloat() / maxScroll.toFloat()
+        val percentage = abs(verticalOffset).toFloat() / maxScroll.toFloat()
 
         updateAvatarVisibility(percentage)
 

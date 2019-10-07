@@ -1,7 +1,8 @@
-package org.ladlb.directassemblee.data
+package org.ladlb.directassemblee.timeline
 
-import javax.inject.Inject
-import javax.inject.Singleton
+import dagger.Binds
+import dagger.Module
+import org.ladlb.directassemblee.timeline.TimelineGetPresenter.TimelineGetView
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -20,16 +21,10 @@ import javax.inject.Singleton
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-@Singleton
-class CacheManager @Inject
-constructor() : androidx.collection.LruCache<String, Any?>(cacheSize) {
+@Module
+abstract class TimelinePagerActivityModule {
 
-    companion object {
-
-        private const val cacheSize = 10 * 1024 * 1024
-
-        const val timeLine = "TIMELINE"
-
-    }
+    @Binds
+    abstract fun provideTimelineGetView(timelinePagerActivity: TimelinePagerActivity): TimelineGetView
 
 }

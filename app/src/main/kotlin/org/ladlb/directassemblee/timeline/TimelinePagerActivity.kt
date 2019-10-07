@@ -11,9 +11,14 @@ import kotlinx.android.synthetic.main.activity_timeline_pager.*
 import kotlinx.android.synthetic.main.item_deputy.*
 import org.ladlb.directassemblee.AbstractToolBarActivity
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.data.CacheManager
+import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.DeputyHelper
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.ItemKey
+import org.ladlb.directassemblee.timeline.TimelineGetPresenter.TimelineGetView
+import org.ladlb.directassemblee.widget.PaginationPagerAdapter.LoadingMoreListener
 import javax.inject.Inject
 
 /**
@@ -33,7 +38,7 @@ import javax.inject.Inject
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
+class TimelinePagerActivity : AbstractToolBarActivity(), TimelineGetView, OnPageChangeListener, LoadingMoreListener {
 
     companion object Factory {
 
@@ -41,16 +46,11 @@ class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
 
         var EXTRA_POSITION: String = "EXTRA_POSITION"
 
-        fun getIntent(context: Context, cacheManager: CacheManager, deputy: Deputy, position: Int, items: ArrayList<TimelineItem>): Intent {
+        fun getIntent(context: Context, deputy: Deputy, position: Int): Intent {
 
             val intent = Intent(context, TimelinePagerActivity::class.java)
             intent.putExtra(EXTRA_DEPUTY, deputy)
             intent.putExtra(EXTRA_POSITION, position)
-
-            cacheManager.put(
-                    CacheManager.timeLine,
-                    items
-            )
 
             return intent
 
@@ -59,9 +59,19 @@ class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
     }
 
     @Inject
-    lateinit var cacheManager: CacheManager
+    lateinit var timelineGetPresenter: TimelineGetPresenter
+
+    @Inject
+    lateinit var apiRepository: RetrofitApiRepository
+
+    @Inject
+    lateinit var cacheManager: TimelineCacheManager
 
     private lateinit var adapter: TimelinePagerAdapter
+
+    private lateinit var deputy: Deputy
+
+    private var page: Int = 0
 
     override fun getContentView(): Int = R.layout.activity_timeline_pager
 
@@ -70,16 +80,16 @@ class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
 
         val bundle = intent.extras!!
         val position = bundle.getInt(EXTRA_POSITION, 0)
-        val deputy = bundle.getParcelable<Deputy>(EXTRA_DEPUTY)!!
 
-        @Suppress("UNCHECKED_CAST")
+        deputy = bundle.getParcelable(EXTRA_DEPUTY)!!
+
         adapter = TimelinePagerAdapter(
                 supportFragmentManager,
-                cacheManager.get(CacheManager.timeLine) as ArrayList<TimelineItem>
-        )
+                arrayListOf())
+        adapter.showPlaceholder(false)
+        adapter.loadingMoreListener = this
 
         viewPager.adapter = adapter
-        viewPager.currentItem = position
         viewPager.addOnPageChangeListener(this)
 
         Picasso.get()
@@ -90,7 +100,28 @@ class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
         textViewDeputyGroup.text = deputy.parliamentGroup
         textViewDeputyPlace.text = DeputyHelper.getFormattedLocality(resources, deputy)
 
-        onPageSelected(position)
+        loadTimeLine(deputy.id, position)
+
+    }
+
+    private fun loadTimeLine(deputyId: Int, position: Int) {
+
+        val cache = cacheManager.getAll(deputyId)
+        if (cache == null) {
+            timelineGetPresenter.getTimeline(
+                    apiRepository,
+                    cacheManager,
+                    deputyId,
+                    page
+            )
+        } else {
+            page = cache.first
+            adapter.addItems(cache.second)
+
+            viewPager.currentItem = position
+            onPageSelected(if (position >= adapter.getItemsSize()) adapter.getItemsSize() - 1 else position)
+
+        }
 
     }
 
@@ -103,13 +134,13 @@ class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
     }
 
     override fun onPageSelected(position: Int) {
-        val timelineItem = adapter.getItemValue(position)
+        val timelineItem = adapter.getItemAtPosition(position)
         updateDeputyVote(timelineItem)
     }
 
-    private fun updateDeputyVote(item: TimelineItem) {
+    private fun updateDeputyVote(item: TimelineItem?) {
 
-        val info = item.extraBallotInfo
+        val info = item?.extraBallotInfo
         if (info == null) {
             deputyVoteView.visibility = View.INVISIBLE
         } else {
@@ -125,6 +156,56 @@ class TimelinePagerActivity : AbstractToolBarActivity(), OnPageChangeListener {
         data.putExtra(EXTRA_POSITION, viewPager.currentItem)
         setResult(Activity.RESULT_OK, data)
         super.onBackPressed()
+    }
+
+    override fun onLoadMore() {
+
+        firebaseAnalyticsManager.logEvent(
+                Event.DEPUTY_TIMELINE_LOAD_MORE,
+                FirebaseAnalyticsHelper.addDeputy(
+                        Bundle().apply {
+                            putInt(
+                                    ItemKey.PAGE,
+                                    page
+                            )
+                        },
+                        deputy
+                )
+        )
+
+        timelineGetPresenter.getTimeline(
+                apiRepository,
+                cacheManager,
+                deputy.id,
+                page
+        )
+
+    }
+
+    override fun onTimelineReceived(timelineItem: Array<TimelineItem>) {
+
+        when {
+            timelineItem.isEmpty() -> showPlaceholderIfNeeded()
+            else -> {
+                page++
+                adapter.addItems(timelineItem)
+                // At the beginning, the loader is hidden
+                adapter.showLoading(true)
+
+                onPageSelected(viewPager.currentItem)
+            }
+        }
+
+    }
+
+    override fun onGetTimelineRequestFailed() {
+        showPlaceholderIfNeeded()
+    }
+
+    private fun showPlaceholderIfNeeded() {
+        adapter.canLoadMore = false
+        adapter.showLoading(false)
+        adapter.showPlaceholder(adapter.getItemsSize() == 0)
     }
 
 }

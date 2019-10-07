@@ -2,9 +2,10 @@ package org.ladlb.directassemblee.timeline
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
 import org.ladlb.directassemblee.ballot.BallotFragment
 import org.ladlb.directassemblee.motion.MotionFragment
+import org.ladlb.directassemblee.widget.LoadingFragment
+import org.ladlb.directassemblee.widget.PaginationPagerAdapter
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -23,25 +24,28 @@ import org.ladlb.directassemblee.motion.MotionFragment
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class TimelinePagerAdapter(fragmentManager: FragmentManager, private val timelineItems: ArrayList<TimelineItem>) : FragmentStatePagerAdapter(fragmentManager) {
+class TimelinePagerAdapter(fragmentManager: FragmentManager, items: ArrayList<TimelineItem>) : PaginationPagerAdapter<TimelineItem>(fragmentManager, items) {
+
+    override fun getPlaceholderItem(position: Int) = LoadingFragment.newInstance()
 
     override fun getItem(position: Int): Fragment {
 
-        val timelineItem = timelineItems[position]
-        val info = timelineItem.extraBallotInfo
-        return if (info == null) {
-            MotionFragment.newInstance(
-                    timelineItem
-            )
+        val timelineItem = getItemAtPosition(position)
+        return if (timelineItem == null) {
+            super.getItem(position)
         } else {
-            BallotFragment.newInstance(
-                    timelineItem
-            )
+            val info = timelineItem.extraBallotInfo
+            if (info == null) {
+                MotionFragment.newInstance(
+                        timelineItem
+                )
+            } else {
+                BallotFragment.newInstance(
+                        timelineItem
+                )
+            }
         }
 
     }
 
-    override fun getCount(): Int = timelineItems.size
-
-    fun getItemValue(position: Int): TimelineItem = timelineItems[position]
 }

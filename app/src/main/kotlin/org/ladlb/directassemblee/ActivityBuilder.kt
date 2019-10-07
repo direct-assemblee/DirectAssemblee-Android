@@ -30,6 +30,8 @@ import org.ladlb.directassemblee.settings.SettingsFragmentProvider
 import org.ladlb.directassemblee.synthesis.SynthesisActivity
 import org.ladlb.directassemblee.timeline.TimelineFragmentProvider
 import org.ladlb.directassemblee.timeline.TimelinePagerActivity
+import org.ladlb.directassemblee.timeline.TimelinePagerActivityModule
+import org.ladlb.directassemblee.widget.LoadingFragmentProvider
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -81,7 +83,7 @@ abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = [SettingsFragmentProvider::class])
     internal abstract fun bindSettingsActivity(): SettingsActivity
 
-    @ContributesAndroidInjector(modules = [MotionFragmentProvider::class, BallotFragmentProvider::class])
+    @ContributesAndroidInjector(modules = [TimelinePagerActivityModule::class, MotionFragmentProvider::class, BallotFragmentProvider::class, LoadingFragmentProvider::class])
     internal abstract fun bindTimelinePagerActivity(): TimelinePagerActivity
 
     @ContributesAndroidInjector(modules = [RatesFragmentProvider::class])

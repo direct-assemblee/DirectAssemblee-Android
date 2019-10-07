@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kotlinx.android.synthetic.main.item_deputy.view.*
 import kotlinx.android.synthetic.main.item_placeholder.view.*
 import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.deputy.DeputyFilter.DeputyFilterListener
 import org.ladlb.directassemblee.helper.DrawableHelper
 import org.ladlb.directassemblee.helper.getTextColorSecondary
 import org.ladlb.directassemblee.widget.PlaceholderAdapter
@@ -30,7 +31,7 @@ import org.ladlb.directassemblee.widget.PlaceholderAdapter
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyAdapter(items: ArrayList<Deputy>) : PlaceholderAdapter<Deputy>(items), Filterable, DeputyFilter.DeputyFilterListener {
+class DeputyAdapter(items: ArrayList<Deputy>) : PlaceholderAdapter<Deputy>(items), Filterable, DeputyFilterListener {
 
     companion object {
         const val typeItem: Int = 2
