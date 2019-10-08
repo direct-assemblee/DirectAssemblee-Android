@@ -4,8 +4,6 @@ import android.os.Parcel
 import android.os.Parcelable
 import org.ladlb.directassemblee.deputy.DeputyVote
 import org.ladlb.directassemblee.helper.parcelableCreator
-import org.ladlb.directassemblee.helper.readBoolean
-import org.ladlb.directassemblee.helper.writeBoolean
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -40,7 +38,7 @@ data class BallotInfo(val totalVotes: Int = 0, val yesVotes: Int = 0, val noVote
             source.readInt(),
             source.readInt(),
             source.readInt(),
-            source.readBoolean(),
+            source.readByte() != 0.toByte(),
             source.readParcelable(DeputyVote::class.java.classLoader)
     )
 
@@ -54,7 +52,7 @@ data class BallotInfo(val totalVotes: Int = 0, val yesVotes: Int = 0, val noVote
         parcel.writeInt(nonVoting)
         parcel.writeInt(blankVotes)
         parcel.writeInt(missing)
-        parcel.writeBoolean(isAdopted)
+        parcel.writeByte(if (isAdopted) 1 else 0)
         parcel.writeParcelable(deputyVote, flags)
     }
 
