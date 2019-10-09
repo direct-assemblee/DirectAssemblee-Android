@@ -49,10 +49,14 @@ If you run API on your computer, you have to specify its URL in the `app/src/bui
 
 ### Open source libraries
 
+* [Retrofit](https://github.com/square/retrofit)
 * [CircleImageView](https://github.com/hdodenhof/CircleImageView)
 * [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 * [RxBinding](https://github.com/JakeWharton/RxBinding)
 * [RxLocation](https://github.com/patloew/RxLocation)
+* [Picasso](https://github.com/square/picasso)
+* [OkHttp](https://github.com/square/okhttp)
+* [RxJava](https://github.com/ReactiveX/RxJava)
 
 ### Api
 
