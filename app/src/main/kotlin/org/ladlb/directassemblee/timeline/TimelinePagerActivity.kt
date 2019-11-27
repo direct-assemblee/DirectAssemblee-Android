@@ -140,6 +140,9 @@ class TimelinePagerActivity : AbstractToolBarActivity(), TimelineGetView, OnPage
 
     private fun updateDeputyVote(item: TimelineItem?) {
 
+        deputyVoteView.visibility = View.INVISIBLE
+
+/*
         val info = item?.extraBallotInfo
         if (info == null) {
             deputyVoteView.visibility = View.INVISIBLE
@@ -148,6 +151,7 @@ class TimelinePagerActivity : AbstractToolBarActivity(), TimelineGetView, OnPage
             val deputyVote = info.deputyVote
             deputyVoteView.setDeputyInfo(deputyVote?.voteValue)
         }
+ */
 
     }
 

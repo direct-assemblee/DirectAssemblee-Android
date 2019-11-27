@@ -15,7 +15,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.ladlb.directassemblee.api.NetworkCacheInterceptor
 import org.ladlb.directassemblee.api.dataGouv.AddressServices
 import org.ladlb.directassemblee.api.ladlb.ApiServices
+import org.ladlb.directassemblee.api.ladlb.TimelineItemDeserializer
 import org.ladlb.directassemblee.api.ladlb.VoteDeserializer
+import org.ladlb.directassemblee.timeline.TimelineItem
 import org.ladlb.directassemblee.vote.Vote
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -126,6 +128,7 @@ abstract class AppModule {
             gsonBuilder.setPrettyPrinting()
             gsonBuilder.setDateFormat("dd/MM/yy")
             gsonBuilder.registerTypeAdapter(Vote::class.java, VoteDeserializer())
+            gsonBuilder.registerTypeAdapter(TimelineItem::class.java, TimelineItemDeserializer())
 
             val gson = gsonBuilder.create()
 

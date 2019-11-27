@@ -34,7 +34,7 @@ class TimelinePagerAdapter(fragmentManager: FragmentManager, items: ArrayList<Ti
         return if (timelineItem == null) {
             super.getItem(position)
         } else {
-            val info = timelineItem.extraBallotInfo
+            val info = null//timelineItem.extraBallotInfo
             if (info == null) {
                 MotionFragment.newInstance(
                         timelineItem

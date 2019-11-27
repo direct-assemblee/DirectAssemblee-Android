@@ -14,10 +14,10 @@ import kotlinx.android.synthetic.main.fragment_deputy_list.*
 import org.ladlb.directassemblee.AbstractToolBarActivity
 import org.ladlb.directassemblee.R
 import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
+import org.ladlb.directassemblee.ballot.Ballot
 import org.ladlb.directassemblee.ballot.vote.BallotVoteGetPresenter.BallotVotesGetView
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.DeputyListFragment.DeputyListFragmentListener
-import org.ladlb.directassemblee.timeline.TimelineItem
 import javax.inject.Inject
 
 /**
@@ -55,7 +55,7 @@ class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, Dep
 
         var EXTRA_BALLOT: String = "ARG_BALLOT"
 
-        fun getIntent(context: Context, ballot: TimelineItem, page: Int): Intent {
+        fun getIntent(context: Context, ballot: Ballot, page: Int): Intent {
 
             val intent = Intent(
                     context,
@@ -71,13 +71,13 @@ class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, Dep
 
     }
 
-    private lateinit var ballot: TimelineItem
+    private lateinit var ballot: Ballot
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        ballot = intent.getParcelableExtra(EXTRA_BALLOT)
+        ballot = intent.getParcelableExtra(EXTRA_BALLOT)!!
 
         searchView.visibility = View.GONE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

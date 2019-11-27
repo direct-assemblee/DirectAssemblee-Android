@@ -19,7 +19,7 @@ import org.ladlb.directassemblee.helper.DrawableHelper
 import org.ladlb.directassemblee.helper.FormatHelper
 import org.ladlb.directassemblee.helper.getColorPrimary
 import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
-import org.ladlb.directassemblee.timeline.TimelineItem
+import org.ladlb.directassemblee.work.Work
 import javax.inject.Inject
 
 /**
@@ -48,7 +48,7 @@ class MotionFragment : AbstractFragment(), OnClickListener {
     @Inject
     lateinit var preferenceStorage: PreferencesStorageImpl
 
-    private lateinit var timelineItem: TimelineItem
+    private lateinit var timelineItem: Work
 
     companion object {
 
@@ -62,7 +62,7 @@ class MotionFragment : AbstractFragment(), OnClickListener {
 
         private const val ARG_TIMELINE_ITEM: String = "ARG_TIMELINE_ITEM"
 
-        fun newInstance(timelineItem: TimelineItem): MotionFragment {
+        fun newInstance(timelineItem: Work): MotionFragment {
 
             val bundle = Bundle()
             bundle.putParcelable(ARG_TIMELINE_ITEM, timelineItem)
@@ -88,13 +88,13 @@ class MotionFragment : AbstractFragment(), OnClickListener {
         // Used for accessibility information
         linearLayoutMotionHeader.isFocusable = true
 
-        val timeLineItem = arguments!!.getParcelable<TimelineItem>(ARG_TIMELINE_ITEM)!!
+        val timeLineItem = arguments!!.getParcelable<Work>(ARG_TIMELINE_ITEM)!!
 
         setTimelineItem(timeLineItem)
 
     }
 
-    private fun setTimelineItem(item: TimelineItem) {
+    private fun setTimelineItem(item: Work) {
 
         timelineItem = item
 
@@ -102,7 +102,7 @@ class MotionFragment : AbstractFragment(), OnClickListener {
                 timelineItem.date,
                 FormatHelper.COMPACT
         )
-        textViewTitle.text = timelineItem.title
+        textViewTitle.text = timelineItem.name
 
         val theme = timelineItem.theme
         val themeDrawableId: Int

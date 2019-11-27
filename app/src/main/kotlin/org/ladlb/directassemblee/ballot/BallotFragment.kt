@@ -27,7 +27,7 @@ import org.ladlb.directassemblee.helper.DrawableHelper
 import org.ladlb.directassemblee.helper.FormatHelper
 import org.ladlb.directassemblee.helper.getColorPrimary
 import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
-import org.ladlb.directassemblee.timeline.TimelineItem
+import org.ladlb.directassemblee.theme.Theme
 import org.ladlb.directassemblee.vote.Vote
 import java.util.*
 import javax.inject.Inject
@@ -58,7 +58,7 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
     @Inject
     lateinit var preferenceStorage: PreferencesStorageImpl
 
-    private lateinit var ballot: TimelineItem
+    private lateinit var ballot: Ballot
 
     companion object {
 
@@ -66,7 +66,7 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
 
         private var ARG_BALLOT: String = "ARG_BALLOT"
 
-        fun newInstance(ballot: TimelineItem): BallotFragment {
+        fun newInstance(ballot: Ballot): BallotFragment {
 
             val bundle = Bundle()
             bundle.putParcelable(ARG_BALLOT, ballot)
@@ -92,7 +92,7 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
         // Used for accessibility information
         linearLayoutBallotHeader.isFocusable = true
 
-        val ballot = arguments!!.getParcelable<TimelineItem>(ARG_BALLOT)!!
+        val ballot = arguments!!.getParcelable<Ballot>(ARG_BALLOT)!!
 
         setBallot(ballot)
     }
@@ -168,7 +168,7 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
 
     }
 
-    private fun setBallot(item: TimelineItem) {
+    private fun setBallot(item: Ballot) {
 
         ballot = item
 
@@ -186,7 +186,7 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
         )
         textViewTitle.text = ballot.title
 
-        val theme = ballot.theme
+        val theme: Theme? = null // TODO : ballot.theme
         val themeDrawableId: Int
         when (theme) {
             null -> {
@@ -211,7 +211,7 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
         textViewDescription.text = ballot.description
 
         textViewLearnMore.setOnClickListener(this)
-        textViewLearnMore.setURL(ballot.fileUrl)
+        // TODO : textViewLearnMore.setURL(ballot.fileUrl)
 
     }
 
@@ -240,10 +240,13 @@ class BallotFragment : AbstractFragment(), OnClickListener, OnChartValueSelected
         firebaseAnalyticsManager.logEvent(
                 FirebaseAnalyticsKeys.Event.DISPLAY_TIMELINE_EVENT_DETAIL,
                 FirebaseAnalyticsHelper.addDeputy(
+                        Bundle(),
+                        /* TODO
                         FirebaseAnalyticsHelper.addTimeLineItem(
                                 Bundle(),
                                 ballot
                         ),
+                         */
                         preferenceStorage.loadDeputy()!!
                 )
         )

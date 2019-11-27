@@ -3,7 +3,6 @@ package org.ladlb.directassemblee.firebase
 import android.os.Bundle
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.ItemKey
-import org.ladlb.directassemblee.helper.FormatHelper
 import org.ladlb.directassemblee.timeline.TimelineItem
 
 /**
@@ -40,6 +39,7 @@ class FirebaseAnalyticsHelper {
 
         fun addTimeLineItem(bundle: Bundle, item: TimelineItem): Bundle {
 
+            /* TODO
             bundle.putInt(ItemKey.TIMELINE_EVENT_ID, item.id)
             bundle.putString(ItemKey.TIMELINE_EVENT_DATE, FormatHelper.format(item.date, FormatHelper.COMPACT))
 
@@ -57,6 +57,7 @@ class FirebaseAnalyticsHelper {
             if (info != null) {
                 bundle.putBoolean(ItemKey.TIMELINE_EVENT_IS_ADOPTED, info.isAdopted)
             }
+             */
 
             return bundle
 

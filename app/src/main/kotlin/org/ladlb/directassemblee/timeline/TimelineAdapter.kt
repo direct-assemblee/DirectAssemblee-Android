@@ -9,11 +9,14 @@ import kotlinx.android.synthetic.main.include_header_timeline_item.view.*
 import kotlinx.android.synthetic.main.item_placeholder.view.*
 import kotlinx.android.synthetic.main.item_timeline.view.*
 import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.ballot.BallotGroup
 import org.ladlb.directassemblee.helper.DrawableHelper
 import org.ladlb.directassemblee.helper.FormatHelper
 import org.ladlb.directassemblee.helper.getColorPrimary
 import org.ladlb.directassemblee.helper.getTextColorSecondary
+import org.ladlb.directassemblee.law.Law
 import org.ladlb.directassemblee.widget.PaginationAdapter
+import org.ladlb.directassemblee.work.Work
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -35,7 +38,9 @@ import org.ladlb.directassemblee.widget.PaginationAdapter
 class TimelineAdapter(items: ArrayList<TimelineItem>) : PaginationAdapter<TimelineItem>(items) {
 
     companion object {
-        const val typeItem: Int = 3
+        const val LAW: Int = 3
+        const val WORK: Int = 4
+        const val BALLOT_GROUP: Int = 5
     }
 
     var listener: TimeLineAdapterListener? = null
@@ -46,21 +51,60 @@ class TimelineAdapter(items: ArrayList<TimelineItem>) : PaginationAdapter<Timeli
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        when (getItemViewType(holder.adapterPosition)) {
-            typeItem -> onBindItem(holder)
-            else -> super.onBindViewHolder(holder, position)
+        val adapterPosition = holder.adapterPosition
+        val item = getItemAtPosition(adapterPosition)
+
+        when (getItemViewType(adapterPosition)) {
+            LAW -> onBindLawItem(holder, item as Law)
+            WORK -> onBindWorkItem(holder, item as Work)
+            BALLOT_GROUP -> onBindBallotGroupItem(holder, item as BallotGroup)
+            else -> super.onBindViewHolder(holder, adapterPosition)
         }
 
     }
 
-    private fun onBindItem(holder: ViewHolder) {
+    private fun onBindBallotGroupItem(holder: ViewHolder, item: BallotGroup) {
 
-        val holderPosition = holder.adapterPosition
-        val item = getItemAtPosition(holderPosition)
         val view = holder.itemView
         val context = view.context
 
-        view.tag = holderPosition
+        view.tag = holder.adapterPosition
+        view.setOnClickListener { v ->
+            if (listener != null) {
+                listener!!.onTimelineItemClicked(
+                        v.tag as Int
+                )
+            }
+        }
+
+        view.textViewDate.text = FormatHelper.format(
+                item.lastBallotDate,
+                FormatHelper.COMPACT
+        )
+        view.textViewTitle.text = item.contentDescription
+
+        view.textViewTheme.visibility = View.INVISIBLE
+        val themeDrawableId = R.drawable.ic_uncategorized_24dp
+
+        view.imageViewTheme.setImageDrawable(
+                DrawableHelper.getDrawableTintByColor(
+                        view.resources,
+                        themeDrawableId,
+                        context.getColorPrimary()
+                )
+        )
+
+        view.textViewSubTitle.visibility = View.GONE
+        view.linearLayoutVote.visibility = View.GONE
+
+    }
+
+    private fun onBindWorkItem(holder: ViewHolder, item: Work) {
+
+        val view = holder.itemView
+        val context = view.context
+
+        view.tag = holder.adapterPosition
         view.setOnClickListener { v ->
             if (listener != null) {
                 listener!!.onTimelineItemClicked(
@@ -73,7 +117,7 @@ class TimelineAdapter(items: ArrayList<TimelineItem>) : PaginationAdapter<Timeli
                 item.date,
                 FormatHelper.COMPACT
         )
-        view.textViewTitle.text = item.title
+        view.textViewTitle.text = item.name
 
         val theme = item.theme
         val themeDrawableId: Int
@@ -106,21 +150,82 @@ class TimelineAdapter(items: ArrayList<TimelineItem>) : PaginationAdapter<Timeli
             }
         }
 
-        when (val info = item.extraBallotInfo) {
-            null -> view.linearLayoutVote.visibility = View.GONE
-            else -> {
-                val deputyVote = info.deputyVote
+        view.linearLayoutVote.visibility = View.GONE
 
-                view.linearLayoutVote.visibility = View.VISIBLE
-                view.ballotVoteView.setBallotInfo(info)
-                view.deputyVoteView.setDeputyInfo(deputyVote?.voteValue)
+    }
+
+    private fun onBindLawItem(holder: ViewHolder, item: Law) {
+
+        val view = holder.itemView
+        val context = view.context
+
+        view.tag = holder.adapterPosition
+        view.setOnClickListener { v ->
+            if (listener != null) {
+                listener!!.onTimelineItemClicked(
+                        v.tag as Int
+                )
             }
         }
+
+        view.textViewDate.text = FormatHelper.format(
+                item.lastBallotDate,
+                FormatHelper.COMPACT
+        )
+        view.textViewTitle.text = item.name
+
+        val theme = item.theme
+        val themeDrawableId: Int
+        when (theme) {
+            null -> {
+                view.textViewTheme.visibility = View.INVISIBLE
+                themeDrawableId = R.drawable.ic_uncategorized_24dp
+            }
+            else -> {
+                view.textViewTheme.text = theme.getLabel()
+                view.textViewTheme.visibility = if (TextUtils.isEmpty(view.textViewTheme.text)) View.GONE else View.VISIBLE
+                themeDrawableId = theme.getDrawableId()
+            }
+        }
+
+        view.imageViewTheme.setImageDrawable(
+                DrawableHelper.getDrawableTintByColor(
+                        view.resources,
+                        themeDrawableId,
+                        context.getColorPrimary()
+                )
+        )
+
+        val description = item.contentDescription
+        when {
+            TextUtils.isEmpty(description) -> view.textViewSubTitle.visibility = View.GONE
+            else -> {
+                view.textViewSubTitle.visibility = View.VISIBLE
+                view.textViewSubTitle.text = description
+            }
+        }
+
+        view.linearLayoutVote.visibility = View.GONE
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
             when (viewType) {
-                typeItem -> ItemHolder(
+                WORK -> ItemHolder(
+                        LayoutInflater.from(parent.context).inflate(
+                                R.layout.item_timeline,
+                                parent,
+                                false
+                        )
+                )
+                LAW -> ItemHolder(
+                        LayoutInflater.from(parent.context).inflate(
+                                R.layout.item_timeline,
+                                parent,
+                                false
+                        )
+                )
+                BALLOT_GROUP -> ItemHolder(
                         LayoutInflater.from(parent.context).inflate(
                                 R.layout.item_timeline,
                                 parent,
@@ -150,15 +255,22 @@ class TimelineAdapter(items: ArrayList<TimelineItem>) : PaginationAdapter<Timeli
 
     override fun onBindPlaceholderView(holder: ViewHolder, position: Int) {}
 
-    override fun getItemViewType(position: Int): Int =
-            if (position < getItemsSize()) typeItem else super.getItemViewType(position)
+    override fun getItemViewType(position: Int) = if (position < getItemsSize()) {
+        when (getItemAtPosition(position).getType()) {
+            TimelineItem.LAW -> LAW
+            TimelineItem.WORK -> WORK
+            else -> BALLOT_GROUP
+        }
+    } else {
+        super.getItemViewType(position)
+    }
 
     class ItemHolder(view: View) : ViewHolder(view)
 
     class PlaceHolderHolder(view: View) : ViewHolder(view)
 
     override fun getItemId(position: Int): Long =
-            if (position < getItemsSize()) getItemAtPosition(position).id.toLong() else super.getItemId(position)
+            if (position < getItemsSize()) getItemAtPosition(position).hashCode().toLong() else super.getItemId(position)
 
     interface TimeLineAdapterListener {
 
