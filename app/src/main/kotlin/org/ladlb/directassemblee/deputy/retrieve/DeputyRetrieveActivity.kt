@@ -20,6 +20,8 @@ import org.ladlb.directassemblee.deputy.find.DeputyFindActivity
 import org.ladlb.directassemblee.deputy.retrieve.DeputyRetrieveFragment.DeputyRetrieveLocationFragmentListener
 import org.ladlb.directassemblee.deputy.search.PrimaryDeputySearchActivity
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.DISTRICT
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.PARLIAMENT_GROUP
 import org.ladlb.directassemblee.helper.ErrorHelper
 import org.ladlb.directassemblee.helper.GoogleHelper
 import org.ladlb.directassemblee.location.LocationGetPresenter
@@ -128,7 +130,8 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
 
         preferenceStorage.saveDeputy(deputy)
 
-        firebaseAnalyticsManager.setUserDeputyProperties(deputy)
+        firebaseAnalyticsManager.setUserProperty(PARLIAMENT_GROUP, deputy.parliamentGroup)
+        firebaseAnalyticsManager.setUserProperty(DISTRICT, deputy.getCompleteLocality())
 
         startDeputyActivity(deputy)
         finish()

@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.retrieve.DeputyRetrieveActivity
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.DISTRICT
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.PARLIAMENT_GROUP
 import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
 import javax.inject.Inject
 
@@ -45,10 +47,11 @@ class TrampolineActivity : AbstractActivity() {
         val deputy = preferenceStorage.loadDeputy()
 
         if (deputy == null) {
-            firebaseAnalyticsManager.clearUserDeputyProperties()
+            firebaseAnalyticsManager.clearUserProperty(PARLIAMENT_GROUP, DISTRICT)
             startRetrieveDeputyActivity()
         } else {
-            firebaseAnalyticsManager.setUserDeputyProperties(deputy)
+            firebaseAnalyticsManager.setUserProperty(PARLIAMENT_GROUP, deputy.parliamentGroup)
+            firebaseAnalyticsManager.setUserProperty(DISTRICT, deputy.getCompleteLocality())
             startDeputyActivity(deputy)
         }
         finish()

@@ -4,14 +4,6 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.annotation.NonNull
 import com.google.firebase.analytics.FirebaseAnalytics
-import org.ladlb.directassemblee.AbstractBottomSheetDialogFragment
-import org.ladlb.directassemblee.AbstractFragment
-import org.ladlb.directassemblee.AbstractPreferenceFragment
-import org.ladlb.directassemblee.BuildConfig
-import org.ladlb.directassemblee.deputy.Deputy
-import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -30,72 +22,29 @@ import javax.inject.Singleton
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-@Singleton
-class FirebaseAnalyticsManager @Inject
-constructor() {
+class FirebaseAnalyticsManager(private val firebaseAnalytics: FirebaseAnalytics? = null) {
 
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
-
-    fun initInstance(activity: Activity) {
-        if (BuildConfig.TRACKING_ENABLED) {
-            firebaseAnalytics = FirebaseAnalytics.getInstance(activity)
-
-        }
+    fun setCurrentScreen(activity: Activity, tagName: String, className: String) {
+        firebaseAnalytics?.setCurrentScreen(
+                activity,
+                tagName,
+                className
+        )
     }
 
-    fun setCurrentScreen(activity: Activity, fragment: AbstractFragment) {
-        if (BuildConfig.TRACKING_ENABLED) {
-            firebaseAnalytics.setCurrentScreen(
-                    activity,
-                    fragment.getTagName(),
-                    fragment.getClassName()
-            )
-        }
+    fun logEvent(event: String, bundle: Bundle = Bundle()) {
+        firebaseAnalytics?.logEvent(event, bundle)
     }
 
-    fun setCurrentScreen(activity: Activity, fragment: AbstractPreferenceFragment) {
-        if (BuildConfig.TRACKING_ENABLED) {
-            firebaseAnalytics.setCurrentScreen(
-                    activity,
-                    fragment.getTagName(),
-                    fragment.getClassName()
-            )
-        }
+    fun setUserProperty(@NonNull key: String, @NonNull value: String?) {
+        firebaseAnalytics?.setUserProperty(key, value)
     }
 
-    fun setCurrentScreen(activity: Activity, fragment: AbstractBottomSheetDialogFragment) {
-        if (BuildConfig.TRACKING_ENABLED) {
-            firebaseAnalytics.setCurrentScreen(
-                    activity,
-                    fragment.getTagName(),
-                    fragment.getClassName()
-            )
-        }
-    }
-
-    fun logEvent(event: String) {
-        if (BuildConfig.TRACKING_ENABLED) {
-            firebaseAnalytics.logEvent(event, Bundle())
-        }
-    }
-
-    fun logEvent(event: String, bundle: Bundle) {
-        if (BuildConfig.TRACKING_ENABLED) {
-            firebaseAnalytics.logEvent(event, bundle)
-        }
-    }
-
-    fun setUserDeputyProperties(@NonNull deputy: Deputy) {
-        if (BuildConfig.TRACKING_ENABLED) {
-            firebaseAnalytics.setUserProperty(UserProperty.PARLIAMENT_GROUP, deputy.parliamentGroup)
-            firebaseAnalytics.setUserProperty(UserProperty.DISTRICT, deputy.getCompleteLocality())
-        }
-    }
-
-    fun clearUserDeputyProperties() {
-        if (BuildConfig.TRACKING_ENABLED) {
-            firebaseAnalytics.setUserProperty(UserProperty.PARLIAMENT_GROUP, null)
-            firebaseAnalytics.setUserProperty(UserProperty.DISTRICT, null)
+    fun clearUserProperty(@NonNull vararg key: String) {
+        firebaseAnalytics?.let {
+            key.map {
+                firebaseAnalytics.setUserProperty(it, null)
+            }
         }
     }
 

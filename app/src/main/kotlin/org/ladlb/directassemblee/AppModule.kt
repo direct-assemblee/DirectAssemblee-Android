@@ -3,6 +3,7 @@ package org.ladlb.directassemblee
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Binds
@@ -16,6 +17,7 @@ import org.ladlb.directassemblee.api.NetworkCacheInterceptor
 import org.ladlb.directassemblee.api.dataGouv.AddressServices
 import org.ladlb.directassemblee.api.ladlb.ApiServices
 import org.ladlb.directassemblee.api.ladlb.VoteDeserializer
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
 import org.ladlb.directassemblee.vote.Vote
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -79,18 +81,27 @@ abstract class AppModule {
         @Singleton
         @JvmStatic
         @Provides
+        fun provideAnalyticsManager(context: Context): FirebaseAnalyticsManager {
+            return FirebaseAnalyticsManager(
+                    if (BuildConfig.TRACKING_ENABLED) FirebaseAnalytics.getInstance(context) else null
+            )
+        }
+
+        @Singleton
+        @JvmStatic
+        @Provides
         fun provideOkHttp(cacheDir: File): OkHttpClient {
 
             val cacheSize = 10 * 1024 * 1024 // 10 MB
             val cache = Cache(cacheDir, cacheSize.toLong())
 
+            val httpLoggingInterceptor = HttpLoggingInterceptor()
             @Suppress("ConstantConditionIf")
             return OkHttpClient.Builder()
                     .cache(cache)
                     .readTimeout(TIMEOUT, TimeUnit.SECONDS)
                     .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
-                    .addInterceptor(HttpLoggingInterceptor().setLevel(
-                            if (BuildConfig.LOG_ENABLED) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE)
+                    .addInterceptor(httpLoggingInterceptor.apply { httpLoggingInterceptor.level = if (BuildConfig.LOG_ENABLED) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE }
                     )
                     .addNetworkInterceptor(NetworkCacheInterceptor())
                     .build()

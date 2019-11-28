@@ -35,8 +35,6 @@ abstract class AbstractActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        firebaseAnalyticsManager.initInstance(this)
-
         /*
             Used for make app screenshots
             --------------------------------

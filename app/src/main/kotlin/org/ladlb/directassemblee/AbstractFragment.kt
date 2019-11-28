@@ -43,7 +43,7 @@ abstract class AbstractFragment : DaggerFragment() {
 
     private fun updateCurrentScreen() {
         if (userVisibleHint && activity is AbstractActivity) {
-            firebaseAnalyticsManager.setCurrentScreen((activity as AbstractActivity), this)
+            firebaseAnalyticsManager.setCurrentScreen((activity as AbstractActivity), getTagName(), getClassName())
         }
     }
 

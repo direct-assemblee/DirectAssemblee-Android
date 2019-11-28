@@ -38,7 +38,7 @@ abstract class AbstractPreferenceFragment : PreferenceFragmentCompat(), Lifecycl
 
     override fun onResume() {
         super.onResume()
-        firebaseAnalyticsManager.setCurrentScreen((activity as AbstractActivity), this)
+        firebaseAnalyticsManager.setCurrentScreen((activity as AbstractActivity), getTagName(), getClassName())
     }
 
 }

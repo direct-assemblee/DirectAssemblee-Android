@@ -18,6 +18,8 @@ import org.ladlb.directassemblee.deputy.retrieve.DeputyRetrieveActivity
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.DISTRICT
+import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.PARLIAMENT_GROUP
 import org.ladlb.directassemblee.helper.ErrorHelper
 import org.ladlb.directassemblee.helper.MetricHelper
 import org.ladlb.directassemblee.helper.NavigationHelper
@@ -216,7 +218,7 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
         val preferences = preferenceStorage
         preferences.saveDeputy(null)
         preferences.setNotificationDialogShowed(false)
-        firebaseAnalyticsManager.clearUserDeputyProperties()
+        firebaseAnalyticsManager.clearUserProperty(PARLIAMENT_GROUP, DISTRICT)
         startRetrieveDeputyActivity()
     }
 
