@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.util.AttributeSet
 import androidx.core.content.res.ResourcesCompat
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 import org.ladlb.directassemblee.R
 
@@ -52,7 +52,7 @@ class DeputyImageView : CircleImageView {
             TextUtils.isEmpty(url) -> setImageDrawable(
                     deputyPlaceHolderId
             )
-            else -> Picasso.get()
+            else -> Glide.with(this)
                     .load(url)
                     .placeholder(deputyPlaceHolderId)
                     .error(deputyPlaceHolderId)

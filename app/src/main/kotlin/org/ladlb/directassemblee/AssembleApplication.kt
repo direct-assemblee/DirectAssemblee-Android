@@ -1,10 +1,8 @@
 package org.ladlb.directassemblee
 
-import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.crashlytics.android.Crashlytics
 import com.google.android.gms.security.ProviderInstaller
-import com.squareup.picasso.Picasso
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import io.fabric.sdk.android.Fabric
@@ -36,8 +34,6 @@ open class AssembleApplication : DaggerApplication() {
 
         initFabric()
 
-        initPicasso()
-
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
 
     }
@@ -46,19 +42,6 @@ open class AssembleApplication : DaggerApplication() {
         val appComponent = DaggerAppComponent.builder().application(this).build()
         appComponent.inject(this)
         return appComponent
-    }
-
-    private fun initPicasso() {
-
-        val picassoBuilder = Picasso.Builder(this)
-        if (BuildConfig.DEBUG) {
-            picassoBuilder.loggingEnabled(true)
-            picassoBuilder.listener { _, uri, exception ->
-                Log.e("Picasso", "onImageFailed : uri : " + uri.toString() + ", exception : " + exception.message)
-            }
-        }
-        Picasso.setSingletonInstance(picassoBuilder.build())
-
     }
 
     open fun initFabric() {

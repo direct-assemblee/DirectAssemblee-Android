@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_timeline_pager.*
 import kotlinx.android.synthetic.main.item_deputy.*
 import org.ladlb.directassemblee.AbstractToolBarActivity
@@ -92,9 +92,7 @@ class TimelinePagerActivity : AbstractToolBarActivity(), TimelineGetView, OnPage
         viewPager.adapter = adapter
         viewPager.addOnPageChangeListener(this)
 
-        Picasso.get()
-                .load(deputy.photoUrl)
-                .into(imageViewDeputy)
+        Glide.with(this).load(deputy.photoUrl).into(imageViewDeputy)
 
         textViewDeputyName.text = String.format("%s %s", deputy.firstname, deputy.lastname)
         textViewDeputyGroup.text = deputy.parliamentGroup
