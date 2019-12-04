@@ -27,9 +27,9 @@ import javax.inject.Inject
  */
 
 class NotificationSubscribePresenter @Inject
-constructor(view: NotificationSubscribeView) : AbstractPresenter<NotificationSubscribeView>(view) {
+constructor(val apiRepository: ApiRepository, view: NotificationSubscribeView) : AbstractPresenter<NotificationSubscribeView>(view) {
 
-    fun postSubscribe(apiRepository: ApiRepository, id: String, token: String?, deputyId: Int, preferences: PreferencesStorage?) {
+    fun postSubscribe(id: String, token: String?, deputyId: Int, preferences: PreferencesStorage?) {
 
         if (TextUtils.isEmpty(token)) {
             MetricHelper.track("Token empty in subscribe")

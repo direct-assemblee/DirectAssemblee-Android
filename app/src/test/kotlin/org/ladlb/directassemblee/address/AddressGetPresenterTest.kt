@@ -36,7 +36,7 @@ class AddressGetPresenterTest : PresenterTest() {
 
     init {
 
-        presenter = AddressGetPresenter(view)
+        presenter = AddressGetPresenter(addressRepository, view)
         presenter.context = Dispatchers.Unconfined
 
     }
@@ -48,7 +48,7 @@ class AddressGetPresenterTest : PresenterTest() {
 
         `when`(addressRepository.getAddress(anyString())).thenReturn(result)
 
-        presenter.get(addressRepository, anyString())
+        presenter.get(anyString())
 
         verify(view, atLeastOnce()).onAddressesReceived(result.query, result.features)
 
@@ -59,7 +59,7 @@ class AddressGetPresenterTest : PresenterTest() {
 
         `when`(addressRepository.getAddress(anyString())).thenThrow(NullPointerException())
 
-        presenter.get(addressRepository, anyString())
+        presenter.get(anyString())
 
         verify(view, atLeastOnce()).onGetAddressRequestFailed()
 

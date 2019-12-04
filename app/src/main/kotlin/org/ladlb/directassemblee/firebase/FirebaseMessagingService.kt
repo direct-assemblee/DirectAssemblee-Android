@@ -64,7 +64,6 @@ class FirebaseMessagingService : FirebaseMessagingService(), NotificationSubscri
 
         if (preferenceStorage.isNotificationEnabled() && deputy != null) {
             subscribeNotificationPresenter.postSubscribe(
-                    retrofitApiRepository,
                     FirebaseInstanceId.getInstance().id,
                     token,
                     deputy.id,

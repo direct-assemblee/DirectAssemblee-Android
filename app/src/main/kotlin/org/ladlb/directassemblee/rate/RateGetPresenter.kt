@@ -24,9 +24,9 @@ import javax.inject.Inject
  */
 
 class RateGetPresenter @Inject
-constructor(view: RateGetView) : AbstractPresenter<RateGetView>(view) {
+constructor(val apiRepository: ApiRepository, view: RateGetView) : AbstractPresenter<RateGetView>(view) {
 
-    fun getActivityRates(apiRepository: ApiRepository) {
+    fun getActivityRates() {
 
         launch {
             try {

@@ -12,7 +12,6 @@ import com.google.firebase.iid.FirebaseInstanceId
 import dagger.android.support.AndroidSupportInjection
 import org.ladlb.directassemblee.AbstractPreferenceFragment
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.retrieve.DeputyRetrieveActivity
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
@@ -73,9 +72,6 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
 
     @Inject
     lateinit var unSubscribeNotificationPresenter: NotificationUnSubscribePresenter
-
-    @Inject
-    lateinit var apiRepository: RetrofitApiRepository
 
     @Inject
     lateinit var preferenceStorage: PreferencesStorageImpl
@@ -199,7 +195,6 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
 
             isChangeDeputy = true
             unSubscribeNotificationPresenter.postUnSubscribe(
-                    apiRepository,
                     FirebaseInstanceId.getInstance().id,
                     preferenceStorage.getFirebaseToken(),
                     deputy.id,
@@ -230,11 +225,8 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
 
         notificationSwitchPreference.isEnabled = false
 
-        val preferences = preferenceStorage
-
         if (enable) {
             subscribeNotificationPresenter.postSubscribe(
-                    apiRepository,
                     FirebaseInstanceId.getInstance().id,
                     preferenceStorage.getFirebaseToken(),
                     deputy.id,
@@ -242,7 +234,6 @@ class SettingsFragment : AbstractPreferenceFragment(), NotificationSubscribeView
             )
         } else {
             unSubscribeNotificationPresenter.postUnSubscribe(
-                    apiRepository,
                     FirebaseInstanceId.getInstance().id,
                     preferenceStorage.getFirebaseToken(),
                     deputy.id,

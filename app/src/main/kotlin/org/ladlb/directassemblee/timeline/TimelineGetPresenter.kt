@@ -24,9 +24,9 @@ import javax.inject.Inject
  */
 
 class TimelineGetPresenter @Inject
-constructor(view: TimelineGetView) : AbstractPresenter<TimelineGetView>(view) {
+constructor(val apiRepository: ApiRepository, view: TimelineGetView) : AbstractPresenter<TimelineGetView>(view) {
 
-    fun getTimeline(apiRepository: ApiRepository, timelineCacheManager: TimelineCacheManager, deputyId: Int, page: Int) {
+    fun getTimeline(timelineCacheManager: TimelineCacheManager, deputyId: Int, page: Int) {
 
         launch {
             try {

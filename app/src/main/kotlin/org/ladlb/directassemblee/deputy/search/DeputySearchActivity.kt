@@ -8,7 +8,6 @@ import androidx.appcompat.widget.SearchView
 import kotlinx.android.synthetic.main.activity_deputy_search.*
 import org.ladlb.directassemblee.AbstractToolBarActivity
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.DeputiesGetView
 import org.ladlb.directassemblee.deputy.Deputy
@@ -44,9 +43,6 @@ open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentL
     }
 
     @Inject
-    lateinit var retrofitApiRepository: RetrofitApiRepository
-
-    @Inject
     lateinit var deputiesGetPresenter: DeputiesGetPresenter
 
     override fun getContentView(): Int = R.layout.activity_deputy_search
@@ -75,7 +71,7 @@ open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentL
             }
         })
 
-        deputiesGetPresenter.getDeputies(retrofitApiRepository)
+        deputiesGetPresenter.getDeputies()
 
     }
 

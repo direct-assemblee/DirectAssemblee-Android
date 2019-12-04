@@ -14,8 +14,12 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.ladlb.directassemblee.api.NetworkCacheInterceptor
+import org.ladlb.directassemblee.api.dataGouv.AddressRepository
 import org.ladlb.directassemblee.api.dataGouv.AddressServices
+import org.ladlb.directassemblee.api.dataGouv.RetrofitAddressRepository
+import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.api.ladlb.ApiServices
+import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.api.ladlb.VoteDeserializer
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsManager
 import org.ladlb.directassemblee.vote.Vote
@@ -50,6 +54,14 @@ abstract class AppModule {
     @Binds
     @Singleton
     abstract fun provideContext(application: Application): Context
+
+    @Binds
+    @Singleton
+    abstract fun provideApiRepository(retrofitApiRepository: RetrofitApiRepository): ApiRepository
+
+    @Binds
+    @Singleton
+    abstract fun provideAddressRepository(retrofitAddressRepository: RetrofitAddressRepository): AddressRepository
 
     @Module
     companion object {

@@ -36,7 +36,7 @@ class BallotVoteGetPresenterTest : PresenterTest() {
 
     init {
 
-        presenter = BallotVoteGetPresenter(view)
+        presenter = BallotVoteGetPresenter(apiRepository, view)
         presenter.context = Dispatchers.Unconfined
 
     }
@@ -48,7 +48,7 @@ class BallotVoteGetPresenterTest : PresenterTest() {
 
         `when`(apiRepository.getBallotVotes(anyInt())).thenReturn(ballotVote)
 
-        presenter.getVotes(apiRepository, anyInt())
+        presenter.getVotes(anyInt())
 
         verify(view, atLeastOnce()).onBallotVotesReceived(ballotVote)
 
@@ -59,7 +59,7 @@ class BallotVoteGetPresenterTest : PresenterTest() {
 
         `when`(apiRepository.getBallotVotes(anyInt())).thenThrow(NullPointerException())
 
-        presenter.getVotes(apiRepository, anyInt())
+        presenter.getVotes(anyInt())
 
         verify(view, atLeastOnce()).onGetBallotVotesRequestFailed()
 
@@ -70,7 +70,7 @@ class BallotVoteGetPresenterTest : PresenterTest() {
 
         `when`(apiRepository.getBallotVotes(anyInt())).thenThrow(apiNotFoundException)
 
-        presenter.getVotes(apiRepository, anyInt())
+        presenter.getVotes(anyInt())
 
         verify(view, atLeastOnce()).onNoBallotVotesFound()
 

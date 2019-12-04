@@ -36,7 +36,7 @@ class DeputiesGetPresenterTest : PresenterTest() {
 
     init {
 
-        presenter = DeputiesGetPresenter(view)
+        presenter = DeputiesGetPresenter(apiRepository, view)
         presenter.context = Dispatchers.Unconfined
 
     }
@@ -48,7 +48,7 @@ class DeputiesGetPresenterTest : PresenterTest() {
 
         `when`(apiRepository.getDeputies()).thenReturn(result)
 
-        presenter.getDeputies(apiRepository)
+        presenter.getDeputies()
 
         verify(view, atLeastOnce()).onDeputiesReceived(result)
 
@@ -59,7 +59,7 @@ class DeputiesGetPresenterTest : PresenterTest() {
 
         `when`(apiRepository.getDeputies()).thenThrow(NullPointerException())
 
-        presenter.getDeputies(apiRepository)
+        presenter.getDeputies()
 
         verify(view, atLeastOnce()).onGetDeputiesRequestFailed()
 
@@ -72,7 +72,7 @@ class DeputiesGetPresenterTest : PresenterTest() {
 
         `when`(apiRepository.getDeputies(anyDouble(), anyDouble())).thenReturn(result)
 
-        presenter.getDeputies(apiRepository, anyDouble(), anyDouble())
+        presenter.getDeputies(anyDouble(), anyDouble())
 
         verify(view, atLeastOnce()).onDeputiesReceived(result)
 
@@ -83,7 +83,7 @@ class DeputiesGetPresenterTest : PresenterTest() {
 
         `when`(apiRepository.getDeputies(anyDouble(), anyDouble())).thenThrow(NullPointerException())
 
-        presenter.getDeputies(apiRepository, anyDouble(), anyDouble())
+        presenter.getDeputies(anyDouble(), anyDouble())
 
         verify(view, atLeastOnce()).onGetDeputiesRequestFailed()
 

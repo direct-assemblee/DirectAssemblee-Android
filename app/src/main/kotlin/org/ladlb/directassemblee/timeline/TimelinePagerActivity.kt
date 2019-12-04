@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.activity_timeline_pager.*
 import kotlinx.android.synthetic.main.item_deputy.*
 import org.ladlb.directassemblee.AbstractToolBarActivity
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.DeputyHelper
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
@@ -62,9 +61,6 @@ class TimelinePagerActivity : AbstractToolBarActivity(), TimelineGetView, OnPage
     lateinit var timelineGetPresenter: TimelineGetPresenter
 
     @Inject
-    lateinit var apiRepository: RetrofitApiRepository
-
-    @Inject
     lateinit var cacheManager: TimelineCacheManager
 
     private lateinit var adapter: TimelinePagerAdapter
@@ -107,7 +103,6 @@ class TimelinePagerActivity : AbstractToolBarActivity(), TimelineGetView, OnPage
         val cache = cacheManager.getAll(deputyId)
         if (cache == null) {
             timelineGetPresenter.getTimeline(
-                    apiRepository,
                     cacheManager,
                     deputyId,
                     page
@@ -172,7 +167,6 @@ class TimelinePagerActivity : AbstractToolBarActivity(), TimelineGetView, OnPage
         )
 
         timelineGetPresenter.getTimeline(
-                apiRepository,
                 cacheManager,
                 deputy.id,
                 page

@@ -34,7 +34,7 @@ class RateGetPresenterTest : PresenterTest() {
 
     init {
 
-        presenter = RateGetPresenter(view)
+        presenter = RateGetPresenter(apiRepository, view)
         presenter.context = Dispatchers.Unconfined
 
     }
@@ -46,7 +46,7 @@ class RateGetPresenterTest : PresenterTest() {
 
         `when`(apiRepository.getActivityRates()).thenReturn(result)
 
-        presenter.getActivityRates(apiRepository)
+        presenter.getActivityRates()
 
         verify(view, atLeastOnce()).onActivityRatesReceived(result)
 
@@ -57,7 +57,7 @@ class RateGetPresenterTest : PresenterTest() {
 
         `when`(apiRepository.getActivityRates()).thenThrow(NullPointerException())
 
-        presenter.getActivityRates(apiRepository)
+        presenter.getActivityRates()
 
         verify(view, atLeastOnce()).onGetActivityRatesRequestFailed()
 

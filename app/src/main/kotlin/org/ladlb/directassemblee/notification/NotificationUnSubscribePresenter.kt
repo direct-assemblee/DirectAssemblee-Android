@@ -26,9 +26,9 @@ import javax.inject.Inject
  */
 
 class NotificationUnSubscribePresenter @Inject
-constructor(view: NotificationUnSubscribeView) : AbstractPresenter<NotificationUnSubscribeView>(view) {
+constructor(val apiRepository: ApiRepository, view: NotificationUnSubscribeView) : AbstractPresenter<NotificationUnSubscribeView>(view) {
 
-    fun postUnSubscribe(apiRepository: ApiRepository, id: String, token: String?, deputyId: Int, preferences: PreferencesStorage?) {
+    fun postUnSubscribe(id: String, token: String?, deputyId: Int, preferences: PreferencesStorage?) {
 
         if (TextUtils.isEmpty(token)) {
             throw NullPointerException("Token null or empty")

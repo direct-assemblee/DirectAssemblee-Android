@@ -76,7 +76,7 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        deputy = intent.getParcelableExtra(EXTRA_DEPUTY)
+        deputy = intent.getParcelableExtra(EXTRA_DEPUTY)!!
 
         val toggle = ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -136,7 +136,6 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
                     R.string.vote_result_for
             ) { _, _ ->
                 subscribeNotificationPresenter.postSubscribe(
-                        apiRepository,
                         FirebaseInstanceId.getInstance().id,
                         preferenceStorage.getFirebaseToken(),
                         deputy.id,

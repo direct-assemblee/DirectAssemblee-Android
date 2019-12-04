@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.fragment_deputy_find.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.DeputiesGetView
 import org.ladlb.directassemblee.deputy.Deputy
@@ -71,9 +70,6 @@ class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickLis
     @Inject
     lateinit var deputyGetPresenter: DeputyGetPresenter
 
-    @Inject
-    lateinit var apiRepository: RetrofitApiRepository
-
     private lateinit var adapter: DeputyAdapter
 
     private var listener: DeputyFindFragmentListener? = null
@@ -114,7 +110,6 @@ class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickLis
         loadingView.setLabel(getString(R.string.deputy_retrieve_loading_search))
 
         deputiesGetPresenter.getDeputies(
-                apiRepository,
                 arguments!!.getDouble(ARG_LATITUDE),
                 arguments!!.getDouble(ARG_LONGITUDE)
         )
@@ -191,7 +186,6 @@ class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickLis
         loadingView.setLabel(getString(R.string.deputy_retrieve_loading_details))
 
         deputyGetPresenter.getDeputy(
-                apiRepository,
                 deputy.department!!.id,
                 deputy.district
         )

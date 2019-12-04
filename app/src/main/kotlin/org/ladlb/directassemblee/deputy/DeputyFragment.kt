@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.fragment_time_line.*
 import kotlinx.android.synthetic.main.view_deputy_header.*
 import org.ladlb.directassemblee.AbstractToolbarFragment
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.deputy.DeputyGetPresenter.DeputyGetView
 import org.ladlb.directassemblee.deputy.detail.DeputyDetailsFragment
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
@@ -54,9 +53,6 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
 
     @Inject
     lateinit var deputyGetPresenter: DeputyGetPresenter
-
-    @Inject
-    lateinit var apiRepository: RetrofitApiRepository
 
     @Inject
     lateinit var preferenceStorage: PreferencesStorageImpl
@@ -130,7 +126,6 @@ class DeputyFragment : AbstractToolbarFragment(), OnOffsetChangedListener, OnTab
     private fun updateContent() {
 
         deputyGetPresenter.getDeputy(
-                apiRepository,
                 deputy.department!!.id,
                 deputy.district
         )

@@ -34,9 +34,11 @@ class TimelineGetPresenterTest : PresenterTest() {
 
     private val apiRepository = mock(ApiRepository::class.java)
 
+    private val timelineCacheManager = mock(TimelineCacheManager::class.java)
+
     init {
 
-        presenter = TimelineGetPresenter(view)
+        presenter = TimelineGetPresenter(apiRepository, view)
         presenter.context = Dispatchers.Unconfined
 
     }
@@ -47,8 +49,9 @@ class TimelineGetPresenterTest : PresenterTest() {
         val result = arrayOf<TimelineItem>()
 
         `when`(apiRepository.getTimeline(anyInt(), anyInt())).thenReturn(result)
+        `when`(timelineCacheManager.get(anyInt(), anyInt())).thenReturn(null)
 
-        presenter.getTimeline(apiRepository, anyInt(), anyInt())
+        presenter.getTimeline(timelineCacheManager, anyInt(), anyInt())
 
         verify(view, atLeastOnce()).onTimelineReceived(result)
 
@@ -58,8 +61,9 @@ class TimelineGetPresenterTest : PresenterTest() {
     fun getTimeline_Fail() = runBlocking {
 
         `when`(apiRepository.getTimeline(anyInt(), anyInt())).thenThrow(NullPointerException())
+        `when`(timelineCacheManager.get(anyInt(), anyInt())).thenReturn(null)
 
-        presenter.getTimeline(apiRepository, anyInt(), anyInt())
+        presenter.getTimeline(timelineCacheManager, anyInt(), anyInt())
 
         verify(view, atLeastOnce()).onGetTimelineRequestFailed()
 

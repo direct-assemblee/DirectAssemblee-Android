@@ -26,9 +26,9 @@ import javax.inject.Inject
  */
 
 class DeputiesGetPresenter @Inject
-constructor(view: DeputiesGetView) : AbstractPresenter<DeputiesGetView>(view) {
+constructor(val apiRepository: ApiRepository, view: DeputiesGetView) : AbstractPresenter<DeputiesGetView>(view) {
 
-    fun getDeputies(apiRepository: ApiRepository) {
+    fun getDeputies() {
 
         launch {
             try {
@@ -40,7 +40,7 @@ constructor(view: DeputiesGetView) : AbstractPresenter<DeputiesGetView>(view) {
 
     }
 
-    fun getDeputies(apiRepository: ApiRepository, latitude: Double, longitude: Double) {
+    fun getDeputies(latitude: Double, longitude: Double) {
 
         launch {
             try {

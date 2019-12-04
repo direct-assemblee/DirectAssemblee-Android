@@ -12,7 +12,6 @@ import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_time_line.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
 import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
@@ -66,9 +65,6 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
 
     @Inject
     lateinit var timelineGetPresenter: TimelineGetPresenter
-
-    @Inject
-    lateinit var apiRepository: RetrofitApiRepository
 
     @Inject
     lateinit var cacheManager: TimelineCacheManager
@@ -184,7 +180,6 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
             swipeRefreshLayout.isRefreshing = true
 
             timelineGetPresenter.getTimeline(
-                    apiRepository,
                     cacheManager,
                     deputy.id,
                     page
@@ -218,7 +213,6 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
         )
 
         timelineGetPresenter.getTimeline(
-                apiRepository,
                 cacheManager,
                 deputy.id,
                 page

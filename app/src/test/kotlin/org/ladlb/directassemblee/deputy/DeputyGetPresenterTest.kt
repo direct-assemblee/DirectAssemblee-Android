@@ -7,7 +7,6 @@ import org.ladlb.directassemblee.PresenterTest
 import org.ladlb.directassemblee.api.ladlb.ApiRepository
 import org.ladlb.directassemblee.deputy.DeputyGetPresenter.DeputyGetView
 import org.mockito.ArgumentMatchers.anyInt
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 
 /**
@@ -37,7 +36,7 @@ class DeputyGetPresenterTest : PresenterTest() {
 
     init {
 
-        presenter = DeputyGetPresenter(view)
+        presenter = DeputyGetPresenter(apiRepository, view)
         presenter.context = Dispatchers.Unconfined
 
     }
@@ -49,7 +48,7 @@ class DeputyGetPresenterTest : PresenterTest() {
 
         `when`(apiRepository.getDeputy(anyInt(), anyInt())).thenReturn(result)
 
-        presenter.getDeputy(apiRepository, anyInt(), anyInt())
+        presenter.getDeputy(anyInt(), anyInt())
 
         verify(view, atLeastOnce()).onDeputyReceived(result)
 
@@ -60,9 +59,9 @@ class DeputyGetPresenterTest : PresenterTest() {
 
         `when`(apiRepository.getDeputy(anyInt(), anyInt())).thenThrow(NullPointerException())
 
-        presenter.getDeputy(apiRepository, anyInt(), anyInt())
+        presenter.getDeputy(anyInt(), anyInt())
 
-        Mockito.verify(view, atLeastOnce()).onGetDeputyRequestFailed()
+        verify(view, atLeastOnce()).onGetDeputyRequestFailed()
 
     }
 }

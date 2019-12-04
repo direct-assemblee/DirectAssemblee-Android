@@ -10,7 +10,6 @@ import androidx.annotation.Nullable
 import kotlinx.android.synthetic.main.fragment_address_list.*
 import org.ladlb.directassemblee.AbstractToolbarFragment
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.api.dataGouv.RetrofitAddressRepository
 import javax.inject.Inject
 
 /**
@@ -41,9 +40,6 @@ class SearchAddressFragment : AbstractToolbarFragment(), AddressGetPresenter.Add
         fun newInstance(): SearchAddressFragment = SearchAddressFragment()
 
     }
-
-    @Inject
-    lateinit var retrofitAddressRepository: RetrofitAddressRepository
 
     @Inject
     lateinit var getAddressPresenter: AddressGetPresenter
@@ -109,7 +105,7 @@ class SearchAddressFragment : AbstractToolbarFragment(), AddressGetPresenter.Add
             adapter.clear()
             adapter.showPlaceholder(false)
         } else {
-            getAddressPresenter.get(retrofitAddressRepository, query!!)
+            getAddressPresenter.get(query!!)
         }
     }
 

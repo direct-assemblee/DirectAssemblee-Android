@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_rates.*
 import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import javax.inject.Inject
 
 /**
@@ -52,9 +51,6 @@ class RatesFragment : AbstractFragment(), RateGetPresenter.RateGetView {
     @Inject
     lateinit var presenter: RateGetPresenter
 
-    @Inject
-    lateinit var apiRepository: RetrofitApiRepository
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
@@ -66,7 +62,7 @@ class RatesFragment : AbstractFragment(), RateGetPresenter.RateGetView {
 
         recyclerView.addItemDecoration(RateItemDecoration(resources))
 
-        presenter.getActivityRates(apiRepository)
+        presenter.getActivityRates()
     }
 
     override fun onActivityRatesReceived(rates: Array<Rate>) {

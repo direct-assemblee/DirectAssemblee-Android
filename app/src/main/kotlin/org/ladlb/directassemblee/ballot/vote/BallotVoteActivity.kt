@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_ballot_vote.*
 import kotlinx.android.synthetic.main.fragment_deputy_list.*
 import org.ladlb.directassemblee.AbstractToolBarActivity
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
 import org.ladlb.directassemblee.ballot.vote.BallotVoteGetPresenter.BallotVotesGetView
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.deputy.DeputyListFragment.DeputyListFragmentListener
@@ -43,9 +42,6 @@ class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, Dep
 
     @Inject
     lateinit var ballotVotesGetPresenter: BallotVoteGetPresenter
-
-    @Inject
-    lateinit var apiRepository: RetrofitApiRepository
 
     private lateinit var adapter: BallotVotePagerAdapter
 
@@ -77,7 +73,7 @@ class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, Dep
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        ballot = intent.getParcelableExtra(EXTRA_BALLOT)
+        ballot = intent.getParcelableExtra(EXTRA_BALLOT)!!
 
         searchView.visibility = View.GONE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -109,7 +105,7 @@ class BallotVoteActivity : AbstractToolBarActivity(), OnTabSelectedListener, Dep
         tabLayout.setupWithViewPager(viewPager)
         tabLayout.addOnTabSelectedListener(this)
 
-        ballotVotesGetPresenter.getVotes(apiRepository, ballot.id)
+        ballotVotesGetPresenter.getVotes(ballot.id)
 
     }
 
