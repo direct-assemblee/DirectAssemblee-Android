@@ -24,7 +24,7 @@ import javax.inject.Inject
  */
 
 class AddressGetPresenter @Inject
-constructor(val addressRepository: AddressRepository, view: AddressGetView) : AbstractPresenter<AddressGetView>(view) {
+constructor(private val addressRepository: AddressRepository, view: AddressGetView) : AbstractPresenter<AddressGetView>(view) {
 
     fun get(query: String) {
 

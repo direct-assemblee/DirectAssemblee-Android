@@ -26,7 +26,7 @@ import javax.inject.Inject
  */
 
 class NotificationUnSubscribePresenter @Inject
-constructor(val apiRepository: ApiRepository, view: NotificationUnSubscribeView) : AbstractPresenter<NotificationUnSubscribeView>(view) {
+constructor(private val apiRepository: ApiRepository, view: NotificationUnSubscribeView) : AbstractPresenter<NotificationUnSubscribeView>(view) {
 
     fun postUnSubscribe(id: String, token: String?, deputyId: Int, preferences: PreferencesStorage?) {
 

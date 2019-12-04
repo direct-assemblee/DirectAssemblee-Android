@@ -25,7 +25,7 @@ import javax.inject.Inject
  */
 
 class BallotVoteGetPresenter @Inject
-constructor(val apiRepository: ApiRepository, view: BallotVotesGetView) : AbstractPresenter<BallotVotesGetView>(view) {
+constructor(private val apiRepository: ApiRepository, view: BallotVotesGetView) : AbstractPresenter<BallotVotesGetView>(view) {
 
     fun getVotes(ballotId: Int) {
 

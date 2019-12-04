@@ -180,7 +180,6 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
             swipeRefreshLayout.isRefreshing = true
 
             timelineGetPresenter.getTimeline(
-                    cacheManager,
                     deputy.id,
                     page
             )
@@ -213,7 +212,6 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
         )
 
         timelineGetPresenter.getTimeline(
-                cacheManager,
                 deputy.id,
                 page
         )

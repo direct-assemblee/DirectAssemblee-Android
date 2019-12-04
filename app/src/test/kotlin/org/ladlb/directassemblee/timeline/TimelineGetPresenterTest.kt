@@ -38,7 +38,7 @@ class TimelineGetPresenterTest : PresenterTest() {
 
     init {
 
-        presenter = TimelineGetPresenter(apiRepository, view)
+        presenter = TimelineGetPresenter(apiRepository, timelineCacheManager, view)
         presenter.context = Dispatchers.Unconfined
 
     }
@@ -51,7 +51,7 @@ class TimelineGetPresenterTest : PresenterTest() {
         `when`(apiRepository.getTimeline(anyInt(), anyInt())).thenReturn(result)
         `when`(timelineCacheManager.get(anyInt(), anyInt())).thenReturn(null)
 
-        presenter.getTimeline(timelineCacheManager, anyInt(), anyInt())
+        presenter.getTimeline(anyInt(), anyInt())
 
         verify(view, atLeastOnce()).onTimelineReceived(result)
 
@@ -63,7 +63,7 @@ class TimelineGetPresenterTest : PresenterTest() {
         `when`(apiRepository.getTimeline(anyInt(), anyInt())).thenThrow(NullPointerException())
         `when`(timelineCacheManager.get(anyInt(), anyInt())).thenReturn(null)
 
-        presenter.getTimeline(timelineCacheManager, anyInt(), anyInt())
+        presenter.getTimeline(anyInt(), anyInt())
 
         verify(view, atLeastOnce()).onGetTimelineRequestFailed()
 

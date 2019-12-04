@@ -103,7 +103,6 @@ class TimelinePagerActivity : AbstractToolBarActivity(), TimelineGetView, OnPage
         val cache = cacheManager.getAll(deputyId)
         if (cache == null) {
             timelineGetPresenter.getTimeline(
-                    cacheManager,
                     deputyId,
                     page
             )
@@ -167,7 +166,6 @@ class TimelinePagerActivity : AbstractToolBarActivity(), TimelineGetView, OnPage
         )
 
         timelineGetPresenter.getTimeline(
-                cacheManager,
                 deputy.id,
                 page
         )
