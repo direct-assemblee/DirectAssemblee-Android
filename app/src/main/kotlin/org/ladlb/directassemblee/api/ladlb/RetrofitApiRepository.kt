@@ -32,27 +32,27 @@ class RetrofitApiRepository @Inject
 constructor(private val apiServices: ApiServices, private var coroutineContext: CoroutineContext = Dispatchers.IO) : ApiRepository {
 
     override suspend fun getDeputy(departmentId: Int, district: Int): Deputy = withContext(coroutineContext) {
-        apiServices.getDeputyAsync(departmentId, district).await()
+        apiServices.getDeputyAsync(departmentId, district)
     }
 
     override suspend fun getDeputies(): Array<Deputy> = withContext(coroutineContext) {
-        apiServices.getAllDeputiesAsync().await()
+        apiServices.getAllDeputiesAsync()
     }
 
     override suspend fun getDeputies(latitude: Double, longitude: Double): Array<Deputy> = withContext(coroutineContext) {
-        apiServices.getDeputiesAsync(latitude, longitude).await()
+        apiServices.getDeputiesAsync(latitude, longitude)
     }
 
     override suspend fun getTimeline(deputyId: Int, page: Int): Array<TimelineItem> = withContext(coroutineContext) {
-        apiServices.getTimelineAsync(deputyId, page).await()
+        apiServices.getTimelineAsync(deputyId, page)
     }
 
     override suspend fun getActivityRates(): Array<Rate> = withContext(coroutineContext) {
-        apiServices.getActivityRatesAsync().await()
+        apiServices.getActivityRatesAsync()
     }
 
     override suspend fun getBallotVotes(ballotId: Int): BallotVote = withContext(coroutineContext) {
-        apiServices.getBallotVotesAsync(ballotId).await()
+        apiServices.getBallotVotesAsync(ballotId)
     }
 
     override suspend fun postSubscribe(id: String, token: String, deputyId: Int) = withContext(coroutineContext) {
@@ -61,7 +61,7 @@ constructor(private val apiServices: ApiServices, private var coroutineContext: 
         body["instanceId"] = id
         body["token"] = token
 
-        apiServices.postSubscribeAsync(body, deputyId).await()
+        apiServices.postSubscribeAsync(body, deputyId)
 
         return@withContext
 
@@ -73,7 +73,7 @@ constructor(private val apiServices: ApiServices, private var coroutineContext: 
         body["instanceId"] = id
         body["token"] = token
 
-        apiServices.postUnSubscribeAsync(body, deputyId).await()
+        apiServices.postUnSubscribeAsync(body, deputyId)
 
         return@withContext
 

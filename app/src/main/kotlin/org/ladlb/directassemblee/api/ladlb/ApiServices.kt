@@ -1,6 +1,5 @@
 package org.ladlb.directassemblee.api.ladlb
 
-import kotlinx.coroutines.Deferred
 import okhttp3.ResponseBody
 import org.ladlb.directassemblee.ballot.vote.BallotVote
 import org.ladlb.directassemblee.deputy.Deputy
@@ -29,49 +28,49 @@ interface ApiServices {
 
     @Headers("Cache-Control: max-age=3600")
     @GET("deputy")
-    fun getDeputyAsync(
+    suspend fun getDeputyAsync(
             @Query("departmentId") departmentId: Int,
             @Query("district") district: Int
-    ): Deferred<Deputy>
+    ): Deputy
 
     @Headers("Cache-Control: max-age=3600")
     @GET("deputies")
-    fun getDeputiesAsync(
+    suspend fun getDeputiesAsync(
             @Query("latitude") latitude: Double,
             @Query("longitude") longitude: Double
-    ): Deferred<Array<Deputy>>
+    ): Array<Deputy>
 
     @Headers("Cache-Control: max-age=3600")
     @GET("alldeputies")
-    fun getAllDeputiesAsync(): Deferred<Array<Deputy>>
+    suspend fun getAllDeputiesAsync(): Array<Deputy>
 
     @Headers("Cache-Control: max-age=60")
     @GET("timeline")
-    fun getTimelineAsync(
+    suspend fun getTimelineAsync(
             @Query("deputyId") deputyId: Int,
             @Query("page") page: Int
-    ): Deferred<Array<TimelineItem>>
+    ): Array<TimelineItem>
 
     @Headers("Cache-Control: max-age=3600")
     @GET("votes")
-    fun getBallotVotesAsync(
+    suspend fun getBallotVotesAsync(
             @Query("ballotId") ballotId: Int
-    ): Deferred<BallotVote>
+    ): BallotVote
 
     @Headers("Cache-Control: max-age=3600")
     @GET("activityRates")
-    fun getActivityRatesAsync(): Deferred<Array<Rate>>
+    suspend fun getActivityRatesAsync(): Array<Rate>
 
     @POST("subscribe")
-    fun postSubscribeAsync(
+    suspend fun postSubscribeAsync(
             @Body body: Map<String, String>,
             @Query("deputyId") deputyId: Int
-    ): Deferred<ResponseBody>
+    ): ResponseBody
 
     @POST("unsubscribe")
-    fun postUnSubscribeAsync(
+    suspend fun postUnSubscribeAsync(
             @Body body: Map<String, String>,
             @Query("deputyId") deputyId: Int
-    ): Deferred<ResponseBody>
+    ): ResponseBody
 
 }
