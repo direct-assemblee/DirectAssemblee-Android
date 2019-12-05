@@ -39,7 +39,7 @@ abstract class PlaceholderAdapter<T>(private val items: MutableList<T>) : Adapte
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = onBindPlaceholderView(holder, position)
 
     @CallSuper
-    open fun addItems(i: Array<T>) {
+    open fun addItems(i: List<T>) {
         items.addAll(i)
         notifyDataSetChanged()
     }

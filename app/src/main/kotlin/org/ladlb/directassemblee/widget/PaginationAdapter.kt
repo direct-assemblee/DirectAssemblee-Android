@@ -64,7 +64,7 @@ abstract class PaginationAdapter<T>(items: ArrayList<T>) : PlaceholderAdapter<T>
 
     override fun getItemCount(): Int = if (isShowingLoading) getItemsSize() + 1 else super.getItemCount()
 
-    override fun addItems(i: Array<T>) {
+    override fun addItems(i: List<T>) {
         super.addItems(i)
         isLoading = false
     }

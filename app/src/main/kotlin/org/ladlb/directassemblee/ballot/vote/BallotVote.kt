@@ -5,7 +5,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import org.ladlb.directassemblee.deputy.Deputy
 import org.ladlb.directassemblee.helper.parcelableCreator
-import java.util.*
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -25,74 +24,44 @@ import java.util.*
  */
 
 data class BallotVote(@SerializedName("for")
-                      val voteFor: Array<Deputy> = emptyArray(),
+                      val voteFor: List<Deputy> = listOf(),
                       @SerializedName("against")
-                      val voteAgainst: Array<Deputy> = emptyArray(),
+                      val voteAgainst: List<Deputy> = listOf(),
                       @SerializedName("missing")
-                      val voteMissing: Array<Deputy> = emptyArray(),
+                      val voteMissing: List<Deputy> = listOf(),
                       @SerializedName("nonVoting")
-                      val voteNonVoting: Array<Deputy> = emptyArray(),
+                      val voteNonVoting: List<Deputy> = listOf(),
                       @SerializedName("blank")
-                      val voteBlank: Array<Deputy> = emptyArray()) : Parcelable {
+                      val voteBlank: List<Deputy> = listOf()) : Parcelable {
 
     /**
      * Constructor.
      *
-     * @param source the source.
+     * @param parcel the source.
      */
-    constructor(source: Parcel) : this(
-            source.createTypedArray(Deputy.CREATOR)!!,
-            source.createTypedArray(Deputy.CREATOR)!!,
-            source.createTypedArray(Deputy.CREATOR)!!,
-            source.createTypedArray(Deputy.CREATOR)!!,
-            source.createTypedArray(Deputy.CREATOR)!!
+    constructor(parcel: Parcel) : this(
+            parcel.createTypedArrayList(Deputy.CREATOR)!!.toList(),
+            parcel.createTypedArrayList(Deputy.CREATOR)!!.toList(),
+            parcel.createTypedArrayList(Deputy.CREATOR)!!.toList(),
+            parcel.createTypedArrayList(Deputy.CREATOR)!!.toList(),
+            parcel.createTypedArrayList(Deputy.CREATOR)!!.toList()
     )
 
     /**
      * {@inheritDoc}
      */
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeTypedArray<Deputy>(voteFor, flags)
-        dest.writeTypedArray<Deputy>(voteAgainst, flags)
-        dest.writeTypedArray<Deputy>(voteMissing, flags)
-        dest.writeTypedArray<Deputy>(voteNonVoting, flags)
-        dest.writeTypedArray<Deputy>(voteBlank, flags)
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeTypedList(voteFor)
+        parcel.writeTypedList(voteAgainst)
+        parcel.writeTypedList(voteMissing)
+        parcel.writeTypedList(voteNonVoting)
+        parcel.writeTypedList(voteBlank)
     }
 
     /**
      * {@inheritDoc}
      */
     override fun describeContents(): Int = 0
-
-    /**
-     * {@inheritDoc}
-     */
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as BallotVote
-
-        if (!Arrays.equals(voteFor, other.voteFor)) return false
-        if (!Arrays.equals(voteAgainst, other.voteAgainst)) return false
-        if (!Arrays.equals(voteMissing, other.voteMissing)) return false
-        if (!Arrays.equals(voteNonVoting, other.voteNonVoting)) return false
-        if (!Arrays.equals(voteBlank, other.voteBlank)) return false
-
-        return true
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    override fun hashCode(): Int {
-        var result = Arrays.hashCode(voteFor)
-        result = 31 * result + Arrays.hashCode(voteAgainst)
-        result = 31 * result + Arrays.hashCode(voteMissing)
-        result = 31 * result + Arrays.hashCode(voteNonVoting)
-        result = 31 * result + Arrays.hashCode(voteBlank)
-        return result
-    }
 
     /**
      * The creator.

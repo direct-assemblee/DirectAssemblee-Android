@@ -38,18 +38,18 @@ interface ApiServices {
     suspend fun getDeputiesAsync(
             @Query("latitude") latitude: Double,
             @Query("longitude") longitude: Double
-    ): Array<Deputy>
+    ): List<Deputy>
 
     @Headers("Cache-Control: max-age=3600")
     @GET("alldeputies")
-    suspend fun getAllDeputiesAsync(): Array<Deputy>
+    suspend fun getAllDeputiesAsync(): List<Deputy>
 
     @Headers("Cache-Control: max-age=60")
     @GET("timeline")
     suspend fun getTimelineAsync(
             @Query("deputyId") deputyId: Int,
             @Query("page") page: Int
-    ): Array<TimelineItem>
+    ): List<TimelineItem>
 
     @Headers("Cache-Control: max-age=3600")
     @GET("votes")
@@ -59,7 +59,7 @@ interface ApiServices {
 
     @Headers("Cache-Control: max-age=3600")
     @GET("activityRates")
-    suspend fun getActivityRatesAsync(): Array<Rate>
+    suspend fun getActivityRatesAsync(): List<Rate>
 
     @POST("subscribe")
     suspend fun postSubscribeAsync(

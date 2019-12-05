@@ -39,9 +39,9 @@ class DeputyVoteTest : ParcelableTest<DeputyVote>() {
                         job = "",
                         currentMandateStartDate = Date(),
                         photoUrl = "",
-                        declarations = arrayOf(),
+                        declarations = listOf(),
                         parliamentGroup = "",
-                        roles = arrayOf()
+                        roles = listOf()
                 ),
                 Vote.AGAINST
         )

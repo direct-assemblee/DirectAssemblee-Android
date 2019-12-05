@@ -46,7 +46,7 @@ class TimelineGetPresenterTest : PresenterTest() {
     @Test
     fun getTimeline_Success() = runBlocking {
 
-        val result = arrayOf<TimelineItem>()
+        val result = listOf<TimelineItem>()
 
         `when`(apiRepository.getTimeline(anyInt(), anyInt())).thenReturn(result)
         `when`(timelineCacheManager.get(anyInt(), anyInt())).thenReturn(null)

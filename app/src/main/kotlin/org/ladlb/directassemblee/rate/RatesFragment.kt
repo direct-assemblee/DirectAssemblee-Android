@@ -65,7 +65,7 @@ class RatesFragment : AbstractFragment(), RateGetPresenter.RateGetView {
         presenter.getActivityRates()
     }
 
-    override fun onActivityRatesReceived(rates: Array<Rate>) {
+    override fun onActivityRatesReceived(rates: List<Rate>) {
         recyclerView.adapter = RateAdapter(rates.toCollection(ArrayList()))
         loadingView.visibility = GONE
     }

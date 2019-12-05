@@ -88,7 +88,7 @@ open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentL
 
     }
 
-    private fun showDeputyListFragment(deputies: Array<Deputy>) {
+    private fun showDeputyListFragment(deputies: List<Deputy>) {
         deputyListFragment = DeputyListFragment.newInstance(deputies)
         supportFragmentManager.beginTransaction().replace(
                 R.id.frameLayout,
@@ -98,7 +98,7 @@ open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentL
         searchView.visibility = if (deputies.isEmpty()) View.GONE else View.VISIBLE
     }
 
-    override fun onDeputiesReceived(deputies: Array<Deputy>) {
+    override fun onDeputiesReceived(deputies: List<Deputy>) {
         showDeputyListFragment(deputies)
         loadingView.visibility = View.GONE
     }

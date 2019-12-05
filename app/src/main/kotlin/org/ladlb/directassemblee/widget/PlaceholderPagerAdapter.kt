@@ -22,7 +22,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-abstract class PlaceholderPagerAdapter<T>(fragmentManager: FragmentManager, private val items: ArrayList<T>) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+abstract class PlaceholderPagerAdapter<T>(fragmentManager: FragmentManager, private val items: MutableList<T>) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private var isShowingPlaceHolder = true
 
@@ -31,7 +31,7 @@ abstract class PlaceholderPagerAdapter<T>(fragmentManager: FragmentManager, priv
     override fun getItem(position: Int): Fragment = getPlaceholderItem(position)
 
     @CallSuper
-    open fun addItems(i: Array<T>) {
+    open fun addItems(i: List<T>) {
         items.addAll(i)
         notifyDataSetChanged()
     }

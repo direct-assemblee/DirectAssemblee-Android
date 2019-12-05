@@ -46,10 +46,10 @@ class DeputyListFragment : AbstractFragment(), OnDeputyClickListener, Filterable
 
         private var ARG_DEPUTIES: String = "ARG_DEPUTIES"
 
-        fun newInstance(deputies: Array<Deputy>): DeputyListFragment {
+        fun newInstance(deputies: List<Deputy>): DeputyListFragment {
 
             val bundle = Bundle()
-            bundle.putParcelableArray(ARG_DEPUTIES, deputies)
+            bundle.putParcelableArray(ARG_DEPUTIES, deputies.toTypedArray())
 
             val fragment = DeputyListFragment()
             fragment.arguments = bundle
@@ -87,7 +87,7 @@ class DeputyListFragment : AbstractFragment(), OnDeputyClickListener, Filterable
         adapter = DeputyAdapter(
                 (arguments!!.getParcelableArray(
                         ARG_DEPUTIES
-                ) as Array<Deputy>).toCollection(ArrayList())
+                ) as Array<Deputy>).toMutableList()
         )
         adapter.setOnDeputyClickListener(this)
 

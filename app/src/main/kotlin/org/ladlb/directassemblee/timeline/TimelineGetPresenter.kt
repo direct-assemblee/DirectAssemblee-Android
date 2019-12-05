@@ -45,7 +45,7 @@ constructor(private val apiRepository: ApiRepository, private val timelineCacheM
 
     interface TimelineGetView : BaseView {
 
-        fun onTimelineReceived(timelineItem: Array<TimelineItem>)
+        fun onTimelineReceived(timelineItem: List<TimelineItem>)
 
         fun onGetTimelineRequestFailed()
 

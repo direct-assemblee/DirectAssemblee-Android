@@ -37,9 +37,9 @@ class DeputyTest : ParcelableTest<Deputy>() {
                 job = "",
                 currentMandateStartDate = Date(),
                 photoUrl = "",
-                declarations = arrayOf(),
+                declarations = listOf(),
                 parliamentGroup = "",
-                roles = arrayOf()
+                roles = listOf()
         )
     }
 

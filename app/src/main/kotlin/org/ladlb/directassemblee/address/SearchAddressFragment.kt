@@ -82,7 +82,7 @@ class SearchAddressFragment : AbstractToolbarFragment(), AddressGetPresenter.Add
 
     }
 
-    override fun onAddressesReceived(query: String, addresses: Array<Address>) {
+    override fun onAddressesReceived(query: String, addresses: List<Address>) {
         adapter.clear()
 
         if (addresses.isEmpty()) {

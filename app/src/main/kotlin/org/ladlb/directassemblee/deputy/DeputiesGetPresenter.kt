@@ -56,7 +56,7 @@ constructor(private val apiRepository: ApiRepository, view: DeputiesGetView) : A
 
     }
 
-    private fun onDeputiesReceived(deputies: Array<Deputy>) {
+    private fun onDeputiesReceived(deputies: List<Deputy>) {
 
         view?.onDeputiesReceived(
                 deputies.sortedWith(
@@ -64,14 +64,14 @@ constructor(private val apiRepository: ApiRepository, view: DeputiesGetView) : A
                                 Deputy::lastname,
                                 Deputy::firstname
                         )
-                ).toTypedArray()
+                )
         )
 
     }
 
     interface DeputiesGetView : BaseView {
 
-        fun onDeputiesReceived(deputies: Array<Deputy>)
+        fun onDeputiesReceived(deputies: List<Deputy>)
 
         fun onNoDeputyFound()
 

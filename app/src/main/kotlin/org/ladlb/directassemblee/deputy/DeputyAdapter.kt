@@ -31,7 +31,7 @@ import org.ladlb.directassemblee.widget.PlaceholderAdapter
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyAdapter(items: ArrayList<Deputy>) : PlaceholderAdapter<Deputy>(items), Filterable, DeputyFilterListener {
+class DeputyAdapter(items: MutableList<Deputy>) : PlaceholderAdapter<Deputy>(items), Filterable, DeputyFilterListener {
 
     companion object {
         const val typeItem: Int = 2
@@ -121,7 +121,7 @@ class DeputyAdapter(items: ArrayList<Deputy>) : PlaceholderAdapter<Deputy>(items
 
     override fun getFilter(): Filter = filter
 
-    override fun onDeputyFiltered(deputies: Array<Deputy>) {
+    override fun onDeputyFiltered(deputies: List<Deputy>) {
         clear()
         addItems(deputies)
     }

@@ -118,7 +118,7 @@ class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickLis
 
     }
 
-    override fun onDeputiesReceived(deputies: Array<Deputy>) {
+    override fun onDeputiesReceived(deputies: List<Deputy>) {
 
         when {
             deputies.isEmpty() -> {
@@ -147,7 +147,7 @@ class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickLis
         )
     }
 
-    private fun setDeputies(deputies: Array<Deputy>) {
+    private fun setDeputies(deputies: List<Deputy>) {
 
         tagMultipleDeputiesFound(deputies)
         linearLayout.visibility = View.VISIBLE
@@ -157,7 +157,7 @@ class DeputyFindFragment : AbstractFragment(), DeputiesGetView, OnDeputyClickLis
 
     }
 
-    private fun tagMultipleDeputiesFound(deputies: Array<Deputy>) {
+    private fun tagMultipleDeputiesFound(deputies: List<Deputy>) {
         val bundle = Bundle()
         bundle.putInt(ItemKey.NUMBER, deputies.size)
         firebaseAnalyticsManager.logEvent(

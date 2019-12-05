@@ -27,7 +27,7 @@ class RolePositionTest : ParcelableTest<RolePosition>() {
     fun setUp() {
         parcelable = RolePosition(
                 name = "",
-                instances = arrayOf()
+                instances = listOf()
         )
     }
 

@@ -33,10 +33,10 @@ data class Deputy(val id: Int = -1, val firstname: String? = null,
                   val district: Int = -1, val commission: String? = null, val phone: String? = null,
                   val email: String? = null, val job: String? = null,
                   val currentMandateStartDate: Date? = null, val photoUrl: String? = null,
-                  val parliamentAgeInMonths: Int = -1, val declarations: Array<Declaration> = arrayOf(),
+                  val parliamentAgeInMonths: Int = -1, val declarations: List<Declaration> = listOf(),
                   val activityRate: Int = -1, val salary: Int = -1,
                   val parliamentGroup: String? = null, val seatNumber: Int = -1,
-                  val age: Int = -1, val roles: Array<Role> = arrayOf(), val otherCurrentMandates: Array<String> = arrayOf()) : Parcelable {
+                  val age: Int = -1, val roles: List<Role> = listOf(), val otherCurrentMandates: List<String> = listOf()) : Parcelable {
 
     /**
      * Constructor.
@@ -56,14 +56,14 @@ data class Deputy(val id: Int = -1, val firstname: String? = null,
             parcel.readDate(),
             parcel.readString(),
             parcel.readInt(),
-            parcel.createTypedArray(Declaration.CREATOR)!!,
+            parcel.createTypedArray(Declaration.CREATOR)!!.toList(),
             parcel.readInt(),
             parcel.readInt(),
             parcel.readString(),
             parcel.readInt(),
             parcel.readInt(),
-            parcel.createTypedArray(Role.CREATOR)!!,
-            parcel.createStringArray()!!
+            parcel.createTypedArray(Role.CREATOR)!!.toList(),
+            parcel.createStringArray()!!.toList()
     )
 
     /**
@@ -102,80 +102,20 @@ data class Deputy(val id: Int = -1, val firstname: String? = null,
         parcel.writeDate(currentMandateStartDate)
         parcel.writeString(photoUrl)
         parcel.writeInt(parliamentAgeInMonths)
-        parcel.writeTypedArray<Declaration>(declarations, flags)
+        parcel.writeTypedList(declarations)
         parcel.writeInt(activityRate)
         parcel.writeInt(salary)
         parcel.writeString(parliamentGroup)
         parcel.writeInt(seatNumber)
         parcel.writeInt(age)
-        parcel.writeTypedArray<Role>(roles, flags)
-        parcel.writeStringArray(otherCurrentMandates)
+        parcel.writeTypedList(roles)
+        parcel.writeStringList(otherCurrentMandates)
     }
 
     /**
      * {@inheritDoc}
      */
     override fun describeContents(): Int = 0
-
-    /**
-     * {@inheritDoc}
-     */
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Deputy
-
-        if (id != other.id) return false
-        if (firstname != other.firstname) return false
-        if (lastname != other.lastname) return false
-        if (department != other.department) return false
-        if (district != other.district) return false
-        if (commission != other.commission) return false
-        if (phone != other.phone) return false
-        if (email != other.email) return false
-        if (job != other.job) return false
-        if (currentMandateStartDate != other.currentMandateStartDate) return false
-        if (photoUrl != other.photoUrl) return false
-        if (parliamentAgeInMonths != other.parliamentAgeInMonths) return false
-        if (!Arrays.equals(declarations, other.declarations)) return false
-        if (activityRate != other.activityRate) return false
-        if (salary != other.salary) return false
-        if (parliamentGroup != other.parliamentGroup) return false
-        if (seatNumber != other.seatNumber) return false
-        if (age != other.age) return false
-        if (!Arrays.equals(roles, other.roles)) return false
-        if (!Arrays.equals(otherCurrentMandates, other.otherCurrentMandates)) return false
-
-        return true
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    override fun hashCode(): Int {
-        var result = id
-        result = 31 * result + (firstname?.hashCode() ?: 0)
-        result = 31 * result + (lastname?.hashCode() ?: 0)
-        result = 31 * result + (department?.hashCode() ?: 0)
-        result = 31 * result + district
-        result = 31 * result + (commission?.hashCode() ?: 0)
-        result = 31 * result + (phone?.hashCode() ?: 0)
-        result = 31 * result + (email?.hashCode() ?: 0)
-        result = 31 * result + (job?.hashCode() ?: 0)
-        result = 31 * result + (currentMandateStartDate?.hashCode() ?: 0)
-        result = 31 * result + (photoUrl?.hashCode() ?: 0)
-        result = 31 * result + parliamentAgeInMonths
-        result = 31 * result + Arrays.hashCode(declarations)
-        result = 31 * result + activityRate
-        result = 31 * result + salary
-        result = 31 * result + (parliamentGroup?.hashCode() ?: 0)
-        result = 31 * result + seatNumber
-        result = 31 * result + age
-        result = 31 * result + Arrays.hashCode(roles)
-        result = 31 * result + Arrays.hashCode(otherCurrentMandates)
-        return result
-    }
 
     /**
      * The creator.

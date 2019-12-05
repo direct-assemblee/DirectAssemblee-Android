@@ -21,7 +21,7 @@ import androidx.viewpager.widget.PagerAdapter
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-abstract class PaginationPagerAdapter<T>(fragmentManager: FragmentManager, items: ArrayList<T>) : PlaceholderPagerAdapter<T>(fragmentManager, items) {
+abstract class PaginationPagerAdapter<T>(fragmentManager: FragmentManager, items: MutableList<T>) : PlaceholderPagerAdapter<T>(fragmentManager, items) {
 
     private var isShowingLoading = true
 
@@ -44,7 +44,7 @@ abstract class PaginationPagerAdapter<T>(fragmentManager: FragmentManager, items
 
     override fun getCount(): Int = if (isShowingLoading) getItemsSize() + 1 else super.getCount()
 
-    override fun addItems(i: Array<T>) {
+    override fun addItems(i: List<T>) {
         super.addItems(i)
         isLoading = false
     }

@@ -42,7 +42,7 @@ class RateGetPresenterTest : PresenterTest() {
     @Test
     fun getActivityRates_Success() = runBlocking {
 
-        val result = arrayOf<Rate>()
+        val result = listOf<Rate>()
 
         `when`(apiRepository.getActivityRates()).thenReturn(result)
 

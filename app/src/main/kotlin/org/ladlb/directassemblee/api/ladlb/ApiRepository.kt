@@ -26,11 +26,11 @@ interface ApiRepository {
 
     suspend fun getDeputy(departmentId: Int, district: Int): Deputy
 
-    suspend fun getDeputies(): Array<Deputy>
+    suspend fun getDeputies(): List<Deputy>
 
-    suspend fun getDeputies(latitude: Double, longitude: Double): Array<Deputy>
+    suspend fun getDeputies(latitude: Double, longitude: Double): List<Deputy>
 
-    suspend fun getTimeline(deputyId: Int, page: Int): Array<TimelineItem>
+    suspend fun getTimeline(deputyId: Int, page: Int): List<TimelineItem>
 
     suspend fun postSubscribe(id: String, token: String, deputyId: Int)
 
@@ -38,6 +38,6 @@ interface ApiRepository {
 
     suspend fun getBallotVotes(ballotId: Int): BallotVote
 
-    suspend fun getActivityRates(): Array<Rate>
+    suspend fun getActivityRates(): List<Rate>
 
 }

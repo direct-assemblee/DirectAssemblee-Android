@@ -40,7 +40,7 @@ constructor(private val apiRepository: ApiRepository, view: RateGetView) : Abstr
 
     interface RateGetView : BaseView {
 
-        fun onActivityRatesReceived(rates: Array<Rate>)
+        fun onActivityRatesReceived(rates: List<Rate>)
 
         fun onGetActivityRatesRequestFailed()
 

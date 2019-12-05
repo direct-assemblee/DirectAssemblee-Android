@@ -69,7 +69,7 @@ class DeclarationAdapter(context: Context) : Adapter<DeclarationViewHolder>() {
 
     }
 
-    fun addItems(i: Array<Declaration>) {
+    fun addItems(i: List<Declaration>) {
         items.addAll(i)
         notifyDataSetChanged()
     }

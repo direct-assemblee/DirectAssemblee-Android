@@ -3,6 +3,7 @@ package org.ladlb.directassemblee.deputy
 import android.text.TextUtils
 import android.widget.Filter
 import org.ladlb.directassemblee.helper.StringHelper
+import java.util.*
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -37,7 +38,7 @@ class DeputyFilter(private val items: List<Deputy>, private val listener: Deputy
             var parliamentGroup: String
             var departmentName: String
             var departmentCode: String
-            val queryAccent = charString.toLowerCase().trim()
+            val queryAccent = charString.toLowerCase(Locale.getDefault()).trim()
             val query = StringHelper.removeAccent(queryAccent)
             val queries = query.split("\\s+".toRegex())
             val filteredList: MutableList<Deputy> = mutableListOf()
@@ -81,10 +82,10 @@ class DeputyFilter(private val items: List<Deputy>, private val listener: Deputy
 
     override fun publishResults(constraint: CharSequence, results: FilterResults) {
         @Suppress("UNCHECKED_CAST")
-        listener.onDeputyFiltered(results.values as Array<Deputy>)
+        listener.onDeputyFiltered(results.values as List<Deputy>)
     }
 
     interface DeputyFilterListener {
-        fun onDeputyFiltered(deputies: Array<Deputy>)
+        fun onDeputyFiltered(deputies: List<Deputy>)
     }
 }

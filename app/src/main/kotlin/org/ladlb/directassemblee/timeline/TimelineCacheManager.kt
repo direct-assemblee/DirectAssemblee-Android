@@ -15,9 +15,9 @@ class TimelineCacheManager @Inject constructor() {
 
     }
 
-    private val cache = LruCache<Int, SparseArray<Array<TimelineItem>>>(cacheSize)
+    private val cache = LruCache<Int, SparseArray<List<TimelineItem>>>(cacheSize)
 
-    fun put(deputyId: Int, pageId: Int, items: Array<TimelineItem>) {
+    fun put(deputyId: Int, pageId: Int, items: List<TimelineItem>) {
 
         var timelineItems = cache.get(deputyId)
         if (timelineItems == null) {
@@ -35,7 +35,7 @@ class TimelineCacheManager @Inject constructor() {
 
     fun get(deputyId: Int, page: Int) = cache.get(deputyId)?.get(page)
 
-    fun getAll(deputyId: Int): Pair<Int, Array<TimelineItem>>? {
+    fun getAll(deputyId: Int): Pair<Int, List<TimelineItem>>? {
 
         val timelineItems = cache.get(deputyId)
         return if (timelineItems == null) {
@@ -43,9 +43,9 @@ class TimelineCacheManager @Inject constructor() {
         } else {
             Pair(
                     timelineItems.size(),
-                    arrayListOf<TimelineItem>().apply {
+                    mutableListOf<TimelineItem>().apply {
                         timelineItems.forEach { _, item -> addAll(item) }
-                    }.toTypedArray()
+                    }
             )
         }
     }

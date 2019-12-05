@@ -1,7 +1,5 @@
 package org.ladlb.directassemblee.address
 
-import java.util.*
-
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
  *
@@ -19,24 +17,4 @@ import java.util.*
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-data class AddressEnvelope(val query: String = "", val features: Array<Address> = arrayOf()) {
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as AddressEnvelope
-
-        if (query != other.query) return false
-        if (!Arrays.equals(features, other.features)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = query.hashCode()
-        result = 31 * result + Arrays.hashCode(features)
-        return result
-    }
-
-}
+data class AddressEnvelope(val query: String = "", val features: List<Address> = listOf())

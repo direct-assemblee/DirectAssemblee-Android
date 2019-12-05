@@ -172,7 +172,7 @@ class TimelinePagerActivity : AbstractToolBarActivity(), TimelineGetView, OnPage
 
     }
 
-    override fun onTimelineReceived(timelineItem: Array<TimelineItem>) {
+    override fun onTimelineReceived(timelineItem: List<TimelineItem>) {
 
         when {
             timelineItem.isEmpty() -> showPlaceholderIfNeeded()

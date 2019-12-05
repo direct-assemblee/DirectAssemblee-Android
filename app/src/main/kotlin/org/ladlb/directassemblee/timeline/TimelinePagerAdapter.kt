@@ -24,7 +24,7 @@ import org.ladlb.directassemblee.widget.PaginationPagerAdapter
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class TimelinePagerAdapter(fragmentManager: FragmentManager, items: ArrayList<TimelineItem>) : PaginationPagerAdapter<TimelineItem>(fragmentManager, items) {
+class TimelinePagerAdapter(fragmentManager: FragmentManager, items: MutableList<TimelineItem>) : PaginationPagerAdapter<TimelineItem>(fragmentManager, items) {
 
     override fun getPlaceholderItem(position: Int) = LoadingFragment.newInstance()
 

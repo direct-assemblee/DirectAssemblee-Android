@@ -35,19 +35,19 @@ constructor(private val apiServices: ApiServices, private var coroutineContext: 
         apiServices.getDeputyAsync(departmentId, district)
     }
 
-    override suspend fun getDeputies(): Array<Deputy> = withContext(coroutineContext) {
+    override suspend fun getDeputies(): List<Deputy> = withContext(coroutineContext) {
         apiServices.getAllDeputiesAsync()
     }
 
-    override suspend fun getDeputies(latitude: Double, longitude: Double): Array<Deputy> = withContext(coroutineContext) {
+    override suspend fun getDeputies(latitude: Double, longitude: Double): List<Deputy> = withContext(coroutineContext) {
         apiServices.getDeputiesAsync(latitude, longitude)
     }
 
-    override suspend fun getTimeline(deputyId: Int, page: Int): Array<TimelineItem> = withContext(coroutineContext) {
+    override suspend fun getTimeline(deputyId: Int, page: Int): List<TimelineItem> = withContext(coroutineContext) {
         apiServices.getTimelineAsync(deputyId, page)
     }
 
-    override suspend fun getActivityRates(): Array<Rate> = withContext(coroutineContext) {
+    override suspend fun getActivityRates(): List<Rate> = withContext(coroutineContext) {
         apiServices.getActivityRatesAsync()
     }
 

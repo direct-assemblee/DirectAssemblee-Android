@@ -41,7 +41,7 @@ constructor(private val addressRepository: AddressRepository, view: AddressGetVi
 
     interface AddressGetView : BaseView {
 
-        fun onAddressesReceived(query: String, addresses: Array<Address>)
+        fun onAddressesReceived(query: String, addresses: List<Address>)
 
         fun onGetAddressRequestFailed()
 

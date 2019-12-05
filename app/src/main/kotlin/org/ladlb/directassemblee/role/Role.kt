@@ -3,7 +3,6 @@ package org.ladlb.directassemblee.role
 import android.os.Parcel
 import android.os.Parcelable
 import org.ladlb.directassemblee.helper.parcelableCreator
-import java.util.*
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -22,7 +21,7 @@ import java.util.*
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-data class Role(val instanceType: String, val positions: Array<RolePosition> = arrayOf()) : Parcelable {
+data class Role(val instanceType: String, val positions: List<RolePosition> = listOf()) : Parcelable {
 
     /**
      * Constructor.
@@ -31,31 +30,7 @@ data class Role(val instanceType: String, val positions: Array<RolePosition> = a
      */
     constructor(parcel: Parcel) : this(
             parcel.readString()!!,
-            parcel.createTypedArray(RolePosition.CREATOR)!!)
-
-    /**
-     * {@inheritDoc}
-     */
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Role
-
-        if (instanceType != other.instanceType) return false
-        if (!Arrays.equals(positions, other.positions)) return false
-
-        return true
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    override fun hashCode(): Int {
-        var result = instanceType.hashCode()
-        result = 31 * result + Arrays.hashCode(positions)
-        return result
-    }
+            parcel.createTypedArray(RolePosition.CREATOR)!!.toList())
 
     /**
      * The creator.
@@ -70,7 +45,7 @@ data class Role(val instanceType: String, val positions: Array<RolePosition> = a
      */
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(instanceType)
-        parcel.writeTypedArray(positions, flags)
+        parcel.writeTypedList(positions)
     }
 
     /**

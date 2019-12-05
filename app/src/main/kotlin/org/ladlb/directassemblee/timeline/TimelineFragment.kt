@@ -139,7 +139,7 @@ class TimelineFragment : AbstractFragment(), TimelineGetView, LoadingMoreListene
         }
     }
 
-    override fun onTimelineReceived(timelineItem: Array<TimelineItem>) {
+    override fun onTimelineReceived(timelineItem: List<TimelineItem>) {
 
         when {
             timelineItem.isEmpty() -> showPlaceholderIfNeeded()

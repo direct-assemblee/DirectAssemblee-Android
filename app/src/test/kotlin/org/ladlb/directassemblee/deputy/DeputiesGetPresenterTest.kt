@@ -44,7 +44,7 @@ class DeputiesGetPresenterTest : PresenterTest() {
     @Test
     fun getDeputies_Success() = runBlocking {
 
-        val result = arrayOf<Deputy>()
+        val result = listOf<Deputy>()
 
         `when`(apiRepository.getDeputies()).thenReturn(result)
 
@@ -68,7 +68,7 @@ class DeputiesGetPresenterTest : PresenterTest() {
     @Test
     fun getDeputiesCoordinates_Success() = runBlocking {
 
-        val result = arrayOf<Deputy>()
+        val result = listOf<Deputy>()
 
         `when`(apiRepository.getDeputies(anyDouble(), anyDouble())).thenReturn(result)
 
