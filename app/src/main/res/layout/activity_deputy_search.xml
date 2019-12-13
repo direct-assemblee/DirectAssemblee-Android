@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <org.ladlb.directassemblee.widget.LoadingView
+        <org.ladlb.directassemblee.core.widget.LoadingView
             android:id="@+id/loadingView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

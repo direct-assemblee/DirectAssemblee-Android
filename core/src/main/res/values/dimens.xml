@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="border">2dp</dimen>
+    <dimen name="separator">1dp</dimen>
+
+    <!-- Icons -->
+    <dimen name="app_shortcut">24dp</dimen>
+
+    <!-- Padding/Margin -->
+    <dimen name="tiny_horizontal_space">4dp</dimen>
+    <dimen name="small_horizontal_space">8dp</dimen>
+    <dimen name="horizontal_space">16dp</dimen>
+    <dimen name="big_horizontal_space">24dp</dimen>
+    <dimen name="large_horizontal_space">32dp</dimen>
+    <dimen name="huge_horizontal_space">48dp</dimen>
+
+    <dimen name="tiny_vertical_space">4dp</dimen>
+    <dimen name="small_vertical_space">8dp</dimen>
+    <dimen name="vertical_space">16dp</dimen>
+    <dimen name="big_vertical_space">24dp</dimen>
+
+    <!-- Text Size -->
+    <dimen name="title">24dp</dimen>
+
+</resources>

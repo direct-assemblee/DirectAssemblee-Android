@@ -25,6 +25,4 @@
     <!-- Text Size -->
     <dimen name="title">22dp</dimen>
 
-    <dimen name="deputy_participation">12sp</dimen>
-
 </resources>

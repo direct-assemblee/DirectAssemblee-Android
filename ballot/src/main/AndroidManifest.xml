@@ -1,0 +1,19 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.ladlb.directassemblee.ballot">
+
+    <application>
+
+        <activity
+            android:name=".BallotVoteActivity"
+            android:screenOrientation="portrait" />
+
+        <provider
+            android:name=".dependencies.DependenciesProvider"
+            android:authorities="${applicationId}.ballot.DependenciesProvider"
+            android:directBootAware="true"
+            android:exported="false"
+            android:initOrder="980" />
+
+    </application>
+
+</manifest>

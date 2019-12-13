@@ -1,0 +1,17 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.ladlb.directassemblee.location">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application>
+
+        <provider
+            android:name=".dependencies.DependenciesProvider"
+            android:authorities="${applicationId}.location.DependenciesProvider"
+            android:directBootAware="true"
+            android:exported="false"
+            android:initOrder="980" />
+
+    </application>
+
+</manifest>

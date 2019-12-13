@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.deputy.Deputy
-import org.ladlb.directassemblee.helper.ViewHelper
+import org.ladlb.directassemblee.core.helper.ViewHelper
+import org.ladlb.directassemblee.model.Deputy
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.

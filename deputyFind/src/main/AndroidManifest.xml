@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.ladlb.directassemblee.deputy.find">
+
+    <application>
+
+        <activity
+            android:name=".DeputyFindActivity"
+            android:screenOrientation="portrait" />
+
+    </application>
+
+</manifest>

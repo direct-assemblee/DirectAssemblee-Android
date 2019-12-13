@@ -21,25 +21,17 @@ import com.google.android.gms.common.GoogleApiAvailability
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class GoogleHelper {
+fun Activity.isGooglePlayServicesAvailable(): Boolean {
 
-    companion object {
-
-        fun isGooglePlayServicesAvailable(activity: Activity): Boolean {
-
-            val googleApiAvailability = GoogleApiAvailability.getInstance()
-            val result = googleApiAvailability.isGooglePlayServicesAvailable(activity)
-            if (result != ConnectionResult.SUCCESS) {
-                googleApiAvailability.showErrorDialogFragment(
-                        activity,
-                        result,
-                        0
-                )
-            }
-            return result == ConnectionResult.SUCCESS
-
-        }
-
+    val googleApiAvailability = GoogleApiAvailability.getInstance()
+    val result = googleApiAvailability.isGooglePlayServicesAvailable(this)
+    if (result != ConnectionResult.SUCCESS) {
+        googleApiAvailability.showErrorDialogFragment(
+                this,
+                result,
+                0
+        )
     }
+    return result == ConnectionResult.SUCCESS
 
 }

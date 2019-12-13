@@ -1,0 +1,19 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.ladlb.directassemblee.address">
+
+    <application>
+
+        <activity
+            android:name=".AddressActivity"
+            android:screenOrientation="portrait" />
+
+        <provider
+            android:name=".dependencies.DependenciesProvider"
+            android:authorities="${applicationId}.address.DependenciesProvider"
+            android:directBootAware="true"
+            android:exported="false"
+            android:initOrder="980" />
+
+    </application>
+
+</manifest>

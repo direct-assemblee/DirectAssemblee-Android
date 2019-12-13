@@ -10,24 +10,27 @@ import android.os.Bundle
 import androidx.annotation.NonNull
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import org.ladlb.directassemblee.AbstractActivity
+import com.google.android.gms.common.api.ResolvableApiException
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 import org.ladlb.directassemblee.DashboardActivity
 import org.ladlb.directassemblee.R
-import org.ladlb.directassemblee.address.Address
-import org.ladlb.directassemblee.address.SearchAddressActivity
-import org.ladlb.directassemblee.deputy.Deputy
+import org.ladlb.directassemblee.address.AddressActivity
+import org.ladlb.directassemblee.analytics.firebase.FirebaseAnalyticsKeys.Event
+import org.ladlb.directassemblee.analytics.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.DISTRICT
+import org.ladlb.directassemblee.analytics.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.PARLIAMENT_GROUP
+import org.ladlb.directassemblee.analytics.firebase.FirebaseAnalyticsManager
+import org.ladlb.directassemblee.core.AbstractActivity
+import org.ladlb.directassemblee.core.helper.ErrorHelper
+import org.ladlb.directassemblee.core.helper.collect
 import org.ladlb.directassemblee.deputy.find.DeputyFindActivity
 import org.ladlb.directassemblee.deputy.retrieve.DeputyRetrieveFragment.DeputyRetrieveLocationFragmentListener
 import org.ladlb.directassemblee.deputy.search.PrimaryDeputySearchActivity
-import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
-import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.DISTRICT
-import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.PARLIAMENT_GROUP
-import org.ladlb.directassemblee.helper.ErrorHelper
-import org.ladlb.directassemblee.helper.GoogleHelper
+import org.ladlb.directassemblee.helper.isGooglePlayServicesAvailable
 import org.ladlb.directassemblee.location.LocationGetPresenter
-import org.ladlb.directassemblee.location.LocationGetPresenter.LocationGetView
-import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
-import javax.inject.Inject
+import org.ladlb.directassemblee.location.LocationRepository.LocationRepositoryResult.*
+import org.ladlb.directassemblee.model.Address
+import org.ladlb.directassemblee.model.Deputy
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -46,7 +49,7 @@ import javax.inject.Inject
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmentListener, LocationGetView {
+class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmentListener {
 
     companion object Factory {
 
@@ -54,6 +57,7 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
         private const val REQUEST_ACCESS_FINE_LOCATION: Int = 2
         private const val REQUEST_DEPUTY_SEARCHABLE: Int = 3
         private const val REQUEST_DEPUTY_FIND: Int = 4
+        private const val REQUEST_CHECK_SETTINGS: Int = 5
 
         fun getIntent(context: Context): Intent {
             val intent = Intent(context, DeputyRetrieveActivity::class.java)
@@ -63,11 +67,11 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
 
     }
 
-    @Inject
-    lateinit var locationGetPresenter: LocationGetPresenter
+    private val locationGetPresenter: LocationGetPresenter by viewModel()
 
-    @Inject
-    lateinit var preferenceStorage: PreferencesStorageImpl
+    private val preferenceStorage: org.ladlb.directassemblee.storage.PreferencesStorage by inject()
+
+    private val firebaseAnalyticsManager: FirebaseAnalyticsManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +84,14 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
             ).commit()
         }
 
+        locationGetPresenter.viewState.collect(this) {
+            when (it) {
+                is LocationResult -> onLocationUpdate(it.locationResult)
+                is LocationException -> onLocationRequestFailed()
+                is LocationResolvableException -> onLocationRequestRequired(it.exception)
+            }
+        }
+
     }
 
     override fun onSearchByNamesClicked() {
@@ -89,7 +101,7 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
 
     override fun onSearchByGeolocationClicked() {
 
-        if (GoogleHelper.isGooglePlayServicesAvailable(this)) {
+        if (isGooglePlayServicesAvailable()) {
 
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 firebaseAnalyticsManager.logEvent(
@@ -121,7 +133,7 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
 
     private fun startPlaceAutocompleteActivity() {
         startActivityForResult(
-                SearchAddressActivity.getIntent(this),
+                AddressActivity.getIntent(this),
                 REQUEST_SEARCH_ADDRESS
         )
     }
@@ -170,7 +182,7 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
                         firebaseAnalyticsManager.logEvent(
                                 Event.ADDRESS_SELECTED
                         )
-                        val address = intent?.getParcelableExtra<Address>(SearchAddressActivity.EXTRA_ADDRESS)
+                        val address = intent?.getParcelableExtra<Address>(AddressActivity.EXTRA_ADDRESS)
                         val coordinates = address?.geometry?.coordinates
                         if (coordinates != null && coordinates.size == 2) {
                             retrieveDeputy(
@@ -191,7 +203,7 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
                 when (resultCode) {
                     Activity.RESULT_OK -> {
                         if (intent != null) {
-                            onDeputyRetrieved(intent.getParcelableExtra(DeputyFindActivity.EXTRA_DEPUTY))
+                            onDeputyRetrieved(intent.getParcelableExtra(DeputyFindActivity.EXTRA_DEPUTY)!!)
                         }
                     }
                 }
@@ -200,7 +212,7 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
                 when (resultCode) {
                     Activity.RESULT_OK -> {
                         if (intent != null) {
-                            onDeputyRetrieved(intent.getParcelableExtra(PrimaryDeputySearchActivity.EXTRA_DEPUTY))
+                            onDeputyRetrieved(intent.getParcelableExtra(PrimaryDeputySearchActivity.EXTRA_DEPUTY)!!)
                         }
                     }
                 }
@@ -218,25 +230,25 @@ class DeputyRetrieveActivity : AbstractActivity(), DeputyRetrieveLocationFragmen
             REQUEST_ACCESS_FINE_LOCATION ->
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     onSearchByGeolocationClicked()
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
                 }
-
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         }
     }
 
-    override fun onLocationUpdate(location: Location) {
+    private fun onLocationUpdate(location: Location) {
         retrieveDeputy(
                 location.latitude,
                 location.longitude
         )
     }
 
-    override fun onLocationRequestFailed() {
+    private fun onLocationRequestFailed() {
         ErrorHelper.showErrorAlertDialog(this, R.string.error_geolocation)
+    }
+
+    private fun onLocationRequestRequired(exception: ResolvableApiException) {
+        exception.startResolutionForResult(this, REQUEST_CHECK_SETTINGS)
     }
 
 }

@@ -22,7 +22,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <org.ladlb.directassemblee.widget.DeputyToolbar
+    <org.ladlb.directassemblee.deputy.widget.DeputyToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"

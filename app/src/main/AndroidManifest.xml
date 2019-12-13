@@ -4,17 +4,17 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".AssembleApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".TrampolineActivity"
             android:theme="@style/Theme.Transparent">
@@ -24,10 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".DashboardActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".deputy.retrieve.DeputyRetrieveActivity"
             android:label="@string/research"
@@ -38,47 +40,32 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".settings.SettingsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.SettingsTheme" />
-
-        <activity
-            android:name=".timeline.TimelinePagerActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".deputy.find.DeputyFindActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".ballot.vote.BallotVoteActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".deputy.DeputyActivity"
+            android:name=".deputy.DeputyTimelineActivity"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".deputy.search.PrimaryDeputySearchActivity"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name=".address.SearchAddressActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".synthesis.SynthesisActivity"
-            android:screenOrientation="portrait" />
-
-        <service android:name=".firebase.FirebaseMessagingService">
+        <service
+            android:name=".firebase.FirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
+        <provider
+            android:name=".DependenciesProvider"
+            android:authorities="${applicationId}.DependenciesProvider"
+            android:directBootAware="true"
+            android:exported="false"
+            android:initOrder="980" />
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification" />
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorPrimary" />

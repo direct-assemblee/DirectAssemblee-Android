@@ -2,7 +2,8 @@ package org.ladlb.directassemblee.helper
 
 import org.junit.Assert.assertArrayEquals
 import org.junit.Test
-import org.ladlb.directassemblee.deputy.Deputy
+import org.ladlb.directassemblee.core.helper.ComparisonHelper
+import org.ladlb.directassemblee.model.Deputy
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.

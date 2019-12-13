@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="deputy_card_picture_size">125dp</dimen>
+
+    <!-- Text Size -->
+    <dimen name="deputy_participation">14sp</dimen>
+
+</resources>

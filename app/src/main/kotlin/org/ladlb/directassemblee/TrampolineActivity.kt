@@ -1,14 +1,13 @@
 package org.ladlb.directassemblee
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import org.ladlb.directassemblee.deputy.Deputy
+import org.koin.android.ext.android.inject
+import org.ladlb.directassemblee.analytics.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.DISTRICT
+import org.ladlb.directassemblee.analytics.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.PARLIAMENT_GROUP
+import org.ladlb.directassemblee.analytics.firebase.FirebaseAnalyticsManager
+import org.ladlb.directassemblee.core.AbstractActivity
 import org.ladlb.directassemblee.deputy.retrieve.DeputyRetrieveActivity
-import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.DISTRICT
-import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.UserProperty.Companion.PARLIAMENT_GROUP
-import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
-import javax.inject.Inject
+import org.ladlb.directassemblee.model.Deputy
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -29,17 +28,9 @@ import javax.inject.Inject
 
 class TrampolineActivity : AbstractActivity() {
 
-    @Inject
-    lateinit var preferenceStorage: PreferencesStorageImpl
+    private val preferenceStorage: org.ladlb.directassemblee.storage.PreferencesStorage by inject()
 
-    companion object {
-
-        fun getIntent(context: Context): Intent = Intent(
-                context,
-                TrampolineActivity::class.java
-        )
-
-    }
+    private val firebaseAnalyticsManager: FirebaseAnalyticsManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

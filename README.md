@@ -15,7 +15,7 @@ Download on the [Google Play Store](https://play.google.com/store/apps/details?i
     ```
 4. Open `direct-assemblee` cloned directory in Android Studio.
 6. This project uses Firebase for push notifications and analytics. See **Firebase** section below to configure project.
-7. This project uses Fabric to report crashes in release mode. See **Fabric** section below to configure project.
+7. This project uses Crashlytics to report crashes in release mode. See **Crashlytics** section below to configure project.
 8. Run the `app` module in Android Studio.
 
 ###  Firebase
@@ -26,10 +26,10 @@ So, the existing configuration use two `google_service.json` files :
 1) One for `debug` build variant, located in `src/debug` folder, corresponding to development Firebase project.
 2) One for `release` build variant, located in `src/release` folder, corresponding to production Firebase project.
 
-###  Fabric
+###  Crashlytics
 
-This project uses Fabric to report crashes in release build variant. You should register with Crashlytics and get your own API key and build secret if you want to build it with crashes reporting.
-To set these information, see the [documentation](https://docs.fabric.io/android/fabric/settings/working-in-teams.html) from Fabric
+This project uses Firebase Crashlytics to report crashes in release build variant. You should register with Crashlytics and get your own API key and build secret if you want to build it with crashes reporting.
+To set these information, see the [documentation](https://firebase.google.com/docs/crashlytics) from Firebase
 
 ##  API
 

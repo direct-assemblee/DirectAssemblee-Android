@@ -38,7 +38,7 @@
         <ImageView
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:tint="@color/white"
+            app:tint="@color/white"
             app:srcCompat="@drawable/ic_public_function_24dp"
             tools:ignore="ContentDescription" />
 

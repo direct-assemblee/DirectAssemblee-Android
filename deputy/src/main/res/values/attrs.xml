@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SubView">
+        <attr name="subViewTitle" format="reference|string" />
+        <attr name="subViewContent" format="reference|string" />
+        <attr name="subViewGravity" format="enum">
+            <enum name="LEFT" value="0" />
+            <enum name="CENTER_HORIZONTAL" value="1" />
+            <enum name="RIGHT" value="2" />
+        </attr>
+    </declare-styleable>
+
+</resources>

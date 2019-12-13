@@ -1,1 +1,2 @@
-include ':app'
+include ':storage'
+include ':app', ':networkCore', ':networkApiDa', ':core', ':networkApiAddress', ':address', ':settings', ':analytics', ':notification', ':model', ':ballot', ':deputy', ':synthesis', ':declaration', ':mandate', ':role', ':location', ':timeline', ':motion', ':vote', ':deputyFind'

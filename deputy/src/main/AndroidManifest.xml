@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.ladlb.directassemblee.deputy">
+
+    <application>
+
+        <provider
+            android:name=".dependencies.DependenciesProvider"
+            android:authorities="${applicationId}.deputy.DependenciesProvider"
+            android:directBootAware="true"
+            android:exported="false"
+            android:initOrder="980" />
+
+    </application>
+
+</manifest>

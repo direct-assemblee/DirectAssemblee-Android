@@ -8,8 +8,8 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import kotlinx.android.synthetic.main.fragment_deputy_retrieve_location.*
-import org.ladlb.directassemblee.AbstractFragment
 import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.core.AbstractFragment
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.

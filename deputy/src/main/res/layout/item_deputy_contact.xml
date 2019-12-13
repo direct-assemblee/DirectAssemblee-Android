@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ # This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
+ #
+ # DirectAssemblee-Android is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version.
+ #
+ # DirectAssemblee-Android is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License
+ # along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextView.Section.Header"
+            android:padding="@dimen/horizontal_space"
+            android:text="@string/deputy_details_contact" />
+
+        <View style="@style/Separator.Horizontal" />
+
+        <org.ladlb.directassemblee.deputy.widget.SubView
+            android:id="@+id/subViewPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:subViewTitle="@string/deputy_details_phone" />
+
+        <org.ladlb.directassemblee.deputy.widget.SubView
+            android:id="@+id/subViewEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:subViewTitle="@string/email_address" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -10,22 +10,26 @@ import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
-import org.ladlb.directassemblee.deputy.Deputy
-import org.ladlb.directassemblee.deputy.DeputyFragment
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.ladlb.directassemblee.analytics.firebase.FirebaseAnalyticsHelper
+import org.ladlb.directassemblee.analytics.firebase.FirebaseAnalyticsKeys
+import org.ladlb.directassemblee.analytics.firebase.FirebaseAnalyticsManager
+import org.ladlb.directassemblee.core.AbstractToolBarActivity
+import org.ladlb.directassemblee.core.helper.ErrorHelper
+import org.ladlb.directassemblee.core.helper.NavigationHelper
+import org.ladlb.directassemblee.core.helper.collect
+import org.ladlb.directassemblee.deputy.DeputyTimelineFragment
+import org.ladlb.directassemblee.deputy.retrieve.DeputyRetrieveActivity
 import org.ladlb.directassemblee.deputy.search.DeputySearchActivity
-import org.ladlb.directassemblee.firebase.FirebaseAnalyticsHelper
-import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.Event
-import org.ladlb.directassemblee.firebase.FirebaseAnalyticsKeys.ItemKey
-import org.ladlb.directassemblee.helper.ErrorHelper
-import org.ladlb.directassemblee.helper.NavigationHelper
+import org.ladlb.directassemblee.model.Deputy
+import org.ladlb.directassemblee.notification.NotificationStorage
 import org.ladlb.directassemblee.notification.NotificationSubscribePresenter
-import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.NotificationSubscribeView
-import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
+import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.Subscribe.SubscribeComplete
+import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.Subscribe.SubscribeError
 import org.ladlb.directassemblee.settings.SettingsActivity
 import org.ladlb.directassemblee.synthesis.SynthesisActivity
 import org.ladlb.directassemblee.timeline.TimelineFragment.DeputyTimeLineFragmentListener
-import javax.inject.Inject
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -44,9 +48,11 @@ import javax.inject.Inject
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, DeputyTimeLineFragmentListener, OnNavigationItemSelectedListener {
+class DashboardActivity : AbstractToolBarActivity(), DeputyTimeLineFragmentListener, OnNavigationItemSelectedListener {
 
     companion object Factory {
+
+        private const val REQUEST_SETTINGS: Int = 1
 
         var EXTRA_DEPUTY: String = "EXTRA_DEPUTY"
 
@@ -64,14 +70,13 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
 
     private lateinit var deputy: Deputy
 
-    @Inject
-    lateinit var subscribeNotificationPresenter: NotificationSubscribePresenter
+    private val subscribeNotificationPresenter: NotificationSubscribePresenter by viewModel()
 
-    @Inject
-    lateinit var apiRepository: RetrofitApiRepository
+    private val notificationStorage: NotificationStorage by inject()
 
-    @Inject
-    lateinit var preferenceStorage: PreferencesStorageImpl
+    private val preferenceStorage: org.ladlb.directassemblee.storage.PreferencesStorage by inject()
+
+    private val firebaseAnalyticsManager: FirebaseAnalyticsManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,9 +92,16 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
 
         supportFragmentManager.beginTransaction().replace(
                 R.id.frameLayout,
-                DeputyFragment.newInstance(deputy),
-                DeputyFragment.TAG
+                DeputyTimelineFragment.newInstance(deputy),
+                DeputyTimelineFragment.TAG
         ).commit()
+
+        subscribeNotificationPresenter.viewState.collect(this) {
+            when (it) {
+                is SubscribeComplete -> onNotificationSubscribeCompleted()
+                is SubscribeError -> onNotificationSubscribeFailed()
+            }
+        }
 
     }
 
@@ -115,7 +127,10 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
     override fun getContentView(): Int = R.layout.activity_dashboard
 
     private fun startSettingsActivity() {
-        startActivity(SettingsActivity.getIntent(this))
+        startActivityForResult(
+                SettingsActivity.getIntent(this, deputy),
+                REQUEST_SETTINGS
+        )
     }
 
     private fun startSynthesisActivity() {
@@ -137,9 +152,8 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
             ) { _, _ ->
                 subscribeNotificationPresenter.postSubscribe(
                         FirebaseInstanceId.getInstance().id,
-                        preferenceStorage.getFirebaseToken(),
-                        deputy.id,
-                        preferenceStorage
+                        notificationStorage.getFirebaseToken(),
+                        deputy.id
                 )
             }.setNegativeButton(
                     R.string.vote_result_against
@@ -151,7 +165,7 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
 
     }
 
-    override fun onNotificationSubscribeCompleted() {
+    private fun onNotificationSubscribeCompleted() {
         tagNotificationsState(true)
     }
 
@@ -162,25 +176,18 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
                 deputy
         )
         bundle.putBoolean(
-                ItemKey.ENABLE,
+                FirebaseAnalyticsKeys.ItemKey.ENABLE,
                 enable
         )
         firebaseAnalyticsManager.logEvent(
-                Event.NOTIFICATIONS_ENABLE,
+                FirebaseAnalyticsKeys.Event.NOTIFICATIONS_ENABLE,
                 bundle
         )
 
     }
 
-    override fun onNotificationSubscribeFailed() {
+    private fun onNotificationSubscribeFailed() {
         ErrorHelper.showErrorAlertDialog(this, R.string.notification_update_error)
-    }
-
-    override fun onRefreshTimeLine(deputy: Deputy) {
-        val fragment = supportFragmentManager.findFragmentByTag(DeputyFragment.TAG)
-        if (fragment is DeputyFragment) {
-            fragment.setDeputy(deputy)
-        }
     }
 
     private fun startDeputySearchActivity() {
@@ -196,7 +203,7 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
             R.id.nav_share -> {
 
                 firebaseAnalyticsManager.logEvent(
-                        Event.SHARE,
+                        FirebaseAnalyticsKeys.Event.SHARE,
                         Bundle()
                 )
 
@@ -229,6 +236,23 @@ class DashboardActivity : AbstractToolBarActivity(), NotificationSubscribeView, 
 
         drawerLayout.closeDrawer(GravityCompat.START)
         return false
+    }
+
+    override fun onRefreshTimeLine(deputy: Deputy) {
+        val fragment = supportFragmentManager.findFragmentByTag(DeputyTimelineFragment.TAG)
+        if (fragment is DeputyTimelineFragment) {
+            fragment.setDeputy(deputy)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            REQUEST_SETTINGS -> {
+                startActivity(DeputyRetrieveActivity.getIntent(this))
+                finish()
+            }
+            else -> super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
 }

@@ -6,16 +6,17 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import kotlinx.android.synthetic.main.activity_deputy_search.*
-import org.ladlb.directassemblee.AbstractToolBarActivity
+import org.koin.android.viewmodel.ext.android.viewModel
 import org.ladlb.directassemblee.R
+import org.ladlb.directassemblee.core.AbstractToolBarActivity
+import org.ladlb.directassemblee.core.helper.ViewHelper
+import org.ladlb.directassemblee.core.helper.collect
 import org.ladlb.directassemblee.deputy.DeputiesGetPresenter
-import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.DeputiesGetView
-import org.ladlb.directassemblee.deputy.Deputy
-import org.ladlb.directassemblee.deputy.DeputyActivity
+import org.ladlb.directassemblee.deputy.DeputiesGetPresenter.DeputiesGet.*
 import org.ladlb.directassemblee.deputy.DeputyListFragment
 import org.ladlb.directassemblee.deputy.DeputyListFragment.DeputyListFragmentListener
-import org.ladlb.directassemblee.helper.ViewHelper
-import javax.inject.Inject
+import org.ladlb.directassemblee.deputy.DeputyTimelineActivity
+import org.ladlb.directassemblee.model.Deputy
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -34,7 +35,7 @@ import javax.inject.Inject
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentListener, DeputiesGetView {
+open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentListener {
 
     companion object Factory {
 
@@ -42,8 +43,7 @@ open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentL
 
     }
 
-    @Inject
-    lateinit var deputiesGetPresenter: DeputiesGetPresenter
+    private val deputiesGetPresenter: DeputiesGetPresenter by viewModel()
 
     override fun getContentView(): Int = R.layout.activity_deputy_search
 
@@ -71,6 +71,14 @@ open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentL
             }
         })
 
+        deputiesGetPresenter.viewState.collect(this) {
+            when (it) {
+                is Result -> onDeputiesReceived(it.deputies)
+                is NotFound -> onNoDeputyFound()
+                is Error -> onGetDeputiesRequestFailed()
+            }
+        }
+
         deputiesGetPresenter.getDeputies()
 
     }
@@ -80,7 +88,7 @@ open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentL
         ViewHelper.hideKeyboard(this)
 
         startActivity(
-                DeputyActivity.getIntent(
+                DeputyTimelineActivity.getIntent(
                         this,
                         deputy
                 )
@@ -98,16 +106,16 @@ open class DeputySearchActivity : AbstractToolBarActivity(), DeputyListFragmentL
         searchView.visibility = if (deputies.isEmpty()) View.GONE else View.VISIBLE
     }
 
-    override fun onDeputiesReceived(deputies: List<Deputy>) {
+    private fun onDeputiesReceived(deputies: List<Deputy>) {
         showDeputyListFragment(deputies)
         loadingView.visibility = View.GONE
     }
 
-    override fun onNoDeputyFound() {
+    private fun onNoDeputyFound() {
         loadingView.setError(getString(R.string.deputy_not_found))
     }
 
-    override fun onGetDeputiesRequestFailed() {
+    private fun onGetDeputiesRequestFailed() {
         loadingView.setError(getString(R.string.get_deputies_request_failed))
     }
 

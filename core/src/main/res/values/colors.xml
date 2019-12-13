@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ # This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
+ #
+ # DirectAssemblee-Android is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version.
+ #
+ # DirectAssemblee-Android is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License
+ # along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+    <color name="colorPrimary">@color/blue</color>
+    <color name="colorPrimaryDark">@color/blueDark</color>
+    <color name="colorAccent">@color/red</color>
+
+    <color name="blue">#427AA1</color>
+    <color name="blueDark">#004e72</color>
+    <color name="blueLight">#74a9d2</color>
+
+    <color name="red">#da2c38</color>
+    <color name="redDark">#a10012</color>
+    <color name="redLight">#ff6562</color>
+
+    <color name="green">#2e7d32</color>
+    <color name="greenDark">#005005</color>
+    <color name="greenLight">#60ad5e</color>
+
+    <color name="yellow">#f9a825</color>
+    <color name="yellowDark">#c17900</color>
+    <color name="yellowLight">#ffd95a</color>
+
+    <color name="orange">#EF6C00</color>
+    <color name="orangeDark">#B53D00</color>
+    <color name="orangeLight">#FF9D3F</color>
+
+    <color name="gray">#808080</color>
+    <color name="gray_light">#CCCCCC</color>
+    <color name="gray_very_light">#e0e0e0</color>
+
+    <color name="white">#ffffff</color>
+
+    <color name="separator">#33000000</color>
+    <color name="hemicycle_empty">#cbcbcb</color>
+
+    <color name="district_empty">#D9DADC</color>
+
+</resources>

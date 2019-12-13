@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.ladlb.directassemblee.network.core">
+
+    <application>
+
+        <provider
+            android:name=".dependencies.DependenciesProvider"
+            android:authorities="${applicationId}.network.core.DependenciesProvider"
+            android:directBootAware="true"
+            android:exported="false"
+            android:initOrder="990" />
+
+    </application>
+
+</manifest>

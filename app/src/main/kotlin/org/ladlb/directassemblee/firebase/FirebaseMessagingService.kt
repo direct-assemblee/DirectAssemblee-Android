@@ -1,14 +1,14 @@
 package org.ladlb.directassemblee.firebase
 
 import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.messaging.FirebaseMessagingService
-import com.google.firebase.messaging.RemoteMessage
-import dagger.android.AndroidInjection
-import org.ladlb.directassemblee.api.ladlb.RetrofitApiRepository
-import org.ladlb.directassemblee.notification.NotificationSubscribePresenter
-import org.ladlb.directassemblee.notification.NotificationSubscribePresenter.NotificationSubscribeView
-import org.ladlb.directassemblee.preferences.PreferencesStorageImpl
-import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.ladlb.directassemblee.notification.NotificationRepository
+import org.ladlb.directassemblee.notification.NotificationStorage
+import org.ladlb.directassemblee.notification.firebase.FirebaseMessagingService
 
 /**
  * This file is part of DirectAssemblee-Android <https://github.com/direct-assemblee/DirectAssemblee-Android>.
@@ -27,57 +27,36 @@ import javax.inject.Inject
  * along with DirectAssemblee-Android. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class FirebaseMessagingService : FirebaseMessagingService(), NotificationSubscribeView {
+class FirebaseMessagingService : FirebaseMessagingService() {
 
-    @Inject
-    lateinit var retrofitApiRepository: RetrofitApiRepository
+    private val repository: NotificationRepository by inject()
 
-    @Inject
-    lateinit var subscribeNotificationPresenter: NotificationSubscribePresenter
+    private val notificationStorage: NotificationStorage by inject()
 
-    @Inject
-    lateinit var preferenceStorage: PreferencesStorageImpl
+    private val preferenceStorage: org.ladlb.directassemblee.storage.PreferencesStorage by inject()
 
-    override fun onCreate() {
-        super.onCreate()
-
-        AndroidInjection.inject(this)
-    }
+    private val serviceJob = Job()
+    private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
 
     override fun onDestroy() {
-        subscribeNotificationPresenter.onDestroy()
+        serviceJob.cancel()
         super.onDestroy()
-    }
-
-    override fun onMessageReceived(p0: RemoteMessage) {
-        if (preferenceStorage.isNotificationEnabled()) {
-            super.onMessageReceived(p0)
-        }
     }
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
 
-        preferenceStorage.saveFirebaseToken(token)
-
         val deputy = preferenceStorage.loadDeputy()
 
-        if (preferenceStorage.isNotificationEnabled() && deputy != null) {
-            subscribeNotificationPresenter.postSubscribe(
-                    FirebaseInstanceId.getInstance().id,
-                    token,
-                    deputy.id,
-                    preferenceStorage
-            )
+        if (notificationStorage.isNotificationEnabled() && deputy != null) {
+            serviceScope.launch {
+                repository.postSubscribe(
+                        FirebaseInstanceId.getInstance().id,
+                        token,
+                        deputy.id
+                )
+            }
         }
-    }
-
-    override fun onNotificationSubscribeCompleted() {
-        // Nothing to do
-    }
-
-    override fun onNotificationSubscribeFailed() {
-        // Nothing to do
     }
 
 }

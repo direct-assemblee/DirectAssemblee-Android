@@ -59,13 +59,12 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
             '**/*Test*.*',
     ]
 
-    classDirectories = fileTree(
+    classDirectories.from = fileTree(
             dir: "$buildDir/tmp/kotlin-classes/debug",
             excludes: excludes
     )
 
-    sourceDirectories = files('../app/src/main/java')
-    executionData = files("$buildDir/jacoco/testDebugUnitTest.exec")
-
+    sourceDirectories.from = files('../app/src/main/java')
+    executionData.from = files("$buildDir/jacoco/testDebugUnitTest.exec")
 
 }
